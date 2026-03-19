@@ -29,16 +29,47 @@ Add to `plugins.entries`:
 }
 ```
 
-**3. Restart gateway:**
+**3. Configure ACP + permissionMode (CRITICAL):**
+Add to `~/.openclaw/openclaw.json`:
+```json
+"plugins": {
+  "entries": {
+    "acpx": {
+      "enabled": true,
+      "config": {
+        "permissionMode": "approve-all",
+        "nonInteractivePermissions": "fail"
+      }
+    }
+  }
+},
+"acp": {
+  "enabled": true,
+  "backend": "acpx",
+  "defaultAgent": "claude",
+  "allowedAgents": ["claude", "codex", "pi", "opencode", "gemini", "kimi"],
+  "maxConcurrentSessions": 8
+}
+```
+
+**4. Restart gateway:**
 ```bash
 openclaw gateway restart
 ```
 
-**4. Verify acpx is loaded:**
+**5. Verify acpx is loaded:**
 ```bash
 openclaw plugins list | grep acpx
 # Should show: "ACPX Runtime │ acpx │ loaded"
 ```
+
+### Why permissionMode is Critical
+Without `permissionMode: "approve-all"`, ACP sessions silently fail with:
+```
+AcpRuntimeError: Permission prompt unavailable in non-interactive mode
+```
+
+ACP sessions run non-interactively (no TTY). Without this setting, any file write or exec that would normally show a permission prompt aborts the session.
 
 ### ClawHub Rate Limit Solution
 
@@ -191,6 +222,23 @@ claude -p "task" --disallowedTools "Write,Edit"
 ### Session doesn't complete
 - Check if Claude Code is authenticated: `claude auth status`
 - Try resuming: `claude -c -p "continue"`
+
+### ACP session spawn succeeds but task never completes
+- **Most likely cause:** Missing `permissionMode` config in acpx plugin settings
+- **Fix:** Add `"permissionMode": "approve-all"` to `plugins.entries.acpx.config`
+- See [Why permissionMode is Critical](#why-permissionmode-is-critical)
+
+### Smoke Test (verify ACP works)
+```
+sessions_spawn(
+  task="Reply with exactly LIVE-ACP-SPAWN-OK",
+  runtime="acp",
+  agentId="claude",
+  mode="run",
+  timeoutSeconds=30
+)
+```
+Expected: `status: "accepted"` with `childSessionKey: "agent:claude:acp:..."`
 
 ## Key Documentation Links
 - [CLI Reference](https://code.claude.com/docs/en/cli-reference.md)
