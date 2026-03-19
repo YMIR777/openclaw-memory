@@ -199,3 +199,8 @@ claude -p "task" --disallowedTools "Write,Edit"
 - [Subagents](https://code.claude.com/docs/en/sub-agents.md)
 - [OpenSpec Docs](https://github.com/Fission-AI/OpenSpec)
 - [SpecKit Docs](https://github.com/github/spec-kit)
+
+### Claude Code `-p` mode hangs
+**Symptoms:** `claude -p "task"` hangs indefinitely without output.
+**Diagnosis:** Session may wait for terminal interaction that never arrives in ACP context.
+**Workaround:** Use interactive mode or implement via exec directly; verify file changes after each session.
