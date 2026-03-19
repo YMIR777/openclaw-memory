@@ -235,10 +235,44 @@ sessions_spawn(
   runtime="acp",
   agentId="claude",
   mode="run",
+  streamTo="parent",
   timeoutSeconds=30
 )
 ```
-Expected: `status: "accepted"` with `childSessionKey: "agent:claude:acp:..."`
+Expected: `status: "accepted"` with `childSessionKey` and `streamLogPath`
+
+### Getting Results Back (Critical for闭环)
+
+ACP sessions run asynchronously. Use `streamTo: "parent"` to get output:
+
+```json
+{
+  "task": "Your SpecKit task",
+  "runtime": "acp",
+  "agentId": "claude",
+  "mode": "run",
+  "streamTo": "parent",
+  "timeoutSeconds": 600
+}
+```
+
+**Result retrieval:**
+```bash
+# Read the JSONL stream log
+cat <streamLogPath>
+# Look for: "kind":"assistant_delta","delta":"<output>"
+```
+
+The JSONL contains:
+- `lifecycle` events (start/end)
+- `assistant_delta` with actual output
+- `system_event` with progress/done messages
+
+**Full workflow for SpecKit:**
+1. `sessions_spawn` with `streamTo: "parent"`
+2. Poll/sleep for task completion
+3. Parse JSONL for `assistant_delta` lines
+4. Report results to user
 
 ## Key Documentation Links
 - [CLI Reference](https://code.claude.com/docs/en/cli-reference.md)
