@@ -1,285 +1,201 @@
 ---
 name: claude-code
-description: Integrate with Claude Code CLI for coding tasks, codebase exploration, code review, and programmatic agent execution. Use when you need to spawn Claude Code sessions, run code tasks, review PRs, or leverage Claude Code's agentic capabilities from OpenClaw.
-metadata: {"clawdbot":{"emoji":"🤖","requires":{"commands":["claude"]},"homepage":"https://code.claude.com/docs"},"env":["ANTHROPIC_API_KEY"],"examples":["claude-code run \"Fix the login bug\"","claude-code review /path/to/code","claude-code explore \"How does auth work?\""]}
+description: Integrate with Claude Code CLI for coding tasks, codebase exploration, code review, and programmatic agent execution via ACP runtime. Use when you need to spawn Claude Code sessions, run code tasks, review PRs, or leverage Claude Code's agentic capabilities from OpenClaw.
+metadata: {"clawdbot":{"emoji":"🤖","requires":{"commands":["claude"]},"homepage":"https://code.claude.com/docs"}}
 ---
 
 # Claude Code Integration Skill
 
-Spawn Claude Code sessions, run programmatic tasks, and integrate Claude Code's agentic capabilities into OpenClaw workflows.
+Spawn Claude Code sessions via ACP runtime and integrate Claude Code's agentic capabilities into OpenClaw workflows.
 
-## Quick Reference
+## ⚠️ IMPORTANT: ACP Runtime Setup Required
 
-### CLI Invocation Patterns
+Claude Code must be accessed via ACP runtime plugin, NOT subagents. Subagents use OpenClaw's own model.
 
+### Setup Steps
+
+**1. Install acpx-orchestrator (if not installed):**
 ```bash
-# Print mode (synchronous, exits when done)
-claude -p "task description"
-
-# With specific tools allowed
-claude -p "fix bug" --allowedTools "Read,Edit,Bash"
-
-# With output format
-claude -p "summarize" --output-format json
-
-# Continue most recent session
-claude -c -p "continue task"
-
-# Resume specific session
-claude -r <session-id> -p "task"
-
-# With structured output (JSON Schema)
-claude -p "extract functions" --output-format json --json-schema '{"type":"object","properties":{"functions":{"type":"array","items":{"type":"string"}}}}'
+clawdhub install acpx-orchestrator
 ```
 
-### Session Management
-
-```bash
-# List available sessions
-claude agents
-
-# Show auth status
-claude auth status
-
-# Update Claude Code
-claude update
-```
-
-## Core Patterns
-
-### 1. Print Mode (One-shot Tasks)
-
-Best for: Quick tasks that complete in one go.
-
-```bash
-claude -p "Explain this function: $ARGUMENTS" --output-format text
-```
-
-### 2. Async Mode with Hooks (Background Tasks)
-
-Best for: Long-running tasks where you don't want to poll.
-
-Use `Stop` and `SessionEnd` hooks to get notified when Claude Code finishes:
-
-```bash
-# In settings.json, configure hooks:
-{
-  "hooks": {
-    "Stop": [{
-      "hooks": [{
-        "type": "command",
-        "command": "echo '{\"result\": \"complete\"}' > /tmp/claude-result.json"
-      }]
-    }]
+**2. Enable ACPX plugin in `~/.openclaw/openclaw.json`:**
+Add to `plugins.entries`:
+```json
+"plugins": {
+  "entries": {
+    "acpx": { "enabled": true }
   }
 }
 ```
 
-### 3. Session Resume (Continue Work)
-
+**3. Restart gateway:**
 ```bash
-# Continue most recent conversation
-claude -c -p "now add tests"
+openclaw gateway restart
+```
+
+**4. Verify acpx is loaded:**
+```bash
+openclaw plugins list | grep acpx
+# Should show: "ACPX Runtime │ acpx │ loaded"
+```
+
+### ClawHub Rate Limit Solution
+
+If `clawdhub install` shows "Rate limit exceeded", use token login:
+```bash
+clawhub login --token <your-token>
+```
+Or set environment variable:
+```bash
+export CLAWHUB_TOKEN=clh_xxx
+```
+**Important:** Never hardcode tokens in scripts. Use environment variables or config files.
+
+### Configuration File Location
+- Config: `~/.openclaw/openclaw.json`
+
+## 🚀 How to Call Claude Code
+
+Use `sessions_spawn` with `runtime: "acp"` + `agentId: "claude"`:
+
+```
+sessions_spawn(
+  task="Your task description in English",
+  cwd="/path/to/project",
+  agentId="claude",
+  runtime="acp",
+  mode="run",
+  timeoutSeconds=600
+)
+```
+
+**Key parameters:**
+- `runtime: "acp"` - Must be "acp" not "subagent"
+- `agentId: "claude"` - Specifies Claude Code harness
+- `task` - Task description in **English** (Claude Code requires English)
+- `cwd` - Working directory for the project
+- `mode: "run"` - One-shot task (use "session" for persistent thread-bound sessions)
+
+### ❌ Wrong Way (uses OpenClaw's model, not Claude Code)
+```
+sessions_spawn(
+  task="...",
+  runtime="subagent"  # ❌ This uses OpenClaw's own model
+)
+```
+
+### ✅ Correct Way (uses Claude Code)
+```
+sessions_spawn(
+  task="Build a login feature",
+  agentId="claude",
+  runtime="acp",  # ✅ ACP runtime for Claude Code
+  mode="run"
+)
+```
+
+## Development Workflow: OpenSpec + SpecKit
+
+### Project Setup
+```bash
+cd /Users/Ymir/Documents/vibe-projects
+
+# Initialize OpenSpec (lightweight, iterative)
+openspec init --tools claude
+
+# Or initialize SpecKit (structured, comprehensive)
+cd spec-kit-setup
+specify init . --ai claude --no-git
+```
+
+### OpenSpec Commands (Fast, Iterative)
+```
+/opsx:propose <feature-name>   # Quick start - propose + plan in one
+/opsx:apply                    # Implement the plan
+/opsx:archive                  # Finalize and document
+/opsx:verify                   # Validate implementation
+```
+
+### SpecKit Commands (Structured, Thorough)
+```
+/speckit.constitution   # Create project principles
+/speckit.specify       # Define requirements
+/speckit.plan           # Technical architecture
+/speckit.tasks          # Generate task list
+/speckit.implement      # Execute implementation
+```
+
+### Example Task for Claude Code
+```
+Build a personal diary app with:
+- Journal entries with text and photos
+- Calendar view
+- Mood/emoji tagging
+- Search functionality
+- Dark mode
+
+Tech stack: React + Vite, LocalStorage, CSS
+```
+
+## CLI Reference
+
+### Direct Claude Code CLI Usage
+```bash
+# Interactive mode
+claude
+
+# Print mode (synchronous)
+claude -p "fix the bug" --allowedTools "Read,Edit,Bash"
+
+# With output format
+claude -p "summarize" --output-format json
+
+# Continue session
+claude -c -p "continue from here"
 
 # Resume specific session
-claude -r session-name-or-id -p "continue from here"
+claude -r <session-id> -p "task"
 ```
 
-### 4. Structured Output
-
+### Tool Control
 ```bash
-# Get JSON output matching a schema
-claude -p "List all exported functions" \
-  --output-format json \
-  --json-schema '{
-    "type": "object",
-    "properties": {
-      "functions": {
-        "type": "array",
-        "items": {"type": "string"}
-      }
-    }
-  }'
-```
+# Allow specific tools
+claude -p "task" --allowedTools "Read,Edit,Bash,Grep"
 
-## Tool Control
-
-### Allowed Tools
-
-```bash
-# Allow specific tools without prompting
-claude -p "run tests" --allowedTools "Bash,Read"
-
-# Allow specific commands with prefix matching
-claude -p "check status" --allowedTools "Bash(git status *)"
-```
-
-### Restricted Tools
-
-```bash
-# Remove specific tools
-claude -p "read only task" --disallowedTools "Write,Edit,Bash"
-```
-
-## Subagent Patterns
-
-### Inline Subagents (CLI)
-
-```bash
-claude --agents '{
-  "reviewer": {
-    "description": "Code reviewer",
-    "prompt": "Review code for bugs",
-    "tools": ["Read", "Grep"],
-    "model": "sonnet"
-  }
-}'
-```
-
-### Custom Subagents
-
-Create in `~/.claude/agents/reviewer.md`:
-
-```yaml
----
-name: reviewer
-description: Reviews code for quality
-tools: Read, Grep, Glob
-model: sonnet
----
-
-You are a code reviewer. Focus on:
-1. Code quality
-2. Security issues
-3. Performance problems
+# Restrict tools
+claude -p "task" --disallowedTools "Write,Edit"
 ```
 
 ## Environment Variables
-
 | Variable | Purpose |
 |----------|---------|
 | `ANTHROPIC_API_KEY` | API key for authentication |
 | `ANTHROPIC_BASE_URL` | Proxy/gateway endpoint |
 | `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS` | Disable background subagents |
 
-## Examples
-
-### Example 1: Fix a Bug
-
-```bash
-claude -p "Find and fix the null pointer exception in auth.py" \
-  --allowedTools "Read,Edit,Bash,Grep" \
-  --output-format json
-```
-
-### Example 2: Code Review
-
-```bash
-claude -p "Review the PR changes: $(gh pr diff)" \
-  --append-system-prompt "You are a security-focused code reviewer" \
-  --allowedTools "Read,Bash" \
-  --output-format json
-```
-
-### Example 3: Explore Codebase
-
-```bash
-claude -p "Explore how the payment module works, find main entry points" \
-  --allowedTools "Read,Glob,Grep"
-```
-
-### Example 4: Create Commit
-
-```bash
-claude -p "Review staged changes and create a commit" \
-  --allowedTools "Bash(git diff *)Bash(git commit *)Bash(git status *)"
-```
-
-### Example 5: Session with Resume
-
-```bash
-# Start task
-claude -n "auth-fix" -p "Refactor the authentication module"
-
-# Later, continue same session
-claude -r "auth-fix" -p "Now add unit tests"
-```
-
-## Common Workflows
-
-### Workflow: Zero-Poll Claude Code from OpenClaw
-
-1. **Start Claude Code in background** with hooks configured
-2. **Write result to file** via `Stop` hook
-3. **OpenClaw monitors** the result file or waits for notification
-
-```bash
-# Start task with result file
-claude -p "Analyze this codebase" \
-  --output-format json \
-  > /tmp/claude-output.json 2>&1 &
-```
-
-### Workflow: Agent Team (Parallel Tasks)
-
-```bash
-# Run multiple Claude Code instances in parallel
-claude -n "auth-review" -p "Review auth module" &
-claude -n "api-review" -p "Review API module" &
-claude -n "db-review" -p "Review database layer" &
-
-# Wait for all to complete
-wait
-
-# Resume each for summaries
-claude -r "auth-review" -p "summarize findings"
-# ... etc
-```
-
 ## Troubleshooting
 
-### "Permission denied" on claude command
+### "ACP runtime backend is not configured"
+- Enable acpx plugin: Add `"acpx": { "enabled": true }` to `~/.openclaw/openclaw.json`
+- Restart gateway: `openclaw gateway restart`
 
-```bash
-# Check if Claude Code is installed
-which claude
+### Rate limit on clawdhub install
+- Use token login: `clawhub login --token <token>`
+- Or set: `export CLAWHUB_TOKEN=xxx`
 
-# If not, install:
-curl -fsSL https://claude.ai/install.sh | bash
-```
+### Claude Code not responding to slash commands
+- Slash commands (`/speckit.*`, `/opsx:*`) only work in interactive mode
+- In ACP mode, describe tasks in plain English
 
-### Authentication issues
-
-```bash
-# Check auth status
-claude auth status
-
-# Login if needed
-claude auth login
-```
-
-### Hook not firing
-
-- Verify hook is in correct settings file (`~/.claude/settings.json` for user-level)
-- Check matcher pattern matches the event
-- Run `/hooks` in Claude Code to verify configuration
-
-### JSON parsing errors in hooks
-
-If your shell profile prints text on startup, it can corrupt hook JSON output. Add to `~/.zshrc`:
-
-```bash
-if [[ $- != *i* ]]; then
-  return
-fi
-```
+### Session doesn't complete
+- Check if Claude Code is authenticated: `claude auth status`
+- Try resuming: `claude -c -p "continue"`
 
 ## Key Documentation Links
-
 - [CLI Reference](https://code.claude.com/docs/en/cli-reference.md)
 - [Hooks Guide](https://code.claude.com/docs/en/hooks-guide.md)
-- [Hooks Reference](https://code.claude.com/docs/en/hooks.md)
 - [Skills](https://code.claude.com/docs/en/skills.md)
 - [Subagents](https://code.claude.com/docs/en/sub-agents.md)
-- [Headless/Programmatic](https://code.claude.com/docs/en/headless.md)
-- [Environment Variables](https://code.claude.com/docs/en/env-vars.md)
+- [OpenSpec Docs](https://github.com/Fission-AI/OpenSpec)
+- [SpecKit Docs](https://github.com/github/spec-kit)
