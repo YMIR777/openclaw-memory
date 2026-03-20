@@ -287,6 +287,32 @@ The JSONL contains:
 **Diagnosis:** Session may wait for terminal interaction that never arrives in ACP context.
 **Workaround:** Use interactive mode or implement via exec directly; verify file changes after each session.
 
+### Claude Code Hooks (Stop Hook)
+Claude Code supports hooks for lifecycle events (Stop, etc.) configured in `~/.claude/settings.json`:
+
+```json
+"hooks": {
+  "Stop": [{
+    "hooks": [{
+      "type": "command",
+      "command": "/path/to/hook-script.sh"
+    }]
+  }]
+}
+```
+
+**Note:** Hooks in settings.json work for CLI usage. ACP sessions (via `runtime: "acp"`) use `streamTo: "parent"` for result retrieval instead.
+
+**Current setup:** `/Users/Ymir/.openclaw/workspace/skills/claude-code/scripts/claude-code-stop-hook.sh` configured in `~/.claude/settings.json`
+
+**Testing hooks (CLI only):**
+```bash
+# Run a task naturally (don't kill)
+cd /tmp && echo 'test' | claude -p "echo HOOK_TEST"
+# Check for hook output
+ls /tmp/claude-result-*.json
+```
+
 ## OpenSpec Workflow (2026-03-20)
 
 ### Project Created: TodoList
