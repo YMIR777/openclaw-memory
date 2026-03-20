@@ -287,25 +287,66 @@ The JSONL contains:
 **Diagnosis:** Session may wait for terminal interaction that never arrives in ACP context.
 **Workaround:** Use interactive mode or implement via exec directly; verify file changes after each session.
 
-### Claude Code Hooks (Stop Hook)
-Claude Code supports hooks for lifecycle events (Stop, etc.) configured in `~/.claude/settings.json`:
+### Claude Code Hooks (Zero-Poll Pattern)
+Claude Code supports hooks for lifecycle events (Stop, SessionEnd) configured in `~/.claude/settings.json`:
 
 ```json
 "hooks": {
-  "Stop": [{
-    "hooks": [{
-      "type": "command",
-      "command": "/path/to/hook-script.sh"
-    }]
-  }]
+  "Stop": [{"hooks": [{"type": "command", "command": "/path/to/hook-script.sh", "timeout": 10}]}],
+  "SessionEnd": [{"hooks": [{"type": "command", "command": "/path/to/hook-script.sh", "timeout": 10}]}]
 }
 ```
 
 **Note:** Hooks in settings.json work for CLI usage. ACP sessions (via `runtime: "acp"`) use `streamTo: "parent"` for result retrieval instead.
 
-**Current setup:** `/Users/Ymir/.openclaw/workspace/skills/claude-code/scripts/claude-code-stop-hook.sh` configured in `~/.claude/settings.json`
+## Reference Implementation (win4r/claude-code-hooks)
 
-**Testing hooks (CLI only):**
+This pattern is recommended for zero-poll Claude Code integration:
+
+### Workflow
+```
+dispatch-claude-code.sh → Claude Code runs → Stop Hook triggers → notify-agi.sh
+                                                            ├── Write latest.json (standardized result)
+                                                            ├── openclaw message send (Telegram/Discord)
+                                                            └── Write pending-wake.json (for AGI heartbeat)
+```
+
+### Best Practices from win4r
+1. **Deduplication lock** - 30秒内重复触发自动跳过，防止重复通知
+2. **Standardized output** - 结果写入统一格式的 JSON 文件
+3. **AGI integration** - `pending-wake.json` 供主会话心跳读取
+4. **Multi-channel notification** - 支持 Telegram/Discord 等
+
+### Hook Deduplication Pattern
+```bash
+LOCK_FILE="/tmp/.hook-lock"
+if [ -f "$LOCK_FILE" ]; then
+  # Check if lock is recent (within 30s)
+  if [ $(($(date +%s) - $(stat -f %m "$LOCK_FILE" 2>/dev/null || stat -c %Y "$LOCK_FILE" 2>/dev/null))) -lt 30 ]; then
+    exit 0  # Skip duplicate
+  fi
+fi
+touch "$LOCK_FILE"
+```
+
+### Result JSON Schema
+```json
+{
+  "session_id": "uuid",
+  "timestamp": "ISO8601",
+  "task_name": "optional-name",
+  "output": "task output text",
+  "status": "done|error",
+  "duration_ms": 12345
+}
+```
+
+### Current Setup
+- Hook script: `/Users/Ymir/.openclaw/workspace/skills/claude-code/scripts/claude-code-stop-hook.sh`
+- Configured in: `~/.claude/settings.json`
+- Uses `streamTo: "parent"` for ACP sessions (different mechanism)
+
+### Testing Hooks (CLI only)
 ```bash
 # Run a task naturally (don't kill)
 cd /tmp && echo 'test' | claude -p "echo HOOK_TEST"
