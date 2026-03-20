@@ -371,3 +371,30 @@ Claude Code ACP sessions can hang on git operations. Workaround: Use git command
 
 ### Chinese UI Default
 All apps should default to Chinese UI (use Chinese for all text, labels, placeholders). Claude Code communicates in English, but app output is Chinese.
+
+## CLI Dispatch Mode (Default for Tasks) - Updated 2026-03-20
+
+**Important change:** Using CLI dispatch with hooks instead of ACP runtime for task execution.
+
+### Why CLI Dispatch
+- Zero-poll (no token waste on JSONL polling)
+- Stop Hook fires on completion → writes `pending-wake.json`
+- Result available in `~/.openclaw/claude-code-results/latest.json`
+- Future-proof (Agent Teams support)
+
+### Components
+| File | Purpose |
+|------|---------|
+| `scripts/claude-code-dispatch.sh` | Dispatch script |
+| `scripts/claude-code-stop-hook.sh` | Hook with deduplication |
+
+### Test Results (2026-03-20)
+```bash
+# Test output
+~/.openclaw/claude-code-results/pending-wake.json
+# → {"event":"claude_task_complete","session_id":"...","ready":true}
+```
+
+### When ACP is still useful
+- Simple one-off queries
+- Tasks that don't need result tracking
