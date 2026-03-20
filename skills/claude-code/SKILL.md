@@ -286,3 +286,21 @@ The JSONL contains:
 **Symptoms:** `claude -p "task"` hangs indefinitely without output.
 **Diagnosis:** Session may wait for terminal interaction that never arrives in ACP context.
 **Workaround:** Use interactive mode or implement via exec directly; verify file changes after each session.
+
+## OpenSpec Workflow (2026-03-20)
+
+### Project Created: TodoList
+- Location: `/Users/Ymir/Documents/vibe-projects/todolist`
+- GitHub: `YMIR777/todolist` (push pending - network issue)
+- Status: Complete, build passing
+
+### OpenSpec vs SpecKit
+- **OpenSpec**: Faster, lighter workflow - `propose → apply → archive`
+- **SpecKit**: More structured - `constitution → specify → plan → tasks → implement`
+- Both work with Claude Code ACP runtime
+
+### Key Discovery
+Claude Code ACP sessions can hang on git operations. Workaround: Use git commands with explicit timeout or retry.
+
+### Chinese UI Default
+All apps should default to Chinese UI (use Chinese for all text, labels, placeholders). Claude Code communicates in English, but app output is Chinese.
