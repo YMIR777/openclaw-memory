@@ -164,6 +164,68 @@ brew install switchaudio-osx      # 音频设备切换
 - SpecKit 项目：/Users/Ymir/Documents/vibe-projects/spec-kit-setup
 - MyDiary：/Users/Ymir/Documents/vibe-projects/spec-kit-setup/mydiary
 
+## 🧠 本地语义搜索系统（Ollama Embedding）
+
+### 目标
+不依赖任何远程 API key，实现记忆的语义搜索能力。
+
+### Ollama 安装
+```bash
+brew install ollama
+brew services start ollama
+ollama pull nomic-embed-text   # 274MB embedding 模型
+```
+
+### OpenClaw memorySearch 配置（正确方式）
+```json
+"agents": {
+  "defaults": {
+    "memorySearch": {
+      "enabled": true,
+      "provider": "openai",
+      "model": "nomic-embed-text",
+      "fallback": "none",
+      "remote": {
+        "baseUrl": "http://localhost:11434/v1"
+      },
+      "sources": ["memory", "sessions"]
+    }
+  }
+}
+```
+
+### ⚠️ openclaw-cn 不支持 provider: "ollama"
+- openclaw-cn 的 config 验证层拒绝 `provider: "ollama"`（报错 Invalid input）
+- **正确绕过**：用 `provider: "openai"` + `remote.baseUrl` 指向 Ollama 的 OpenAI 兼容端点
+- Ollama 的 `/v1/embeddings` 接口完全兼容 OpenAI embedding API
+
+### env.vars 需要占位 API key
+```json
+"env": {
+  "vars": {
+    "OPENAI_API_KEY": "ollama-local"
+  }
+}
+```
+OpenClaw 要求 embedding provider 必须有 apiKey，即使 Ollama 不验证。
+
+### 验证命令
+```bash
+openclaw memory status --deep     # 查看 provider/索引状态
+openclaw memory index --force     # 强制重建索引
+openclaw memory search "查询内容"  # 测试语义搜索
+```
+
+### 已知限制
+- batch 批量上传 API Ollama 不支持（报 404），会自动回退到非批量模式
+- 向量维度：768（nomic-embed-text 固定）
+
+### 索引状态
+- 56/56 文件，94 chunks，Dirty: no
+- 向量数据库：`~/.openclaw/memory/main.sqlite`
+
+---
+
 ## 🚨 2026-03-24 Gateway SIGTERM 问题（重要教训）
 
 ### 问题现象
@@ -180,18 +242,26 @@ Gateway 每 20-30 秒收到 SIGTERM 重启，WebSocket 1006/1008 错误。
 - openclaw npm 包**不包含** control-ui，需要从 openclaw-cn 复制
 - 升级 openclaw 到 2026.3.22 后 control-ui 丢失，因为 control-ui 根本不在 npm 包里
 
-### ✅ 当前正确配置
+### ✅ 当前正确配置（已切换到主版 v2026.3.23）
 | 项目 | 路径/值 |
 |------|---------|
-| 实际使用包 | openclaw-cn |
-| 版本 | 0.1.8-fix.3 |
-| Gateway 入口 | `~/.npm-global/lib/node_modules/openclaw-cn/dist/entry.js` |
-| Control UI | `~/.npm-global/lib/node_modules/openclaw-cn/dist/control-ui/` |
+| CLI 版本 | **openclaw v2026.3.23**（已切换） |
+| Gateway 版本 | **openclaw v2026.3.23** |
+| CLI 入口 | `~/.npm-global/bin/openclaw` → `~/.openclaw/lib/node_modules/openclaw/openclaw.mjs` |
+| Gateway 入口 | `~/.openclaw/lib/node_modules/openclaw/dist/entry.js` |
+| npm 主版包 | `~/.openclaw/lib/node_modules/openclaw/` |
+| npm cn 版包（备用） | `~/.npm-global/lib/node_modules/openclaw-cn/` |
 | Gateway 端口 | 18789 |
 | Health 端点 | http://127.0.0.1:18789/health |
 | Gateway Token | 02b70de1f6284ebd5dc38c3f7821ef8ad9f162509759d29dc041897712314dd0 |
 | Launchd 服务 | ai.openclaw.gateway.plist |
-| 配置文件 | ~/.openclaw/openclaw.json |
+| 配置文件 | ~/.openclaw/openclaw.json（两版本共用） |
+
+### ⚠️ 版本选择原则（重要！）
+- **只用主版 openclaw v2026.3.23**（launchd 实际跑的就是这个）
+- CLI 切换：`ln -s ~/.openclaw/lib/node_modules/openclaw/openclaw.mjs ~/.npm-global/bin/openclaw`
+- `openclaw-cn` CLI 仍有备份在 `~/.npm-global/bin/openclaw-cn`，不建议删除
+- `meta.lastTouchedVersion` 字段不影响功能，仅做参考
 
 ### ❌ 不要做的事
 1. **不要**在 gateway 重启过程中频繁健康检查（startup-grace 期 60 秒）
