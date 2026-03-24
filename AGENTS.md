@@ -194,6 +194,38 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 - 使用 SpecKit 进行规范开发：`/speckit.specify` → `/speckit.plan` → `/speckit.tasks` → `/speckit.implement`
 - 与 Claude Code 对话时使用**英文**
 
+## Sub-Agent Model Routing (Cost Optimization)
+
+> 添加时间：2026-03-25
+> 当前状态：预留框架，等第二个模型加入后自动启用
+
+When using `sessions_spawn` to create sub-agents,
+follow these rules for the `model` parameter:
+
+**Current available models:**
+- `minimax/MiniMax-M2.7` — reasoning: true, input: $0.001/1K, output: $0.004/1K
+
+**Use default (omit `model` param):**
+- Simple web search, summarization, translation
+- File reading, formatting, data extraction
+- Single-step factual lookups
+- Routine text generation (drafts, templates)
+- Any task that does not require multi-step reasoning
+
+**Override with explicit model (`model: "minimax/MiniMax-M2.7"`):**
+- Multi-step reasoning, complex analysis, or planning
+- Code generation, debugging, or refactoring
+- Tasks requiring deep contextual understanding
+- Math, logic puzzles, or scientific reasoning
+- Tasks where accuracy is critical and errors are costly
+
+**Routing logic (for future multi-model setup):**
+- Simple tasks → subagents default model (cheap)
+- Complex tasks → explicitly pass strong model
+- When in doubt, start cheap — if result is poor, retry with better model
+
+**Note:** Currently only one model is configured. Routing becomes meaningful when a second cheaper model is added.
+
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.

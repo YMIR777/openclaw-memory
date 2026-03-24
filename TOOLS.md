@@ -79,7 +79,7 @@ pyautogui.hotkey('command', 'v')
 ## 📦 API Keys
 
 - **Exa Search**: 8534dd8b-d68a-4736-b92c-0afdf1832715
-- **GitHub Token**: github_pat_11BMRRYKI0dj5x8Smry0dZ...
+- **GitHub Token**: [GITHUB_TOKEN_REDACTED] (full repo scope)
 
 ## 🔖 常用技能仓库
 
