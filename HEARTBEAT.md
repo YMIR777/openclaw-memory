@@ -1,4 +1,8 @@
 # HEARTBEAT.md
 
-# Keep this file empty (or with only comments) to skip heartbeat API calls.
-# Add tasks below when you want the agent to check something periodically.
+## 心跳配置
+- 检查间隔：30 分钟（之前是 5 分钟，已优化）
+- 每次检查只做最小必要操作
+
+## 要检查的项目
+（保持空，每30分钟只做一次简单状态确认即可）

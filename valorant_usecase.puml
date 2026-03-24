@@ -1,0 +1,49 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Player" as player
+actor "Admin" as admin
+actor "Viewer" as viewer
+
+rectangle "Valorant System" {
+  usecase "Login" as UC1
+  usecase "Register Account" as UC2
+  usecase "Select Agent" as UC3
+  usecase "Join Match" as UC4
+  usecase "Purchase Weapons" as UC5
+  usecase "Use Ability" as UC6
+  usecase "Eliminate Enemy" as UC7
+  usecase "Win Round" as UC8
+  usecase "Chat with Team" as UC9
+  usecase "View Stats" as UC10
+  usecase "Manage Profile" as UC11
+  usecase "Watch Replay" as UC12
+  usecase "Admin Match" as UC13
+  usecase "Ban Player" as UC14
+}
+
+player --> UC1
+player --> UC2
+player --> UC3
+player --> UC4
+player --> UC5
+player --> UC6
+player --> UC7
+player --> UC8
+player --> UC9
+player --> UC10
+player --> UC11
+player --> UC12
+
+admin --> UC13
+admin --> UC14
+
+viewer --> UC12
+
+UC4 ..> UC1 : <<include>>
+UC4 ..> UC3 : <<include>>
+UC7 ..> UC6 : <<extend>>
+UC8 ..> UC7 : <<include>>
+
+@enduml

@@ -1,0 +1,138 @@
+#!/bin/bash
+# Mac 控制工具 - 使用 tmux 保持长连接
+
+TMUX_SESSION="mac-control"
+
+# 确保 tmux 会话存在且运行
+ensure_session() {
+    if ! tmux has-session -t "$TMUX_SESSION" 2>/dev/null; then
+        # 创建新会话，运行 Python 控制脚本
+        tmux new-session -d -s "$TMUX_SESSION" "bash -c 'source ~/mcp-remote-macos-use/.venv/bin/activate && export PYTHONPATH=~/mcp-remote-macos-use/src && python3 - <<PYEOF
+import os, sys, json, time
+import vnc_client
+
+MACOS_HOST = os.environ.get(\"MACOS_HOST\", \"localhost\")
+MACOS_USERNAME = os.environ.get(\"MACOS_USERNAME\", \"Ymir\")
+MACOS_PASSWORD = os.environ.get(\"MACOS_PASSWORD\", \"1314\")
+
+client = vnc_client.VNCClient(host=MACOS_HOST, port=5900, username=MACOS_USERNAME, password=MACOS_PASSWORD)
+success, msg = client.connect()
+if not success:
+    print(json.dumps({\"error\": f\"连接失败: {msg}\"}), flush=True)
+    sys.exit(1)
+
+print(json.dumps({\"ready\": True}), flush=True)
+
+while True:
+    try:
+        line = input()
+        if not line:
+            break
+        data = json.loads(line)
+        cmd = data.get(\"cmd\")
+        args = data.get(\"args\", [])
+        
+        result = {\"error\": \"unknown\"}
+        
+        if cmd == \"screenshot\":
+            screenshot = client.capture_screen()
+            if screenshot:
+                path = os.path.expanduser(\"~/Desktop/mac_screenshot.png\")
+                with open(path, \"wb\") as f:
+                    f.write(screenshot)
+                result = {\"success\": True, \"path\": path}
+            else:
+                result = {\"error\": \"截图失败\"}
+        
+        elif cmd == \"click\":
+            x, y = int(args[0]), int(args[1])
+            client.send_mouse_click(x, y, button=1)
+            result = {\"success\": True}
+        
+        elif cmd == \"move\":
+            x, y = int(args[0]), int(args[1])
+            client.send_pointer_event(x, y, 0)
+            result = {\"success\": True}
+        
+        elif cmd == \"type\":
+            text = args[0] if args else \"\"
+            client.send_text(text)
+            result = {\"success\": True}
+        
+        elif cmd == \"key\":
+            keycode = int(args[0], 0) if args else 0
+            client.send_key_event(keycode, True)
+            client.send_key_event(keycode, False)
+            result = {\"success\": True}
+        
+        elif cmd == \"quit\":
+            client.close()
+            break
+        
+        print(json.dumps(result), flush=True)
+    except Exception as e:
+        print(json.dumps({\"error\": str(e)}), flush=True)
+
+PYEOF'"
+        sleep 2
+    fi
+}
+
+# 发送命令到 tmux 会话
+send_cmd() {
+    local cmd="$1"
+    shift
+    local args="$@"
+    
+    # 确保会话运行
+    ensure_session
+    
+    # 发送命令
+    echo "{\"cmd\": \"$cmd\", \"args\": [$args]}" | tmux load-buffer - 
+    tmux paste-buffer -t "$TMUX_SESSION"
+    
+    # 等待响应
+    sleep 0.3
+}
+
+# 从 tmux 读取最后一行（响应）
+read_response() {
+    tmux capture-pane -t "$TMUX_SESSION" -p | tail -1
+}
+
+case "$1" in
+    connect)
+        ensure_session
+        sleep 1
+        read_response
+        ;;
+    screenshot)
+        send_cmd "screenshot"
+        read_response
+        ;;
+    click)
+        send_cmd "click" "\"$2\", \"$3\""
+        read_response
+        ;;
+    move)
+        send_cmd "move" "\"$2\", \"$3\""
+        read_response
+        ;;
+    type)
+        shift
+        TEXT="$*"
+        send_cmd "type" "\"$TEXT\""
+        read_response
+        ;;
+    key)
+        send_cmd "key" "$2"
+        read_response
+        ;;
+    quit)
+        send_cmd "quit"
+        tmux kill-session -t "$TMUX_SESSION" 2>/dev/null
+        ;;
+    *)
+        echo "用法: macx {connect|screenshot|click|move|type|key|quit}"
+        ;;
+esac

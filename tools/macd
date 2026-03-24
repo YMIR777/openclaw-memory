@@ -1,0 +1,232 @@
+#!/bin/bash
+# Mac 控制工具 V2 - 保持长连接
+# 用法:
+#   macd connect    - 连接并保持
+#   macd click x y - 点击
+#   macd type "文字" - 输入
+#   macd screenshot - 截图
+#   macd disconnect - 断开连接
+
+SOURCE_DIR="$HOME/mcp-remote-macos-use"
+CMD_FILE="/tmp/mac_control_cmd"
+PID_FILE="/tmp/mac_control_daemon.pid"
+
+# 激活虚拟环境
+source "$SOURCE_DIR/.venv/bin/activate"
+export PYTHONPATH="$SOURCE_DIR/src"
+
+# 如果没有守护进程在运行，启动它
+start_daemon() {
+    if [ -f "$PID_FILE" ]; then
+        PID=$(cat "$PID_FILE")
+        if ps -p "$PID" > /dev/null 2>&1; then
+            return 0  # 已经在运行
+        fi
+    fi
+    
+    # 启动守护进程
+    python3 - << 'DAEMON_SCRIPT' &
+import os
+import sys
+import json
+import time
+import signal
+
+sys.path.insert(0, os.path.expanduser('~/mcp-remote-macos-use/src'))
+import vnc_client
+
+MACOS_HOST = os.environ.get('MACOS_HOST', 'localhost')
+MACOS_USERNAME = os.environ.get('MACOS_USERNAME', 'Ymir')
+MACOS_PASSWORD = os.environ.get('MACOS_PASSWORD', '1314')
+
+CMD_FILE = "/tmp/mac_control_cmd"
+PID_FILE = "/tmp/mac_control_daemon.pid"
+
+class MacController:
+    def __init__(self):
+        self.client = None
+        self.connected = False
+    
+    def connect(self):
+        if self.connected and self.client:
+            return True, "Already connected"
+        
+        self.client = vnc_client.VNCClient(
+            host=MACOS_HOST,
+            port=5900,
+            username=MACOS_USERNAME,
+            password=MACOS_PASSWORD
+        )
+        success, msg = self.client.connect()
+        self.connected = success
+        return success, msg
+    
+    def disconnect(self):
+        if self.client:
+            self.client.close()
+            self.client = None
+        self.connected = False
+    
+    def screenshot(self):
+        if not self.connected:
+            self.connect()
+        
+        screenshot = self.client.capture_screen()
+        if screenshot:
+            path = "/tmp/mac_screenshot.png"
+            with open(path, "wb") as f:
+                f.write(screenshot)
+            return {"success": True, "path": path, "size": len(screenshot)}
+        return {"error": "无法获取截图"}
+    
+    def click(self, x, y, button=1):
+        if not self.connected:
+            self.connect()
+        self.client.send_mouse_click(int(x), int(y), button=button)
+        return {"success": True}
+    
+    def move(self, x, y):
+        if not self.connected:
+            self.connect()
+        self.client.send_pointer_event(int(x), int(y), 0)
+        return {"success": True}
+    
+    def type(self, text):
+        if not self.connected:
+            self.connect()
+        self.client.send_text(text)
+        return {"success": True}
+    
+    def key(self, keycode):
+        if not self.connected:
+            self.connect()
+        self.client.send_key_event(keycode, True)
+        self.client.send_key_event(keycode, False)
+        return {"success": True}
+    
+    def double_click(self, x, y):
+        if not self.connected:
+            self.connect()
+        self.client.send_mouse_click(int(x), int(y), button=1, double_click=True)
+        return {"success": True}
+
+ctrl = MacController()
+
+# 写 PID
+with open(PID_FILE, 'w') as f:
+    f.write(str(os.getpid()))
+
+# 主循环
+while True:
+    try:
+        if os.path.exists(CMD_FILE):
+            with open(CMD_FILE, 'r') as f:
+                cmd_data = json.load(f)
+            
+            os.remove(CMD_FILE)
+            
+            cmd = cmd_data.get("cmd")
+            args = cmd_data.get("args", [])
+            
+            result = {"error": "Unknown command"}
+            
+            if cmd == "connect":
+                success, msg = ctrl.connect()
+                result = {"success": success, "message": msg}
+            elif cmd == "disconnect":
+                ctrl.disconnect()
+                result = {"success": True}
+            elif cmd == "screenshot":
+                result = ctrl.screenshot()
+            elif cmd == "click" and len(args) >= 2:
+                result = ctrl.click(args[0], args[1])
+            elif cmd == "move" and len(args) >= 2:
+                result = ctrl.move(args[0], args[1])
+            elif cmd == "type" and len(args) >= 1:
+                result = ctrl.type(args[0])
+            elif cmd == "key" and len(args) >= 1:
+                result = ctrl.key(args[0])
+            elif cmd == "double_click" and len(args) >= 2:
+                result = ctrl.double_click(args[0], args[1])
+            elif cmd == "quit":
+                ctrl.disconnect()
+                break
+            
+            # 写回结果
+            with open(CMD_FILE + ".out", 'w') as f:
+                json.dump(result, f)
+        
+        time.sleep(0.1)
+    except Exception as e:
+        with open(CMD_FILE + ".out", 'w') as f:
+            json.dump({"error": str(e)}, f)
+        time.sleep(0.1)
+
+os.remove(PID_FILE)
+DAEMON_SCRIPT
+    echo "守护进程已启动"
+}
+
+# 发送命令到守护进程
+send_cmd() {
+    CMD="$1"
+    shift
+    ARGS="$@"
+    
+    # 启动守护进程（如未运行）
+    start_daemon
+    
+    # 等待守护进程启动
+    sleep 0.5
+    
+    # 写命令
+    echo "{\"cmd\": \"$CMD\", \"args\": [$ARGS]}" | sed 's/\(.*\)/\1/' > "$CMD_FILE"
+    
+    # 等待结果
+    for i in {1..20}; do
+        if [ -f "$CMD_FILE.out" ]; then
+            cat "$CMD_FILE.out"
+            rm "$CMD_FILE.out"
+            return
+        fi
+        sleep 0.1
+    done
+    
+    echo '{"error": "Timeout"}'
+}
+
+# 解析命令
+case "$1" in
+    connect)
+        send_cmd "connect"
+        ;;
+    disconnect)
+        send_cmd "disconnect"
+        ;;
+    screenshot)
+        send_cmd "screenshot"
+        ;;
+    click)
+        send_cmd "click" "\"$2\", \"$3\""
+        ;;
+    move)
+        send_cmd "move" "\"$2\", \"$3\""
+        ;;
+    type)
+        shift
+        TEXT="$*"
+        send_cmd "type" "\"$TEXT\""
+        ;;
+    key)
+        send_cmd "key" "$2"
+        ;;
+    double_click)
+        send_cmd "double_click" "\"$2\", \"$3\""
+        ;;
+    quit)
+        send_cmd "quit"
+        ;;
+    *)
+        echo "用法: $0 {connect|disconnect|screenshot|click|move|type|key|double_click|quit} [args]"
+        ;;
+esac

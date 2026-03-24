@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "claw-shell": {
+      "version": "1.0.0",
+      "installedAt": 1773794830976
+    },
+    "openclaw-acp": {
+      "version": "0.1.0",
+      "installedAt": 1773909375672
+    },
+    "acpx-orchestrator": {
+      "version": "4.0.1",
+      "installedAt": 1773911109066
+    }
+  }
+}

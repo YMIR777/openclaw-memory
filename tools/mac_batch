@@ -1,0 +1,93 @@
+#!/bin/bash
+# Mac 控制工具 - 批量操作模式
+# 一次性执行多个命令，保持连接
+
+SOURCE_DIR="$HOME/mcp-remote-macos-use"
+
+# 激活虚拟环境
+source "$SOURCE_DIR/.venv/bin/activate"
+export PYTHONPATH="$SOURCE_DIR/src"
+
+python3 << 'EOF'
+import os
+import sys
+import json
+sys.path.insert(0, os.path.expanduser('~/mcp-remote-macos-use/src'))
+import vnc_client
+import time
+
+MACOS_HOST = os.environ.get('MACOS_HOST', 'localhost')
+MACOS_USERNAME = os.environ.get('MACOS_USERNAME', 'Ymir')
+MACOS_PASSWORD = os.environ.get('MACOS_PASSWORD', '1314')
+
+# 创建连接
+client = vnc_client.VNCClient(
+    host=MACOS_HOST,
+    port=5900,
+    username=MACOS_USERNAME,
+    password=MACOS_PASSWORD
+)
+
+print("连接中...", file=sys.stderr)
+success, msg = client.connect()
+if not success:
+    print(json.dumps({"error": f"连接失败: {msg}"}))
+    sys.exit(1)
+print("已连接", file=sys.stderr)
+
+# 执行所有命令行参数作为命令
+cmds = sys.argv[1:] if len(sys.argv) > 1 else []
+
+for cmd in cmds:
+    parts = cmd.split(':')
+    action = parts[0]
+    args = parts[1:] if len(parts) > 1 else []
+    
+    try:
+        if action == "screenshot":
+            screenshot = client.capture_screen()
+            if screenshot:
+                path = "/tmp/mac_screenshot.png"
+                with open(path, "wb") as f:
+                    f.write(screenshot)
+                print(json.dumps({"success": True, "path": path}))
+            else:
+                print(json.dumps({"error": "截图失败"}))
+        
+        elif action == "click":
+            x, y = int(args[0]), int(args[1])
+            client.send_mouse_click(x, y, button=1)
+            print(json.dumps({"success": True, "action": "click", "x": x, "y": y}))
+        
+        elif action == "move":
+            x, y = int(args[0]), int(args[1])
+            client.send_pointer_event(x, y, 0)
+            print(json.dumps({"success": True, "action": "move", "x": x, "y": y}))
+        
+        elif action == "type":
+            text = ':'.join(args)  # 允许带冒号的文字
+            client.send_text(text)
+            print(json.dumps({"success": True, "action": "type", "text": text}))
+        
+        elif action == "key":
+            keycode = int(args[0], 0)
+            client.send_key_event(keycode, True)
+            client.send_key_event(keycode, False)
+            print(json.dumps({"success": True, "action": "key", "keycode": keycode}))
+        
+        elif action == "wait":
+            time.sleep(float(args[0]))
+            print(json.dumps({"success": True, "action": "wait", "seconds": args[0]}))
+        
+        elif action == "double_click":
+            x, y = int(args[0]), int(args[1])
+            client.send_mouse_click(x, y, button=1, double_click=True)
+            print(json.dumps({"success": True, "action": "double_click", "x": x, "y": y}))
+    
+    except Exception as e:
+        print(json.dumps({"error": f"{action}: {e}"}))
+
+# 断开连接
+client.close()
+print("已断开连接", file=sys.stderr)
+EOF
