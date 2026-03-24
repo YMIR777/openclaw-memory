@@ -27,6 +27,11 @@ Skill、OpenSpec、SpecKit、Runtime 选择
 → [[memory/topics/GATEWAY-Gateway问题.md]]
 SIGTERM 根因、版本选择、日志路径
 
+## 🔒 OpenClaw 安全加固（2026-03-25）
+→ [[memory/topics/LESSONS-核心经验.md]] 第 1 条
+→ [[OpenClaw-安全加固配置]]（Obsidian）
+安全审计：5 critical → 2 critical，elevated.allowFrom、strictInlineEval、Watchdog
+
 ## 🚀 模型路由
 → [[memory/topics/ROUTING-模型路由.md]]
 子 Agent 路由规则、Coding Plan 特性

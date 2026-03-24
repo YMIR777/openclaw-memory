@@ -12,6 +12,22 @@
     "acpx-orchestrator": {
       "version": "4.0.1",
       "installedAt": 1773911109066
+    },
+    "elite-longterm-memory": {
+      "version": "1.2.3",
+      "installedAt": 1774377780713
+    },
+    "openclaw-self-improvement": {
+      "version": "0.1.0",
+      "installedAt": 1774377785664
+    },
+    "agent-swarm-workflow": {
+      "version": "1.0.0",
+      "installedAt": 1774377788329
+    },
+    "memory-tiering": {
+      "version": "1.0.0",
+      "installedAt": 1774377795172
     }
   }
 }

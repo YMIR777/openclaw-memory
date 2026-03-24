@@ -24,6 +24,15 @@ brew install switchaudio-osx      # 音频设备切换
 ```
 
 ## Skills Manager
+- 路径：`~/.claw/skills/skills-manager/SKILL.md`
+
+## Deep Research Skill
+- 路径：`~/.claw/skills/deep-research/SKILL.md`
+- 功能：多轮迭代深度研究（Tavily + Exa + Firecrawl）
+- 触发词：deep search、详细搜索、深度研究、帮我查一下
+- 使用：nohup 后台运行，增量写入，callback 推送结果
+
+## Skills Manager
 - 路径：`~/.openclaw/skills/skills-manager/SKILL.md`
 - 内容：社区 skills 安装、审查、更新、验证规范
 - 使用：描述需求 → 安全审查 → clawdhub install → 验证
