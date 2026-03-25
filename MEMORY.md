@@ -61,3 +61,5 @@ SIGTERM 根因、版本选择、日志路径
 - SpecKit 项目：`/Users/Ymir/Documents/vibe-projects/spec-kit-setup`
 - MyDiary：`/Users/Ymir/Documents/vibe-projects/spec-kit-setup/mydiary`
 - Obsidian：`~/Documents/个人知识体系/Ai工作流/VibeCoding/`
+- AI协作指南：`~/Documents/个人知识体系/Ai工作流/小黒的AI协作指南.md`
+  → 如何高效正确地使用 AI 助手（给小黑自己的用户手册）
