@@ -55,9 +55,26 @@ openclaw memory search "查询内容"  # 测试语义搜索
 - batch 批量上传 API Ollama 不支持（报 404），会自动回退到非批量模式
 - 向量维度：768（nomic-embed-text 固定）
 
+## 🚨 严重故障（2026-03-25 03:03 发现）
+
+**问题**：QMD 完全失效，`openclaw memory search` 返回空结果
+
+**症状**：
+```
+[memory] qmd collection add failed: 
+Module not found "/Users/Ymir/.bun/install/global/node_modules/@tobilu/qmd/dist/cli/qmd.js"
+Indexed: 0/14 files · 0 chunks
+```
+
+**根因**：qmd 从源码安装，缺少编译后的 `dist/cli/qmd.js`
+- `bin/qmd` 脚本检查 bun.lock 后执行 `dist/cli/qmd.js`
+- 但 dist/ 目录不存在
+
+**修复方案**：待处理
+
 ## 索引状态
-- 56/56 文件，94 chunks，Dirty: no
-- 向量数据库：`~/.openclaw/memory/main.sqlite`
+- 56/56 文件，94 chunks，Dirty: no（历史记录）
+- **当前状态**：0/14 files · 0 chunks（2026-03-25 故障后）
 
 ## 2026-03-25 优化参数
 - `memorySearch.query.maxResults`: 8

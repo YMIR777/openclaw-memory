@@ -1,0 +1,1825 @@
+{
+  "entries": [
+    {
+      "id": "mem-1774413527984-bzvn",
+      "category": "preference",
+      "content": "用户喜欢温暖且有力量的回答风格，不喜欢谄媚",
+      "tier": "working",
+      "scope": "global",
+      "count": 3,
+      "firstSeen": "2026-03-25T04:38:47.983Z",
+      "lastSeen": "2026-03-25T05:07:50.739Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1.1
+      },
+      "_effectiveScore": 2.1998206843914776,
+      "accessCount": 6
+    },
+    {
+      "id": "mem-1774413596189-z03l",
+      "category": "event",
+      "content": "GitHub Auth 永久修复",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.189Z",
+      "lastSeen": "2026-03-25T04:39:56.189Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939733977896
+    },
+    {
+      "id": "mem-1774413596190-i4h7",
+      "category": "decision",
+      "content": "- git credential helper 已永久设为 `env`：`git config --global credential.helper \"env\"`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.190Z",
+      "lastSeen": "2026-03-25T04:39:56.190Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939745551901
+    },
+    {
+      "id": "mem-1774413596190-obyp",
+      "category": "event",
+      "content": "- 修复子会话：agent:main:subagent:47dea232-14dd-443e-bd50-311b1ca7ed2a",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.190Z",
+      "lastSeen": "2026-03-25T04:39:56.190Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939745551901
+    },
+    {
+      "id": "mem-1774413596190-vuyg",
+      "category": "decision",
+      "content": "- remote 已设为 `https://github.com/Ymir777/skills-manager.git`（但 repo 尚未创建）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.190Z",
+      "lastSeen": "2026-03-25T04:39:56.190Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939745551901
+    },
+    {
+      "id": "mem-1774413596190-wd0r",
+      "category": "event",
+      "content": "- 待完成：创建 GitHub repo + push",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.190Z",
+      "lastSeen": "2026-03-25T04:39:56.190Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939745551901
+    },
+    {
+      "id": "mem-1774413596190-q1jj",
+      "category": "event",
+      "content": "| `~/.claw/skills/` | 手动安装（clawdhub 等） | 无独立 git |",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.190Z",
+      "lastSeen": "2026-03-25T04:39:56.190Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939745551901
+    },
+    {
+      "id": "mem-1774413596190-qctj",
+      "category": "case",
+      "content": "- gh CLI 不读这个 token（用 keychain），所以 `gh repo create` 失败",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.190Z",
+      "lastSeen": "2026-03-25T04:39:56.190Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939745551901
+    },
+    {
+      "id": "mem-1774413596191-om5n",
+      "category": "event",
+      "content": "- 解决方案：用 curl 直接调 GitHub REST API，或让用户手动建 repo",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.191Z",
+      "lastSeen": "2026-03-25T04:39:56.191Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939757125905
+    },
+    {
+      "id": "mem-1774413596191-odq6",
+      "category": "decision",
+      "content": "- openclaw.json: subagents.model 已设为 minimax/MiniMax-M2.7",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.191Z",
+      "lastSeen": "2026-03-25T04:39:56.191Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939757125905
+    },
+    {
+      "id": "mem-1774413596191-rqa6",
+      "category": "decision",
+      "content": "Token 优化配置（2026-03-25 应用）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.191Z",
+      "lastSeen": "2026-03-25T04:39:56.191Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939757125905
+    },
+    {
+      "id": "mem-1774413596191-0jmv",
+      "category": "preference",
+      "content": "用户偏好",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.191Z",
+      "lastSeen": "2026-03-25T05:07:50.739Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939757125905,
+      "accessCount": 4
+    },
+    {
+      "id": "mem-1774413596191-aer6",
+      "category": "preference",
+      "content": "- 小黒不喜欢过于谄媚的回答",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.191Z",
+      "lastSeen": "2026-03-25T05:07:50.739Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939757125905,
+      "accessCount": 4
+    },
+    {
+      "id": "mem-1774413596192-b527",
+      "category": "event",
+      "content": "- 遇到权限问题应该彻底解决，不要每次都让用户手动操作",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.192Z",
+      "lastSeen": "2026-03-25T04:39:56.192Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939768699909
+    },
+    {
+      "id": "mem-1774413596192-p55u",
+      "category": "event",
+      "content": "# 完成项目",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.192Z",
+      "lastSeen": "2026-03-25T04:39:56.192Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939768699909
+    },
+    {
+      "id": "mem-1774413596192-6hhf",
+      "category": "event",
+      "content": "1. **安全加固完成** — 5 critical → 2 critical",
+      "tier": "working",
+      "scope": "global",
+      "count": 2,
+      "firstSeen": "2026-03-25T04:39:56.192Z",
+      "lastSeen": "2026-03-25T04:40:01.396Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939768699909
+    },
+    {
+      "id": "mem-1774413596192-hlat",
+      "category": "event",
+      "content": "- Watchdog 安装（300 秒间隔）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.192Z",
+      "lastSeen": "2026-03-25T04:39:56.192Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939768699909
+    },
+    {
+      "id": "mem-1774413596192-jgke",
+      "category": "event",
+      "content": "2. **新安装 Skill**（clawhub install）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.192Z",
+      "lastSeen": "2026-03-25T04:39:56.192Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939768699909
+    },
+    {
+      "id": "mem-1774413596192-m6dc",
+      "category": "decision",
+      "content": "- memory/warm/WARM_MEMORY.md（稳定系统配置）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.192Z",
+      "lastSeen": "2026-03-25T04:39:56.192Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939768699909
+    },
+    {
+      "id": "mem-1774413596193-68to",
+      "category": "event",
+      "content": "5. **深度优化指南**（Obsidian 新建）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.193Z",
+      "lastSeen": "2026-03-25T04:39:56.193Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939780273914
+    },
+    {
+      "id": "mem-1774413596193-aqwv",
+      "category": "decision",
+      "content": "- 内容：记忆系统、Agent 配置、Skill 管理、Cron 调度、上下文工程",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.193Z",
+      "lastSeen": "2026-03-25T04:39:56.193Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939780273914
+    },
+    {
+      "id": "mem-1774413596193-q5qw",
+      "category": "case",
+      "content": "- 用于记录学习、错误、功能请求",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.193Z",
+      "lastSeen": "2026-03-25T04:39:56.193Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939780273914
+    },
+    {
+      "id": "mem-1774413596193-vubd",
+      "category": "event",
+      "content": "🚨 QMD 严重故障（03:03 发现）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.193Z",
+      "lastSeen": "2026-03-25T04:39:56.193Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939780273914
+    },
+    {
+      "id": "mem-1774413596193-rwpl",
+      "category": "case",
+      "content": "**问题**：QMD memory search 完全失效！",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.193Z",
+      "lastSeen": "2026-03-25T04:39:56.193Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939780273914
+    },
+    {
+      "id": "mem-1774413596194-kk16",
+      "category": "event",
+      "content": "**根因**：qmd 从源码安装（bun install），但没有 build。缺少 `dist/cli/qmd.js` 文件。",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.194Z",
+      "lastSeen": "2026-03-25T04:39:56.194Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939791847918
+    },
+    {
+      "id": "mem-1774413596194-3z58",
+      "category": "event",
+      "content": "**可能的修复方案**：",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.194Z",
+      "lastSeen": "2026-03-25T04:39:56.194Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939791847918
+    },
+    {
+      "id": "mem-1774413596194-m1wz",
+      "category": "event",
+      "content": "2. 或者重新用 npm 安装 qmd（npm 会 build）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.194Z",
+      "lastSeen": "2026-03-25T04:39:56.194Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939791847918
+    },
+    {
+      "id": "mem-1774413596194-yvhw",
+      "category": "decision",
+      "content": "重大事件：成功配置本地语义搜索 + 切换到主版 openclaw",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.194Z",
+      "lastSeen": "2026-03-25T04:39:56.194Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939791847918
+    },
+    {
+      "id": "mem-1774413596194-eb6y",
+      "category": "event",
+      "content": "# 完成事项",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.194Z",
+      "lastSeen": "2026-03-25T04:39:56.194Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939791847918
+    },
+    {
+      "id": "mem-1774413596195-47wz",
+      "category": "event",
+      "content": "- 通过 Homebrew 安装 ollama v0.18.2",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.195Z",
+      "lastSeen": "2026-03-25T04:39:56.195Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939803421923
+    },
+    {
+      "id": "mem-1774413596195-bi04",
+      "category": "decision",
+      "content": "- 配置 OpenClaw memorySearch 使用 Ollama（provider=openai + remote.baseUrl=http://localhost:11434/v1）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.195Z",
+      "lastSeen": "2026-03-25T04:39:56.195Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939803421923
+    },
+    {
+      "id": "mem-1774413596195-xgjg",
+      "category": "decision",
+      "content": "- 主版 doctor 无 invalid config 错误，配置干净通过",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.195Z",
+      "lastSeen": "2026-03-25T04:39:56.195Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939803421923
+    },
+    {
+      "id": "mem-1774413596195-cdfs",
+      "category": "decision",
+      "content": "3. **主版配置兼容性确认**",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.195Z",
+      "lastSeen": "2026-03-25T04:39:56.195Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939803421923
+    },
+    {
+      "id": "mem-1774413596196-6wv4",
+      "category": "case",
+      "content": "# 教训",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.196Z",
+      "lastSeen": "2026-03-25T04:39:56.196Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939814995927
+    },
+    {
+      "id": "mem-1774413596196-agwt",
+      "category": "decision",
+      "content": "- 配置修改后 gateway 会自动热重载，不需要手动重启",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.196Z",
+      "lastSeen": "2026-03-25T04:39:56.196Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939814995927
+    },
+    {
+      "id": "mem-1774413596196-ox5h",
+      "category": "case",
+      "content": "重大事件：Gateway SIGTERM 循环问题",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.196Z",
+      "lastSeen": "2026-03-25T04:39:56.196Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939814995927
+    },
+    {
+      "id": "mem-1774413596196-cne5",
+      "category": "event",
+      "content": "Claude Code 深度排查并解决了两个关键问题：",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.196Z",
+      "lastSeen": "2026-03-25T04:39:56.196Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939814995927
+    },
+    {
+      "id": "mem-1774413596197-gfpf",
+      "category": "case",
+      "content": "- 每 30 秒检查 health，失败就重启，没有考虑 startup-grace",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.197Z",
+      "lastSeen": "2026-03-25T04:39:56.197Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939826569931
+    },
+    {
+      "id": "mem-1774413596197-kvuq",
+      "category": "event",
+      "content": "- **解决**：禁用 watchdog，使用原生 launchd 服务",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.197Z",
+      "lastSeen": "2026-03-25T04:39:56.197Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939826569931
+    },
+    {
+      "id": "mem-1774413596197-z6fa",
+      "category": "case",
+      "content": "# 2. openclaw vs openclaw-cn 混用问题",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.197Z",
+      "lastSeen": "2026-03-25T04:39:56.197Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939826569931
+    },
+    {
+      "id": "mem-1774413596197-h5nj",
+      "category": "case",
+      "content": "- 之前错误地将 openclaw 升级到 2026.3.22",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.197Z",
+      "lastSeen": "2026-03-25T04:39:56.197Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939826569931
+    },
+    {
+      "id": "mem-1774413596198-vv71",
+      "category": "case",
+      "content": "- 协议不匹配导致 WebSocket 1008 错误",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.198Z",
+      "lastSeen": "2026-03-25T04:39:56.198Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939838143936
+    },
+    {
+      "id": "mem-1774413596198-weeq",
+      "category": "event",
+      "content": "- **解决**：回退到 openclaw-cn v0.1.8-fix.3",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.198Z",
+      "lastSeen": "2026-03-25T04:39:56.198Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939838143936
+    },
+    {
+      "id": "mem-1774413596199-phzx",
+      "category": "decision",
+      "content": "- 所有路径、配置都要明确是哪个版本",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.199Z",
+      "lastSeen": "2026-03-25T04:39:56.199Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.999993984971794
+    },
+    {
+      "id": "mem-1774413596199-fa0c",
+      "category": "decision",
+      "content": "下午续：QMD 配置",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.199Z",
+      "lastSeen": "2026-03-25T04:39:56.199Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.999993984971794
+    },
+    {
+      "id": "mem-1774413596201-cd1v",
+      "category": "event",
+      "content": "# 完成事项",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.201Z",
+      "lastSeen": "2026-03-25T04:39:56.201Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939872865949
+    },
+    {
+      "id": "mem-1774413596201-lxvs",
+      "category": "event",
+      "content": "- Bun 安装：brew install oven-sh/bun/bun（但最终用 npm 安装 qmd）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.201Z",
+      "lastSeen": "2026-03-25T04:39:56.201Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939872865949
+    },
+    {
+      "id": "mem-1774413596202-jsrj",
+      "category": "event",
+      "content": "- QMD 安装：npm install -g @tobilu/qmd（bun install -g github 源码无 dist，要用 npm）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.202Z",
+      "lastSeen": "2026-03-25T04:39:56.202Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939884439955
+    },
+    {
+      "id": "mem-1774413596202-c2i1",
+      "category": "event",
+      "content": "- Collection 创建：qmd collection add ~/.openclaw/workspace --name openclaw-memory --mask '**/*.md'（213 files）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.202Z",
+      "lastSeen": "2026-03-25T04:39:56.202Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939884439955
+    },
+    {
+      "id": "mem-1774413596203-ghqv",
+      "category": "decision",
+      "content": "# QMD 配置完成（22:39）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.203Z",
+      "lastSeen": "2026-03-25T04:39:56.203Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939896013958
+    },
+    {
+      "id": "mem-1774413596203-zkm8",
+      "category": "decision",
+      "content": "# QMD 配置详细经验（已沉淀 Obsidian）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.203Z",
+      "lastSeen": "2026-03-25T04:39:56.203Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939896013958
+    },
+    {
+      "id": "mem-1774413596203-1lsj",
+      "category": "decision",
+      "content": "- 新建笔记：VibeCoding/05-QMD配置笔记.md",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.203Z",
+      "lastSeen": "2026-03-25T04:39:56.203Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939896013958
+    },
+    {
+      "id": "mem-1774413596203-gva7",
+      "category": "case",
+      "content": "- 核心问题：Node.js fetch 不走代理，qmd hf_transfer 也不走代理",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.203Z",
+      "lastSeen": "2026-03-25T04:39:56.203Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939896013958
+    },
+    {
+      "id": "mem-1774413596210-z1p1",
+      "category": "event",
+      "content": "- 解决：patch getRemoteEtag 函数用 curl 替代 Node.js fetch，走代理下载模型",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.210Z",
+      "lastSeen": "2026-03-25T04:39:56.210Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939977031991
+    },
+    {
+      "id": "mem-1774413596211-8cpy",
+      "category": "decision",
+      "content": "#  Obsidian 知识库更新",
+      "tier": "working",
+      "scope": "global",
+      "count": 2,
+      "firstSeen": "2026-03-25T04:39:56.211Z",
+      "lastSeen": "2026-03-25T04:40:01.396Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939988605995
+    },
+    {
+      "id": "mem-1774413596211-i827",
+      "category": "decision",
+      "content": "- 已更新 01-OpenClaw配置笔记.md（QMD 章节）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T04:39:56.211Z",
+      "lastSeen": "2026-03-25T04:39:56.211Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.9999939988605995
+    },
+    {
+      "id": "mem-1774413596212-tgct",
+      "category": "decision",
+      "content": "- 新建 05-QMD配置笔记.md（完整流程 + 踩坑记录）",
+      "tier": "working",
+      "scope": "global",
+      "count": 2,
+      "firstSeen": "2026-03-25T04:39:56.212Z",
+      "lastSeen": "2026-03-25T04:40:01.396Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.999994000018
+    },
+    {
+      "id": "mem-1774413596212-z84k",
+      "category": "decision",
+      "content": "- 索引笔记 00-索引.md 更新双向链接",
+      "tier": "working",
+      "scope": "global",
+      "count": 2,
+      "firstSeen": "2026-03-25T04:39:56.212Z",
+      "lastSeen": "2026-03-25T04:40:01.396Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "_effectiveScore": 0.999994000018
+    },
+    {
+      "id": "mem-1774414924750-47m0",
+      "category": "event",
+      "content": "GitHub Auth 永久修复",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.750Z",
+      "lastSeen": "2026-03-25T05:02:04.750Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924752-qg71",
+      "category": "decision",
+      "content": "- git credential helper 已永久设为 `env`：`git config --global credential.helper \"env\"`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.752Z",
+      "lastSeen": "2026-03-25T05:02:04.752Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924752-10fo",
+      "category": "event",
+      "content": "- 修复子会话：agent:main:subagent:47dea232-14dd-443e-bd50-311b1ca7ed2a",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.752Z",
+      "lastSeen": "2026-03-25T05:02:04.752Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924752-45i9",
+      "category": "decision",
+      "content": "- remote 已设为 `https://github.com/Ymir777/skills-manager.git`（但 repo 尚未创建）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.752Z",
+      "lastSeen": "2026-03-25T05:02:04.752Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924753-kesm",
+      "category": "event",
+      "content": "- 待完成：创建 GitHub repo + push",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.753Z",
+      "lastSeen": "2026-03-25T05:02:04.753Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924753-dmvz",
+      "category": "event",
+      "content": "| `~/.claw/skills/` | 手动安装（clawdhub 等） | 无独立 git |",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.753Z",
+      "lastSeen": "2026-03-25T05:02:04.753Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924753-qxg9",
+      "category": "case",
+      "content": "- gh CLI 不读这个 token（用 keychain），所以 `gh repo create` 失败",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.753Z",
+      "lastSeen": "2026-03-25T05:02:04.753Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924754-ev6h",
+      "category": "event",
+      "content": "- 解决方案：用 curl 直接调 GitHub REST API，或让用户手动建 repo",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.754Z",
+      "lastSeen": "2026-03-25T05:02:04.754Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924754-55dx",
+      "category": "decision",
+      "content": "- openclaw.json: subagents.model 已设为 minimax/MiniMax-M2.7",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.754Z",
+      "lastSeen": "2026-03-25T05:02:04.754Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924754-kyng",
+      "category": "decision",
+      "content": "Token 优化配置（2026-03-25 应用）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.754Z",
+      "lastSeen": "2026-03-25T05:02:04.754Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924755-uhbt",
+      "category": "preference",
+      "content": "用户偏好",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.755Z",
+      "lastSeen": "2026-03-25T05:07:50.739Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "accessCount": 4
+    },
+    {
+      "id": "mem-1774414924755-jq7c",
+      "category": "preference",
+      "content": "- 小黒不喜欢过于谄媚的回答",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.755Z",
+      "lastSeen": "2026-03-25T05:06:28.562Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      },
+      "accessCount": 3
+    },
+    {
+      "id": "mem-1774414924755-1zlk",
+      "category": "event",
+      "content": "- 遇到权限问题应该彻底解决，不要每次都让用户手动操作",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.755Z",
+      "lastSeen": "2026-03-25T05:02:04.755Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924756-zvg1",
+      "category": "event",
+      "content": "# 完成项目",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.756Z",
+      "lastSeen": "2026-03-25T05:02:04.756Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924756-olzr",
+      "category": "event",
+      "content": "1. **安全加固完成** — 5 critical → 2 critical",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.756Z",
+      "lastSeen": "2026-03-25T05:02:04.756Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924756-dk4z",
+      "category": "event",
+      "content": "- Watchdog 安装（300 秒间隔）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.756Z",
+      "lastSeen": "2026-03-25T05:02:04.756Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924757-drut",
+      "category": "event",
+      "content": "2. **新安装 Skill**（clawhub install）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.757Z",
+      "lastSeen": "2026-03-25T05:02:04.757Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924757-s0e7",
+      "category": "decision",
+      "content": "- memory/warm/WARM_MEMORY.md（稳定系统配置）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.757Z",
+      "lastSeen": "2026-03-25T05:02:04.757Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924757-sfjq",
+      "category": "event",
+      "content": "5. **深度优化指南**（Obsidian 新建）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.757Z",
+      "lastSeen": "2026-03-25T05:02:04.757Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924758-wh2w",
+      "category": "decision",
+      "content": "- 内容：记忆系统、Agent 配置、Skill 管理、Cron 调度、上下文工程",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.758Z",
+      "lastSeen": "2026-03-25T05:02:04.758Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924758-jvy8",
+      "category": "case",
+      "content": "- 用于记录学习、错误、功能请求",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.758Z",
+      "lastSeen": "2026-03-25T05:02:04.758Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924758-ga51",
+      "category": "event",
+      "content": "🚨 QMD 严重故障（03:03 发现）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.758Z",
+      "lastSeen": "2026-03-25T05:02:04.758Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924759-7mv5",
+      "category": "case",
+      "content": "**问题**：QMD memory search 完全失效！",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.759Z",
+      "lastSeen": "2026-03-25T05:02:04.759Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924759-t1c5",
+      "category": "event",
+      "content": "**根因**：qmd 从源码安装（bun install），但没有 build。缺少 `dist/cli/qmd.js` 文件。",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.759Z",
+      "lastSeen": "2026-03-25T05:02:04.759Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924759-8fb2",
+      "category": "event",
+      "content": "**可能的修复方案**：",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.759Z",
+      "lastSeen": "2026-03-25T05:02:04.759Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924760-26ve",
+      "category": "event",
+      "content": "2. 或者重新用 npm 安装 qmd（npm 会 build）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.760Z",
+      "lastSeen": "2026-03-25T05:02:04.760Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924760-8kuu",
+      "category": "decision",
+      "content": "重大事件：成功配置本地语义搜索 + 切换到主版 openclaw",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.760Z",
+      "lastSeen": "2026-03-25T05:02:04.760Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924760-2702",
+      "category": "event",
+      "content": "# 完成事项",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.760Z",
+      "lastSeen": "2026-03-25T05:02:04.760Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924761-evvx",
+      "category": "event",
+      "content": "- 通过 Homebrew 安装 ollama v0.18.2",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.761Z",
+      "lastSeen": "2026-03-25T05:02:04.761Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924761-1aev",
+      "category": "decision",
+      "content": "- 配置 OpenClaw memorySearch 使用 Ollama（provider=openai + remote.baseUrl=http://localhost:11434/v1）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.761Z",
+      "lastSeen": "2026-03-25T05:02:04.761Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924761-0amf",
+      "category": "decision",
+      "content": "- 主版 doctor 无 invalid config 错误，配置干净通过",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.761Z",
+      "lastSeen": "2026-03-25T05:02:04.761Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924762-o3pb",
+      "category": "decision",
+      "content": "3. **主版配置兼容性确认**",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.762Z",
+      "lastSeen": "2026-03-25T05:02:04.762Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924762-4z1k",
+      "category": "case",
+      "content": "# 教训",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.762Z",
+      "lastSeen": "2026-03-25T05:02:04.762Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924763-ctau",
+      "category": "decision",
+      "content": "- 配置修改后 gateway 会自动热重载，不需要手动重启",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.763Z",
+      "lastSeen": "2026-03-25T05:02:04.763Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924763-rxax",
+      "category": "case",
+      "content": "重大事件：Gateway SIGTERM 循环问题",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.763Z",
+      "lastSeen": "2026-03-25T05:02:04.763Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924763-xoo6",
+      "category": "event",
+      "content": "Claude Code 深度排查并解决了两个关键问题：",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.763Z",
+      "lastSeen": "2026-03-25T05:02:04.763Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924764-w7jw",
+      "category": "case",
+      "content": "- 每 30 秒检查 health，失败就重启，没有考虑 startup-grace",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.764Z",
+      "lastSeen": "2026-03-25T05:02:04.764Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924764-nah7",
+      "category": "event",
+      "content": "- **解决**：禁用 watchdog，使用原生 launchd 服务",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.764Z",
+      "lastSeen": "2026-03-25T05:02:04.764Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924764-qrdc",
+      "category": "case",
+      "content": "# 2. openclaw vs openclaw-cn 混用问题",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.764Z",
+      "lastSeen": "2026-03-25T05:02:04.764Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924765-k4o5",
+      "category": "case",
+      "content": "- 之前错误地将 openclaw 升级到 2026.3.22",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.765Z",
+      "lastSeen": "2026-03-25T05:02:04.765Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924765-orcn",
+      "category": "case",
+      "content": "- 协议不匹配导致 WebSocket 1008 错误",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.765Z",
+      "lastSeen": "2026-03-25T05:02:04.765Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924765-wpwh",
+      "category": "event",
+      "content": "- **解决**：回退到 openclaw-cn v0.1.8-fix.3",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.765Z",
+      "lastSeen": "2026-03-25T05:02:04.765Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924766-qo0q",
+      "category": "decision",
+      "content": "- 所有路径、配置都要明确是哪个版本",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.766Z",
+      "lastSeen": "2026-03-25T05:02:04.766Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924766-luwf",
+      "category": "decision",
+      "content": "下午续：QMD 配置",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.766Z",
+      "lastSeen": "2026-03-25T05:02:04.766Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924767-n9zs",
+      "category": "event",
+      "content": "# 完成事项",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.767Z",
+      "lastSeen": "2026-03-25T05:02:04.767Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924767-xdiq",
+      "category": "event",
+      "content": "- Bun 安装：brew install oven-sh/bun/bun（但最终用 npm 安装 qmd）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.767Z",
+      "lastSeen": "2026-03-25T05:02:04.767Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924767-z94a",
+      "category": "event",
+      "content": "- QMD 安装：npm install -g @tobilu/qmd（bun install -g github 源码无 dist，要用 npm）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.767Z",
+      "lastSeen": "2026-03-25T05:02:04.767Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924768-ozii",
+      "category": "event",
+      "content": "- Collection 创建：qmd collection add ~/.openclaw/workspace --name openclaw-memory --mask '**/*.md'（213 files）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.768Z",
+      "lastSeen": "2026-03-25T05:02:04.768Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924768-38re",
+      "category": "decision",
+      "content": "# QMD 配置完成（22:39）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.768Z",
+      "lastSeen": "2026-03-25T05:02:04.768Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924768-9b5l",
+      "category": "decision",
+      "content": "# QMD 配置详细经验（已沉淀 Obsidian）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.768Z",
+      "lastSeen": "2026-03-25T05:02:04.768Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924769-jts1",
+      "category": "decision",
+      "content": "- 新建笔记：VibeCoding/05-QMD配置笔记.md",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.769Z",
+      "lastSeen": "2026-03-25T05:02:04.769Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924769-nmtt",
+      "category": "case",
+      "content": "- 核心问题：Node.js fetch 不走代理，qmd hf_transfer 也不走代理",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.769Z",
+      "lastSeen": "2026-03-25T05:02:04.769Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924770-xeio",
+      "category": "event",
+      "content": "- 解决：patch getRemoteEtag 函数用 curl 替代 Node.js fetch，走代理下载模型",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.770Z",
+      "lastSeen": "2026-03-25T05:02:04.770Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924770-av0m",
+      "category": "decision",
+      "content": "#  Obsidian 知识库更新",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.770Z",
+      "lastSeen": "2026-03-25T05:02:04.770Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924771-hwzh",
+      "category": "decision",
+      "content": "- 已更新 01-OpenClaw配置笔记.md（QMD 章节）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.771Z",
+      "lastSeen": "2026-03-25T05:02:04.771Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924771-fwi4",
+      "category": "decision",
+      "content": "- 新建 05-QMD配置笔记.md（完整流程 + 踩坑记录）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.771Z",
+      "lastSeen": "2026-03-25T05:02:04.771Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774414924771-fes7",
+      "category": "decision",
+      "content": "- 索引笔记 00-索引.md 更新双向链接",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-03-25T05:02:04.771Z",
+      "lastSeen": "2026-03-25T05:02:04.771Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1774415254797-a178",
+      "category": "preference",
+      "content": "用户喜欢简洁直接的回复风格",
+      "tier": "working",
+      "scope": "global",
+      "accessCount": 1,
+      "confidence": 0.9,
+      "firstSeen": "2026-03-25T05:07:34.795Z",
+      "lastSeen": "2026-03-25T05:07:34.795Z",
+      "decayInfo": {
+        "categoryRate": 0.03,
+        "categoryDesc": "偏好/习惯，稳定但可能变",
+        "tierMult": 1
+      }
+    },
+    {
+      "id": "mem-1774415259106-ak5u",
+      "category": "preference",
+      "content": "用户喜欢冗长详细的回复",
+      "tier": "working",
+      "scope": "global",
+      "accessCount": 2,
+      "confidence": 0.9,
+      "firstSeen": "2026-03-25T05:07:39.105Z",
+      "lastSeen": "2026-03-25T05:07:50.739Z",
+      "decayInfo": {
+        "categoryRate": 0.03,
+        "categoryDesc": "偏好/习惯，稳定但可能变",
+        "tierMult": 1
+      }
+    }
+  ],
+  "version": "1.0"
+}

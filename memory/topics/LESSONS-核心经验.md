@@ -58,6 +58,12 @@ cp ~/settings-backup.json ~/.claude/settings.json
 - 结果输出到 `~/.openclaw/claude-code-results/latest.json`
 - 通过 Wake Event 通知 OpenClaw
 
+## 8. QMD 从源码安装缺少 dist/ 目录（2026-03-25）
+- qmd 用 `bun install` 从源码安装，结果缺少编译后的 `dist/cli/qmd.js`
+- `bin/qmd` 脚本依赖 `dist/cli/qmd.js`，无法运行
+- 修复：需要 `bun run build` 编译，或重新用 npm 安装
+- 验证命令：`openclaw memory search "test"` 应返回结果
+
 ## 8. Session Memory 配置
 ```json
 "memorySearch": {
@@ -118,3 +124,24 @@ cp ~/settings-backup.json ~/.claude/settings.json
 - 子 agent 做 GitHub 操作时不要硬编码 PAT，要用 `$GITHUB_TOKEN` 或让 gh 自动处理
 - 正确示范：`gh repo create <name> --public --source <dir> --push`
 - 错误示范：`curl -H "Authorization: token <PAT>" https://api.github.com/...`
+
+## 14. ACT-R 记忆衰减算法（2026-03-25 新增）
+**比 Weibull 更好的方案：**
+- ACT-R 公式：`B(M) = ln(n+1) - 0.5 × ln(age/(n+1))`
+- 天然平衡访问次数 + 访问间隔，不需要形状参数
+- 对数平滑：前几次访问收益最大（和间隔重复原理完全一致）
+- 参考实现：MuninnDB（认知数据库）
+
+**六分类衰减率：**
+profile(0.01) → preference(0.03) → case(0.05) → entity(0.08) → pattern(0.10) → event(0.15)
+
+**未来要做（已记录）：**
+- Hebbian 联想学习（同时激活的记忆关联）
+- 多记忆关联图谱
+
+## 15. memory-pro Skill（2026-03-25 新增）
+→ 技能路径：`~/.openclaw/workspace/skills/memory-pro/`
+- ACT-R 激活计算（已实现）
+- 六分类 + 分类衰减系数（已实现）
+- Bayesian 置信度矛盾检测（已实现，pattern 版本）
+- Hebbian/关联图谱（未来再做）
