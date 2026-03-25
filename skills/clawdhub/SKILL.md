@@ -24,8 +24,12 @@ clawdhub search "postgres backups"
 
 Install
 ```bash
-clawdhub install my-skill
-clawdhub install my-skill --version 1.2.3
+# ⚠️ IMPORTANT: Always install to ~/.openclaw/workspace/skills/
+# clawdhub installs into <dir>/<slug>, so give full path
+clawdhub install ~/.openclaw/workspace/skills/my-skill
+clawdhub install ~/.openclaw/workspace/skills/my-skill --version 1.2.3
+
+# DO NOT install to default path (~/.claw/skills/) — OpenClaw won't find it!
 ```
 
 Update (hash-based match + upgrade)

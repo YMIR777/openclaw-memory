@@ -36,6 +36,19 @@ SIGTERM 根因、版本选择、日志路径
 → [[memory/topics/ROUTING-模型路由.md]]
 子 Agent 路由规则、Coding Plan 特性
 
+## 📱 OpenHarmony 开发
+→ [[memory/topics/OPENHARMONY-OpenHarmony开发经验.md]]
+BMI 项目踩坑：Arc 组件不存在、Builder 接口声明、height 属性名冲突、wizard 项目结构等
+
+## 🔧 Skills 管理规范（2026-03-25 新增）
+→ [[memory/topics/SKILLS-Skills管理规范.md]]
+
+## 📐 PlantUML UML 绘图
+→ [[memory/topics/PLANTUML-PlantUML语法与实践.md]]
+活动图、泳道图、新旧语法混用陷阱、PlantUML 1.2026.2 实战经验
+
+## 📅 最近事件
+
 ---
 
 ## 📅 最近事件
@@ -46,6 +59,8 @@ SIGTERM 根因、版本选择、日志路径
 - skills-manager 推送到 https://github.com/YMIR777/skills-manager
 - Token 优化配置应用：contextPruning、heartbeat.lightContext、thinkingDefault:high
 - MEMORY.md 拆分为 topics/ 目录
+- **PlantUML 完成 UML 作业**：收银用例活动图 + 泳道图，路径 `~/Documents/trae_projects/UML作业/`
+- 沉淀 PlantUML 语法踩坑记录到 `memory/topics/PLANTUML-PlantUML语法与实践.md` 和 Obsidian
 
 ### 2026-03-24
 - QMD 语义搜索配置完成（620 向量、213 文件）
@@ -57,6 +72,7 @@ SIGTERM 根因、版本选择、日志路径
 
 ## 📁 项目路径
 - 作业目录：`/Users/Ymir/Documents/trae_projects`
+- **UML 作业**：`/Users/Ymir/Documents/trae_projects/UML作业/`
 - Vibe 项目：`/Users/Ymir/Documents/vibe-projects`
 - SpecKit 项目：`/Users/Ymir/Documents/vibe-projects/spec-kit-setup`
 - MyDiary：`/Users/Ymir/Documents/vibe-projects/spec-kit-setup/mydiary`
