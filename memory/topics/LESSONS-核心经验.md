@@ -313,3 +313,75 @@ import { AsyncCallback } from '@ohos.base';
 **这次犯的错：** 创建了 `oh-uni-package.json`，这是一个不存在的文件格式，干扰了 DevEco 的项目解析。
 
 **原则：** 对于不熟悉的框架/平台，先查清楚实际存在的文件结构再动手，不要根据名字猜测或捏造。
+
+## 24. ArkTS布局调试:Row/Column构造参数（2026-03-26 新增）
+
+**Row/Column的justifyContent/alignItems是链式调用，不是构造参数：**
+```typescript
+// ❌ 报错：Argument of type '{ justifyContent: FlexAlign }' is not assignable
+Row({ justifyContent: FlexAlign.Start }) { ... }
+
+// ✅ 正确：justifyContent 是链式方法
+Row() {
+  Text('标题')
+    .justifyContent(FlexAlign.Start)
+    .alignItems(HorizontalAlign.Start)
+}
+```
+
+## 25. EdgeEffect.Spring会导致滚动松手后自动弹回（2026-03-26 新增）
+
+**症状：** 滚动条位置松开鼠标后自动弹回顶部，内容无法正常滚动浏览。
+
+**原因：** `EdgeEffect.Spring` 会在到达边界时自动回弹，和页面内容滚动冲突。
+
+**解决：** 如果不需要弹性效果，用 `EdgeEffect.None`：
+```typescript
+Scroll() {
+  ...
+}
+.scrollBar(BarState.Auto)
+.edgeEffect(EdgeEffect.None)  // ✅ 不弹回
+.layoutWeight(1)
+```
+
+## 26. OpenHarmony单屏UI设计要点（2026-03-26 新增）
+
+**目标：** 不依赖滚动，在一个屏幕内展示完整 BMI 计算器。
+
+**布局原则：**
+- 顶部渐变背景用固定 `height(160)` 而不是 `height('100%')`（后者会让 Stack/Column 无限撑大）
+- 避免使用 canvas 仪表盘（绘制复杂、渲染不稳定），用大字体数字代替
+- 移除「计算」按钮，滑块实时计算更现代
+- 健康建议卡、参考表格都用固定高度或 Grid 自适应
+- 外层 Column 不设置 `height('100%')`，让 Scroll 用 `layoutWeight(1)` 填满剩余空间
+- 内容区用 `padding()` 控制边距，而不是每个元素单独 `margin()`
+
+## 27. ArkTS链式调用属性顺序（2026-03-26 新增）
+
+ArkTS 的属性链有顺序要求，先设置父容器属性再设置子元素：
+```typescript
+// ✅ 先宽度再内容
+Column() {
+  Text('hello')
+    .fontSize(16)
+    .fontColor('#333')
+}
+.width('100%')
+.padding(16)
+
+// ❌ 先子元素后父容器（可能报错）
+Column() {
+  Text('hello')
+}
+.width('100%')  // 写在 Column 的属性链里可能无效
+.padding(16)
+```
+
+## 28. 健康建议tip不显示的常见原因（2026-03-26 新增）
+
+**这次症状：** tip 文本完全不显示。
+
+**原因：** `Text(this.bmiData.tip)` 的 `.width('100%')` 属性链被错误的 Row/Column 结构截断，导致容器没有正确撑开。
+
+**排查方法：** 用 DevEco Preview 看不出哪里不显示时，先简化结构，单独拎出 tip 看是否渲染，逐步加回去定位问题。

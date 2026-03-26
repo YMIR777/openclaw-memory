@@ -237,3 +237,43 @@ animateTo({ duration: 400, curve: Curve.EaseOut }, () => { ... });
 - 根构建配置：`bmilxf202404020218/build-profile.json5`
 - 模块构建配置：`bmilxf202404020218/entry/build-profile.json5`
 - Hvigor 配置：`bmilxf202404020218/hvigor/hvigor-config.json5`
+
+---
+
+## UI 布局设计（BMI 计算器实战）
+
+### 单屏适配原则
+
+目标：不依赖滚动，一个屏幕内展示完整内容。
+
+**布局层次：**
+```
+Column(height:100%)
+  ├── Column(height:固定值) → 渐变顶部背景
+  └── Scroll(layoutWeight:1) → 占据剩余空间
+        └── Column → 内容区（padding控制边距）
+              ├── BMI大数字展示
+              ├── 健康建议卡
+              ├── 身高体重滑块
+              └── BMI参考表格
+```
+
+**关键：**
+- 外层 Column 不写 height，内容自然撑开
+- Scroll 用 `layoutWeight(1)` 填满除顶部背景外的所有空间
+- 顶部背景固定高度，内容区不蹭入背景
+
+### BMI 计算器最终设计
+
+- 大字体 BMI 数字（64px）+ 等级标签 + 身高体重文字
+- 健康建议卡片（白色圆角 + 阴影）
+- 两个 Slider 上下排列（带数值标签和两端 min/max 文字）
+- Grid 2x2 做 BMI 参考表格
+- 整体背景色 `#F6F8FF`，卡片白色
+
+### 避开的坑
+
+1. `EdgeEffect.Spring` 导致滚动自动弹回 → 改用 `EdgeEffect.None`
+2. 渐变背景用 `height('100%')` 撑大 Stack → 固定 px 高度
+3. Row/Column 构造参数里写 justifyContent → 链式调用
+4. 健康建议不显示 → 简化结构排查
