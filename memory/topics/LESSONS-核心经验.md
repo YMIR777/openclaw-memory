@@ -164,3 +164,152 @@ profile(0.01) → preference(0.03) → case(0.05) → entity(0.08) → pattern(0
 - 用户说"记住这个" → 立即写
 - 用户纠正错误 → 立即更新
 - 开始新任务前 → 先搜索历史
+
+## 17. 诚实准则：不确定就说不知道（2026-03-25 新增）
+**触发时刻：** 被问到不确定的事实、数据、配置时
+
+**规则：**
+- 不编数字（"大概6GB"、"可能没错"）
+- 不猜配置
+- 正确回应："这个我不确定，需要查一下"
+- 如果无法查，主动承认不知道
+
+**违反案例（2026-03-25）：**
+- 说了"qwen2.5:7b 大概6GB RAM" → 实际没查过，是现编的
+- 说了"deep-research push失败" → 实际成功了，误报
+
+**记忆要求：** 每次被纠正"你搞错了"，必须同步更新记忆，不只是本次会话知道
+
+## 18. 沟通透明度准则（2026-03-25 新增）
+**任务结果必须明确报告：**
+- ✅ 成功：说明实际结果
+- ❌ 失败：说明失败原因 + 需要什么才能成功
+- ⚠️ 部分成功：说明哪部分成功、哪部分失败
+
+**禁止：**
+- 只报告成功的部分，隐瞒失败的部分
+- 事后才说"其实那次失败了"
+
+**违反案例（2026-03-25）：**
+- deep-research push 两次尝试后成功，但没向用户说明中间失败过
+
+## 📱 OpenHarmony 开发经验（2026-03-26 新增）
+
+### 关键发现
+1. **DevEco Studio vs CLI**：hvigorw CLI 需要完整环境变量，但 Studio 内部已配置好。日常开发用 Studio GUI，CLI 仅作辅助。
+2. **hvigor 缓存路径问题**：最常见的 ENOENT 错误根因是 `~/.hvigor/project_caches/<hash>/workspace/node_modules/@ohos/hvigor` 的 symlink 指向错误路径（项目移动后旧缓存未更新）。
+3. **系统 API 不需要安装**：`@ohos/hilog`、`@ohos.app.ability.UIAbility` 等是 SDK 内置的，**不要**写在 `oh-package.json5` 的 dependencies 里。
+4. **SDK 版本格式**：OpenHarmony 用整数（`compileSdkVersion: 10`），HarmonyOS 用字符串（`"5.0.5(17)"`）。
+
+### OpenHarmony 项目标准结构
+```
+project/
+├── hvigor/                    # 从 DevEco SDK 复制
+├── hvigor-ohos-plugin/        # 从 DevEco SDK 复制
+├── hvigorw / hvigorw.js       # 从 DevEco SDK 复制
+├── build-profile.json5         # compileSdkVersion: 10
+├── hvigor-config.json5         # modelVersion: "6.21.1"
+├── hvigorfile.ts              # import { appTasks }
+├── package.json
+├── oh-package.json5
+├── AppScope/
+│   ├── app.json5
+│   └── resources/base/element/string.json
+└── entry/
+    ├── build-profile.json5
+    ├── hvigorfile.ts          # import { hapTasks }
+    ├── oh-package.json5        # dependencies: {}
+    └── src/main/
+        ├── module.json5
+        ├── ets/
+        │   ├── entryability/EntryAbility.ets
+        │   └── pages/Index.ets
+        └── resources/base/
+            ├── element/string.json
+            ├── element/color.json
+            ├── profile/main_pages.json
+            └── media/icon.png
+```
+
+### Canvas 绑定要点
+- `RenderingContextSettings(true)` + `CanvasRenderingContext2D(settings)` ✅
+- `lineCap: "round"` / `"butt"` / `"square"` ✅（字符串，不是枚举）
+- `RoundCap` 枚举 ❌（OpenHarmony 没有这个）
+
+### 速查：常见错误
+- ENOENT hvigor.js → 删除 `~/.hvigor/project_caches/<hash>/workspace`
+- compileSdkVersion must be > 7 → 改为 10
+- modules must be array → 添加 modules 数组到 build-profile.json5
+- Missing oh-package.json5 → 创建根目录的 oh-package.json5
+
+---
+
+## 18. 不要在用户决策前擅自行动（2026-03-26 新增）
+
+**这次犯的错：** 用户说"没有 DevEco Studio for OpenHarmony"，我直接信了开始改文件；用户删 DevEco 后还继续改文件——改完他也用不了。
+
+**正确做法：** 用户提出疑问 → 先确认实际情况 → 提出方案 → 等用户同意再执行。
+
+## 19. "工程同步失败"不需要重装DevEco（2026-03-26 新增）
+
+**这次犯的错：** 看到 projectModel is null，错误地归咎于 DevEco 版本，推荐用户删 1.1GB SDK 重装。实际上 DevEco 提示里有迁移工具 `Migrate Assistant`，能直接解决根本问题。
+
+**关键日志：**
+```
+build profile json5 module array is null
+工程结构及配置需要升级后才能使用
+```
+
+**正确做法：** DevEco 提示"需要迁移"→ 用 Tools → Migrate Assistant，不要重装。
+
+## 20. OpenHarmony项目结构核心关键（2026-03-26 新增）
+
+**DevEco 识别模块的核心：** 根 `build-profile.json5` 必须有 `modules` 数组，声明每个模块的 name 和 srcPath。DevEco 先解析 modules 列表，再去找对应的 module.json5。如果 modules 数组为空或缺失，projectModel 就是 null，同步必败。
+
+**缺失 modules 数组的症状：**
+- Module 下拉框显示 [none]
+- 日志：`load project data error. Cause:project model is null`
+- 日志：`build profile json5 module array is null`
+
+## 21. hvigor-config.json5格式变迁（2026-03-26 新增）
+
+**新版格式（hvigor 3.x+）：**
+```json5
+{
+  "modelVersion": "6.0.1",
+  "dependencies": {},
+  "execution": {},
+  "logging": {},
+  "debugging": {}
+}
+```
+
+**旧版格式（报错）：**
+```json5
+{
+  "modelVersion": "6.0.1",
+  "models": [{ "name": "default", "tools": { "hvigorVersion": "3.4.0" } }]
+}
+```
+
+**报错：`Schema validate failed... must have required property 'dependencies'`**
+
+## 22. ArkTS严格模式:对象字面量不能做类型声明（2026-03-26 新增）
+
+```typescript
+// ❌ 报错：Object literals cannot be used as type declarations
+(err: { code: number }) => { ... }
+
+// ✅ 改用 try-catch 代替回调类型
+windowStage.loadContent('pages/Index');  // try-catch 版本
+
+// ✅ 或使用已声明的类型
+import { AsyncCallback } from '@ohos.base';
+(err: AsyncCallback<void>) => { ... }
+```
+
+## 23. 不要创建不存在的文件（2026-03-26 新增）
+
+**这次犯的错：** 创建了 `oh-uni-package.json`，这是一个不存在的文件格式，干扰了 DevEco 的项目解析。
+
+**原则：** 对于不熟悉的框架/平台，先查清楚实际存在的文件结构再动手，不要根据名字猜测或捏造。
