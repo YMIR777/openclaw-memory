@@ -204,6 +204,44 @@ profile(0.01) → preference(0.03) → case(0.05) → entity(0.08) → pattern(0
 ### OpenHarmony 项目标准结构
 ```
 project/
+├── hvigorfile.ts              # 必须：import { appTasks }
+├── hvigor/                    # 必须：普通目录（不是 symlink）
+│   └── hvigor-config.json5
+├── build-profile.json5         # 必须：含 modules[] 数组
+├── oh-package.json5
+├── code-linter.json5
+├── local.properties
+├── AppScope/
+│   ├── app.json5
+│   └── resources/base/element/string.json
+└── entry/
+    ├── build-profile.json5     # 必须：含 apiType: stageMode + targets[]
+    ├── hvigorfile.ts
+    ├── oh-package.json5
+    ├── obfuscation-rules.txt
+    └── src/main/
+        ├── module.json5        # 必须：含 deviceTypes:["phone"], pages, mainElement
+        ├── ets/                # 含 EntryAbility.ets, pages/Index.ets
+        └── resources/         # 含 base/element/color.json, media/, profile/
+
+module.json5 关键字段：
+{
+  "module": {
+    "name": "entry",
+    "type": "entry",
+    "mainElement": "MainAbility",     // 主 Ability 名称
+    "deviceTypes": ["phone"],          // ⚠️ 必须有，设备类型
+    "pages": "$profile:main_pages",   // ⚠️ 必须有，页面路由
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "abilities": [{ "name": "MainAbility", "srcEntry": "./ets/entryability/EntryAbility.ets", ... }]
+  }
+}
+```
+
+### OpenHarmony 项目标准结构
+```
+project/
 ├── hvigor/                    # 从 DevEco SDK 复制
 ├── hvigor-ohos-plugin/        # 从 DevEco SDK 复制
 ├── hvigorw / hvigorw.js       # 从 DevEco SDK 复制
@@ -385,3 +423,77 @@ Column() {
 **原因：** `Text(this.bmiData.tip)` 的 `.width('100%')` 属性链被错误的 Row/Column 结构截断，导致容器没有正确撑开。
 
 **排查方法：** 用 DevEco Preview 看不出哪里不显示时，先简化结构，单独拎出 tip 看是否渲染，逐步加回去定位问题。
+
+## 29. 工具失败时必须停下来，不能猜测内容继续做（2026-03-26 新增）
+
+**这次犯的错：** 用户发来参考图，我用 `image` 工具读取失败，尝试复制到 workspace 也失败，连续两次工具失败后我没有停下来，而是**猜测了一个 ATM 存款流程图**继续做，两次都基于我自己编造的内容而非用户的实际需求。
+
+**根因：** 工具失败 → 尝试修复 → 修复不了 → **没有停下来问用户**，而是"将错就错"猜一个内容继续。
+
+**正确工作流程：**
+```
+工具失败 → 尝试修复（最多1-2次）→ 仍失败 → 停下来告诉用户
+                                              ↓
+                        "我无法读取这张图，能否换一种方式发送？"
+```
+
+**禁止的行为：**
+- 看到工具报错就当没看见，继续往下做
+- 工具失败后"将错就错"猜一个内容继续做
+- 编造用户的任务目标（"ATM存款"、"UML作业"等）
+
+**为什么重要：** 用户不需要你编的东西，如果你做的东西不是他要求的，做了等于没做，还浪费双方时间。
+
+**记忆要求：** 写入 AGENTS.md 的「Safety」章节 + LESSONS-核心经验.md + HEARTBEAT.md 检查清单。
+
+## 12. Canvas 拖拽绘图定位算法（2026-04-01）
+**场景：** HTML5 Canvas 画图工具，拖拽绘制圆形/矩形
+
+**错误做法：** 圆心直接用鼠标终点坐标
+**正确做法（标准拖拽逻辑）：**
+```
+起点 (x1, y1)，终点 (x2, y2)
+图形中心 = ((x1+x2)/2, (y1+y2)/2)
+圆形半径 = distance(起点, 终点) / 2
+矩形宽高 = |x2-x1|, |y2-y1|
+```
+
+**点击 vs 拖拽区分：** distance < 2px 视为点击，用固定大小
+
+## 13. Python 3.14 + matplotlib 中文字体问题（2026-03-27）
+- **问题**：`FontProperties(fname='/System/Library/Fonts/STHeiti Medium.ttc')` 找不到字体，文字变方块（tofu）
+- **根因**：Python 3.14 matplotlib 字体注册机制变化
+- **方案**：弃用 matplotlib，改用 **Pillow (PIL)** 渲染图片
+  ```python
+  from PIL import Image, ImageDraw, ImageFont
+  FONT = '/System/Library/Fonts/Hiragino Sans GB.ttc'
+  fnt = ImageFont.truetype(FONT, size)  # 对 TTC 支持好
+  ```
+
+## 13. Pillow rounded_rectangle width 必须是整数
+- `width=1.5` → 报错 `TypeError: 'float' object cannot be interpreted as an integer`
+- 解决：所有 width 参数用整数
+
+## 14. 作业图片生成流程（最佳实践）
+- **优先级**：Pillow > matplotlib（中文场景）
+- **Word 图片**：Pillow 渲染 PNG → `docx.add_picture()` 插入
+- **Excel**：openpyxl 库
+
+## 30. 响应沟通三段模式（2026-04-03）🆕
+
+**问题：** 收到消息后空转，网页端无任何反馈，用户以为没在做事。
+
+**沟通三段模式：**
+1. 收到消息 → 立即回复"收到，我要做X"（1秒内）
+2. 然后深度思考/执行（不用用户盯着）
+3. 完成后汇报结果
+
+**核心原则：** 不放弃深度思考，只需要中间有交代。
+- 用户不怕等，怕不知道你在不在
+- 先确认再思考，最后汇报 = 沟通闭环
+
+**错误理解纠正：**
+- 解决方案不是"不要想清楚再说"，而是"想的时候让我知道你在想"
+- 用户明确不要我放弃深度思考，但要我给进度反馈
+
+**记忆锚点：** hot/HOT_MEMORY.md 已记录、HEARTBEAT.md 已更新。

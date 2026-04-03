@@ -277,3 +277,115 @@ Column(height:100%)
 2. 渐变背景用 `height('100%')` 撑大 Stack → 固定 px 高度
 3. Row/Column 构造参数里写 justifyContent → 链式调用
 4. 健康建议不显示 → 简化结构排查
+
+---
+
+## 🆕 2026-04-02 新增：旋转风车项目踩坑总结
+
+### 教训1：DevEco 无法识别项目的两个致命原因
+
+**原因A：根目录 `hvigorfile.ts` 缺失**
+- 这是 DevEco 识别项目根目录的核心文件
+- 必须内容：`import { appTasks } from '@ohos/hvigor-ohos-plugin'; export default { system: appTasks, plugins: [] };`
+- 手动创建项目时经常漏掉这个文件
+
+**原因B：`hvigor/` 是 symlink 而非真实目录**
+- 错误做法：从 DevEco 安装目录做符号链接 `ln -s /Applications/DevEco-Studio.app/Contents/tools/hvigor ./hvigor`
+- 正确做法：`hvigor/` 必须是普通目录，里面只放 `hvigor-config.json5`
+
+### 教训2：`module.json5` 缺少 `deviceTypes` 导致 BUILD FAILED
+
+**症状：**
+```
+Error: Unable to obtain the module deviceTypes.
+```
+
+**必须包含的字段：**
+```json5
+{
+  "module": {
+    "name": "entry",
+    "type": "entry",
+    "mainElement": "MainAbility",      // 主 Ability 名称
+    "deviceTypes": ["phone"],           // ⚠️ 必须有，否则编译失败
+    "pages": "$profile:main_pages",     // ⚠️ 必须有
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "abilities": [{
+      "name": "MainAbility",
+      "srcEntry": "./ets/entryability/EntryAbility.ets",
+      ...
+    }]
+  }
+}
+```
+
+### 教训3：`main_pages.json` 放错目录导致编译失败
+
+**症状：**
+```
+Error: Config Error. Invalid node name 'src'.
+Valid values: ["boolean","color","float","id","integer","pattern","plural","strarray","string","symbol","theme"]
+```
+
+**原因：** `main_pages.json` 错误地放在了 `resources/base/element/` 下
+
+**正确位置：** `resources/base/profile/main_pages.json`
+
+### 教训4：`.preview/` 目录损坏导致白屏
+
+**症状：** Previewer 和模拟器都显示白屏，但 Build 成功，无报错
+
+**原因：** `.preview/` 目录被删除或结构损坏（嵌套了 `.preview/.preview/`），里面的配置路径还指向旧项目
+
+**修复方法：**
+1. 从能正常 Preview 的项目（MyApplication）复制 `.preview/` 目录
+2. 更新 `PreviewBuildParam.json` 和 `config/buildConfig.json` 中的所有路径
+3. 或者更简单：**关闭 DevEco，然后重新打开目标项目**，DevEco 会自动重新生成
+
+**`.preview/` 正常结构：**
+```
+entry/.preview/
+├── PreviewBuildParam.json    # 包含项目路径（APP_RESOURCES、MODULE_RESOURCES 等）
+├── config/
+│   └── buildConfig.json      # 包含 localPropertiesPath、aceModuleRoot 等路径
+└── default/
+    ├── generated/
+    ├── intermediates/
+    └── cache/
+```
+
+### 教训5：每次创建项目必须包含的配置清单
+
+| 文件 | 位置 | 必须性 |
+|------|------|--------|
+| `hvigorfile.ts` | 根目录 | 必须 |
+| `hvigor/` | 根目录（普通目录，非 symlink） | 必须 |
+| `hvigor-config.json5` | `hvigor/` 内 | 必须 |
+| `build-profile.json5` | 根目录（含 modules[]） | 必须 |
+| `oh-package.json5` | 根目录 | 必须 |
+| `local.properties` | 根目录 | 必须 |
+| `AppScope/app.json5` | AppScope 内 | 必须 |
+| `entry/build-profile.json5` | entry 内 | 必须 |
+| `entry/hvigorfile.ts` | entry 内 | 必须 |
+| `entry/src/main/module.json5` | 含 deviceTypes、pages、mainElement | 必须 |
+| `entry/src/main/ets/entryability/EntryAbility.ets` | 含 loadContent | 必须 |
+| `entry/src/main/ets/pages/Index.ets` | 入口页面 | 必须 |
+| `entry/src/main/resources/base/profile/main_pages.json` | 路由配置 | 必须 |
+
+### 教训6：最可靠的项目创建流程
+
+1. 在 DevEco 里 **New Project** 创建空项目（选 OpenHarmony Stage 模型）
+2. DevEco 会生成 100% 正确的项目结构
+3. 把 `pages/Index.ets` 替换成自己的代码
+4. **不要删除 `.preview/` 目录**
+5. **不要手动创建 hvigor 相关文件**（从 DevEco New Project 生成的结构出发）
+
+### 教训7：白屏排查流程
+
+1. 新建空项目 → Preview 能显示？→ YES = 项目配置问题，NO = DevEco/模拟器问题
+2. 检查 `.preview/` 目录是否损坏/嵌套
+3. 检查 `module.json5` 的 `deviceTypes`、`pages`、`mainElement`
+4. 检查 `main_pages.json` 是否在 `profile/` 目录
+5. 清理 build 缓存：`rm -rf entry/build build`，重新 Rebuild
+6. 检查 `loadContent('pages/Index')` 路径和文件名是否匹配

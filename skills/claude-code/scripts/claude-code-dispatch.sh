@@ -66,8 +66,7 @@ echo "Timeout: ${TIMEOUT}s"
 # Run Claude Code - it will complete and trigger hook automatically
 # Use print mode with timeout
 claude -p "$TASK_PROMPT" \
-  --dangerously-skip-permissions \
-  --permission-mode "approve-all" \
+  --allowed-tools Write \
   2>&1 | head -100 || true
 
 echo "Claude Code finished for task: $TASK_NAME"

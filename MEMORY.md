@@ -27,7 +27,7 @@ Skill、OpenSpec、SpecKit、Runtime 选择
 → [[memory/topics/GATEWAY-Gateway问题.md]]
 SIGTERM 根因、版本选择、日志路径
 
-## 🔒 OpenClaw 安全加固（2026-03-25）
+## 🔒 OpenClaw 安全加固
 → [[memory/topics/LESSONS-核心经验.md]] 第 1 条
 → [[OpenClaw-安全加固配置]]（Obsidian）
 安全审计：5 critical → 2 critical，elevated.allowFrom、strictInlineEval、Watchdog
@@ -40,42 +40,22 @@ SIGTERM 根因、版本选择、日志路径
 → [[memory/topics/OPENHARMONY-OpenHarmony开发经验.md]]
 BMI 项目踩坑：Arc 组件不存在、Builder 接口声明、height 属性名冲突、wizard 项目结构等
 
-## 🔧 Skills 管理规范（2026-03-25 新增）
+## 🔧 Ollama VL 模型
+→ [[memory/topics/OLLAMA-VISION-失败分析.md]]
+qwen2.5vl:3b 和 7B vision 模式探索全部失败，根因是 Ollama 融合 vision GGUF 架构限制。本地 vision 暂不可行，MiniMax VL 已打通作为主力。
+
+## 🔧 Skills 管理规范
 → [[memory/topics/SKILLS-Skills管理规范.md]]
 
 ## 📐 PlantUML UML 绘图
 → [[memory/topics/PLANTUML-PlantUML语法与实践.md]]
 活动图、泳道图、新旧语法混用陷阱、PlantUML 1.2026.2 实战经验
 
-## 📅 最近事件
+## 📅 近期重要事件（精简版）
 
----
-
-## 📅 最近事件
-
-### 2026-03-25
-- GitHub token 更新为 [GITHUB_TOKEN_REDACTED]（full repo scope）
-- gh keychain 认证完成，credential.helper=env 永久生效
-- skills-manager 推送到 https://github.com/YMIR777/skills-manager
-- Token 优化配置应用：contextPruning、heartbeat.lightContext、thinkingDefault:high
-- MEMORY.md 拆分为 topics/ 目录
-- **PlantUML 完成 UML 作业**：收银用例活动图 + 泳道图，路径 `~/Documents/trae_projects/UML作业/`
-- 沉淀 PlantUML 语法踩坑记录到 `memory/topics/PLANTUML-PlantUML语法与实践.md` 和 Obsidian
-
-### 2026-03-24
-- QMD 语义搜索配置完成（620 向量、213 文件）
-- VNC + WeChat 自动化验证成功
-- Claude Code Hooks 零轮询方案学习完成
-- Gateway SIGTERM 问题解决
-
----
-
-## 📁 项目路径
-- 作业目录：`/Users/Ymir/Documents/trae_projects`
-- **UML 作业**：`/Users/Ymir/Documents/trae_projects/UML作业/`
-- Vibe 项目：`/Users/Ymir/Documents/vibe-projects`
-- SpecKit 项目：`/Users/Ymir/Documents/vibe-projects/spec-kit-setup`
-- MyDiary：`/Users/Ymir/Documents/vibe-projects/spec-kit-setup/mydiary`
-- Obsidian：`~/Documents/个人知识体系/Ai工作流/VibeCoding/`
-- AI协作指南：`~/Documents/个人知识体系/Ai工作流/小黒的AI协作指南.md`
-  → 如何高效正确地使用 AI 助手（给小黑自己的用户手册）
+| 日期 | 事件 |
+|------|------|
+| 2026-04-01 | UML 作业：Shape 继承类图 + Canvas 画图工具，`~/Documents/trae_projects/UML作业/shape-inheritance/` |
+| 2026-03-27 | 基本路径测试作业（Sort ex2.3-1）：Pillow 渲染字体、流程图循环回边坐标问题 |
+| 2026-03-25 | GitHub token 更新 + gh keychain 认证完成；MEMORY.md 拆分为 topics/ 目录 |
+| 2026-03-24 | QMD 语义搜索配置完成（620 向量、213 文件）；VNC + WeChat 自动化验证成功 |

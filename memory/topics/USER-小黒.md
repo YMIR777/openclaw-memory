@@ -2,9 +2,15 @@
 
 ## 基本信息
 - 用户名：小黒秋
+- 真实姓名：罗翔夫
+- 学号：202404020218
 - 软件技术课程学生（Python, Java, JavaScript, SpringBoot, MySQL）
 - 作业目录：/Users/Ymir/Documents/trae_projects
 - 母语中文，但与 Claude Code 对话必须用英文
+
+## 项目命名规范
+- 作业项目名格式：姓名-学号-作业内容（如 `罗翔夫-202404020218-Shape继承类图`）
+- 以后创建项目时直接用这个格式
 
 ## 偏好
 - 不喜欢过于谄媚的回答

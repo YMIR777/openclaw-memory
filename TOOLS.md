@@ -1,41 +1,12 @@
 # TOOLS.md - Local Notes
 
-Skills define *how* tools work. This file is for *your* specifics — the stuff that's unique to your setup.
-
-## What Goes Here
-
-Things like:
-- Camera names and locations
-- SSH hosts and aliases  
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
-
-## Examples
-
-```markdown
-### Cameras
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
-
-### SSH
-- home-server → 192.168.1.100, user: admin
-
-### TTS
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
-```
-
-## Why Separate?
-
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
+Skills define *how* tools work. This file is for *your* specifics — environment-specific notes, device names, SSH hosts, voice preferences.
 
 ---
 
 ## 🖥️ Mac 自动化工具
 
-### macauto.py - 整合自动化工具
+### macauto.py
 位置：`~/.openclaw/workspace/tools/macauto.py`
 
 ```bash
@@ -56,11 +27,10 @@ python3 ~/.openclaw/workspace/tools/macauto.py wechat "联系人" "消息"
 - **pyautogui**: 1440 x 900 (实际分辨率)
 - **VNC**: 2880 x 1800 (Retina 2x)
 
-### 中文输入方案
+### 中文输入
 使用 pyperclip + Cmd+V 粘贴：
 ```python
-import pyperclip
-import pyautogui
+import pyperclip, pyautogui
 pyperclip.copy("中文")
 pyautogui.hotkey('command', 'v')
 ```
@@ -79,7 +49,7 @@ pyautogui.hotkey('command', 'v')
 ## 📦 API Keys
 
 - **Exa Search**: 8534dd8b-d68a-4736-b92c-0afdf1832715
-- **GitHub Token**: [GITHUB_TOKEN_REDACTED] (full repo scope)
+- **GitHub Token**: `$GITHUB_TOKEN` (via gh keychain, credential.helper=env)
 
 ## 🔖 常用技能仓库
 

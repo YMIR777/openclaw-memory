@@ -8,6 +8,28 @@ metadata: {"clawdbot":{"emoji":"🤖","requires":{"commands":["claude"]},"homepa
 
 Spawn Claude Code sessions via ACP runtime and integrate Claude Code's agentic capabilities into OpenClaw workflows.
 
+## ⚠️ IMPORTANT: Write Permission Required for CLI Mode
+
+When calling Claude Code via `claude -p` (exec/CLI mode), the **Write tool is not allowed by default**. You must use `--allowed-tools Write`:
+
+```bash
+claude -p "Your task" --allowed-tools Write
+```
+
+**Why:** Without this flag, Claude Code refuses to create/modify files with:
+```
+I need permission to write files. Can you grant this permission?
+```
+
+The `--dangerously-skip-permissions` flag also works but bypasses ALL permission checks (security risk). Always prefer `--allowed-tools Write`.
+
+### Quick Test (verify Write works)
+```bash
+claude -p "Write test at /tmp/cc-write-ok.txt with content ok" --allowed-tools Write
+```
+
+---
+
 ## ⚠️ IMPORTANT: ACP Runtime Setup Required
 
 Claude Code must be accessed via ACP runtime plugin, NOT subagents. Subagents use OpenClaw's own model.
@@ -62,6 +84,17 @@ openclaw gateway restart
 openclaw plugins list | grep acpx
 # Should show: "ACPX Runtime │ acpx │ loaded"
 ```
+
+### Quick Test (verify Write works in exec)
+```bash
+cd ~/Documents/trae_projects/openharmony && \
+claude -p "Write a test at /tmp/cc-write-ok.txt with content ok" \
+  --allowed-tools Write
+```
+
+If this fails with permission error, Claude Code is restricted to project directories. Add project to `~/.claude.json` `projects` section with `hasTrustDialogAccepted: true`.
+
+---
 
 ### Why permissionMode is Critical
 Without `permissionMode: "approve-all"`, ACP sessions silently fail with:
