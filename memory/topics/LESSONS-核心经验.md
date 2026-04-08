@@ -479,6 +479,21 @@ Column() {
 - **Word 图片**：Pillow 渲染 PNG → `docx.add_picture()` 插入
 - **Excel**：openpyxl 库
 
+## 16. watchdog.sh CLI 路径硬编码 bug（2026-04-03）🆕
+
+**问题：** `openclaw gateway install` 生成的 watchdog.sh 里 CLI 路径硬编码为 `/opt/homebrew/bin/openclaw`，但实际 CLI 在 `/Users/Ymir/.npm-global/bin/openclaw`，导致 watchdog health check 一直失败，每 5 分钟循环重启 gateway。
+
+**解决：** 手动修改 watchdog.plist 里的 CLI 路径为正确路径，watchdog 会自动调用 `gateway install` 重新生成正确的 plist。
+
+**根因：** openclaw 硬编码了路径，没有用 `which openclaw` 检测。
+
+## 17. Gateway 版本与 CLI 版本是分开的（2026-04-03）🆕
+
+- CLI：由 npm 全局包决定（`~/.npm-global/`）
+- Gateway 服务：由 launchctl plist 决定
+- `openclaw update` → 只更新 CLI
+- `openclaw gateway install` → 重新生成 plist，使用新版
+
 ## 30. 响应沟通三段模式（2026-04-03）🆕
 
 **问题：** 收到消息后空转，网页端无任何反馈，用户以为没在做事。

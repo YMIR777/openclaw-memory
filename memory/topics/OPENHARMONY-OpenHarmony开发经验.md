@@ -389,3 +389,135 @@ entry/.preview/
 4. 检查 `main_pages.json` 是否在 `profile/` 目录
 5. 清理 build 缓存：`rm -rf entry/build build`，重新 Rebuild
 6. 检查 `loadContent('pages/Index')` 路径和文件名是否匹配
+
+---
+
+## 🆕 2026-04-06 新增：二维码生成器项目（lxf202404020218erweima）
+
+### 项目路径
+`/Users/Ymir/DevEcoStudioProjects/lxf202404020218erweima/`
+
+### 教训1：@kit.qrcode 包不存在于 ohpm
+
+**症状：**
+```
+Error: ParsePkg fail, package "@kit.qrcode@1.0.0"
+Error Message: Name can only contain URL-friendly characters
+```
+
+**原因：** `@kit.qrcode` 在 ohpm 仓库中不存在，无法通过 ohpm 安装
+
+**解决方案：** 不使用 `@kit.qrcode`，改用：
+1. **ArkUI 内置 QRCode 组件**（推荐）：`<QRCode value="内容" color="#000000" />`，完全不需要任何包
+2. **HTTP API**：`@ohos.net.http` 请求在线 QR 生成 API（如 `api.qrserver.com`），但需要网络权限且模拟器可能无法访问外网
+
+### 教训2：HTTP 请求的正确用法（@ohos.net.http）
+
+```typescript
+import http from '@ohos.net.http';
+
+// 正确写法
+const httpRequest = http.createHttp();
+const result = await httpRequest.request(url, {
+  method: http.RequestMethod.GET,           // 用 enum 值，不是字符串
+  expectDataType: http.HttpDataType.ARRAY_BUFFER, // ARRAY_BUFFER = 2
+  readTimeout: 10000                      // 注意：是 readTimeout，不是 timeout
+});
+if (result.responseCode === 200) { ... }  // responseCode 是数字
+httpRequest.destroy();
+```
+
+**常见错误：**
+- `timeout` → 应为 `readTimeout`
+- `http.HttpDataType.ARRAY_BUFFER` → 写成数字 `2` 或 `http.HttpDataType.ARRAY_BUFFER`
+- `method: 'GET'` → 应为 `method: http.RequestMethod.GET`
+- `ResponseCode.OK` → 直接用数字 `200`
+
+### 教训3：网络权限的正确配置
+
+```json5
+// module.json5 中
+{
+  "module": {
+    "requestPermissions": [   // 注意：是 requestPermissions，不是 reqPermissions
+      { "name": "ohos.permission.INTERNET" }
+    ]
+  }
+}
+```
+
+### 教训4：ArkUI 内置 QRCode 组件用法
+
+```typescript
+// 基础用法（无需任何 import）
+QRCode('要生成的内容')
+  .width(200)
+  .height(200)
+  .color('#000000')
+  .backgroundColor('#FFFFFF')
+  .contentOpacity(1)
+
+// 尺寸动态
+const size: number = 200;
+QRCode(content)
+  .width(size)
+  .height(size)
+
+// 颜色选择（6种）
+const colors: string[] = ['#000000', '#1E3A8A', '#DC2626', '#16A34A', '#F97316', '#9333EA'];
+QRCode(content).color(colors[index])
+```
+
+### 教训5：布局问题修复
+
+**问题1：Scroll 内二维码超出屏幕且不能滚动**
+- 原因：`width()` + 固定 px 高度，超出屏幕固定布局
+- 修复：`width('100%')` + `aspectRatio(1)` 让二维码自适应屏幕宽度
+
+**问题2：Select 下拉选项文字截断（显示"小..."而不是"小 (100×100)"）**
+- 原因：Select 组件默认宽度不够
+- 修复：改用自定义按钮组替代 Select
+```typescript
+// ❌ Select 会截断
+Select([{ value: '小 (100×100)' }])
+
+// ✅ 自定义按钮组，完整显示
+Row({ space: 8 }) {
+  ForEach(['100', '200', '300'], (label: string, index: number) => {
+    Column() {
+      Text(label + 'px')
+    }
+    .width(80)
+    .height(40)
+    .backgroundColor(selectedIndex === index ? '#2979FF' : '#F0F0F0')
+    .onClick(() => { selectedIndex = index; })
+  })
+}
+```
+
+**问题3：颜色色块溢出屏幕**
+- 原因：6 个 30px 色块 + 间距超过屏幕宽度
+- 修复：缩小到 28px，间距调整为 10px
+
+### 教训6：ArkTS 严格模式常见编译错误
+
+| 错误 | 原因 | 解决 |
+|------|------|------|
+| `Cannot read properties of undefined (reading 'text')` | ets 转换器崩溃，可能是使用了不存在的 API | 检查 @kit 导入是否正确 |
+| `'method' does not exist in type 'AsyncCallback'` | HTTP 请求参数写错了 | 确认 `method` 在 `HttpRequestOptions` 里，不是 `AsyncCallback` |
+| `Type '"GET"' is not assignable to type 'RequestMethod'` | 用了字符串 `'GET'` 而不是 enum | 用 `http.RequestMethod.GET` |
+| `Property 'responseCode' does not exist on type 'void'` | HTTP 返回类型推断失败 | 确保使用 Promise 形式 `request(url, options)` |
+| `Property 'alignItems' does not exist on type 'StackAttribute'` | Stack 没有 alignItems | 用 `alignContent(Alignment.Center)` |
+| `fontSize` does not exist on type 'SelectAttribute' | Select 不支持 fontSize | 不设置 Select 的 fontSize，改用自定义按钮 |
+
+### 教训7：oh-package.json5 依赖管理
+
+- 依赖写在里面：`{ "@kit.qrcode": "1.0.0" }`
+- ohpm 安装失败会阻止编译
+- **不确定的包不要写进去**，先用空 dependencies 跑通编译
+
+### 教训8：module.json5 缓存问题
+
+- DevEco 会缓存 `module.json5` 内容
+- 如果编译报错说 `reqPermissions` 无效，但文件里明明是 `requestPermissions`
+- 解决：File → Invalidate Caches → Invalidate and Restart，或手动删除 `.preview` 和 `build` 目录
