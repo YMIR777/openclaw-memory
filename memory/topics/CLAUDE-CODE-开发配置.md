@@ -13,11 +13,25 @@
 - OpenHarmony 项目：`/Users/Ymir/Documents/trae_projects/`
 - DevEco Studio 项目：`/Users/Ymir/DevEcoStudioProjects/`
 
-## ⚠️ 终极 Claude Code 工作流（2026-04-02 验证）
+## ⚠️ Claude Code 使用方式（2026-04-06 更新）
 
-### 只用 ACP Sessions，禁用 exec 直接调用
+### 新决策：用户直接用 Claude Code，不用我转接
 
-**正确方式：**
+**原因：**
+- 我调用 Claude Code 存在"传话损耗"——上下文在两次传递中丢失
+- Claude Code 单独用时能深度思考不受限制
+- 最理想方式：我负责上下文和记忆，Claude Code 专注执行
+
+**两种使用方式：**
+1. **用户直接问 Claude Code**：适合纯编程任务、深度代码审查
+2. **ClawTeam**：适合复杂多步骤、需要多个 agent 并行协作的开发任务
+
+### ClawTeam（开发任务首选）
+- 位置：`~/.openclaw/workspace/skills/clawteam/SKILL.md`
+- 触发：需要多个 agent 并行工作、kanban 协调、团队协作场景
+- 优势：git worktree 隔离 + tmux + 文件系统消息传递，可靠稳定
+
+### 如果需要我调用 Claude Code（通过 ACP sessions）
 ```typescript
 sessions_spawn(
   task="英文任务描述",
@@ -28,10 +42,7 @@ sessions_spawn(
   timeoutSeconds: 600
 )
 ```
-
-**禁止方式：**
-- `exec` 直接调用 `claude -p` ❌（无 TTY 会 hang）
-- Hook-based dispatch ❌（底层也用 `claude -p`）
+⚠️ 只有在需要结合项目记忆/上下文时才有意义，否则直接用 Claude Code 更高效。
 
 ### 已知行为
 - ACP session 发起后，**必有约 60 秒初始化等待**

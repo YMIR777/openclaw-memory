@@ -27,6 +27,24 @@ Skill、OpenSpec、SpecKit、Runtime 选择
 → [[memory/topics/GATEWAY-Gateway问题.md]]
 SIGTERM 根因、版本选择、日志路径
 
+## 🐛 Telegram Webhook 重启循环（2026-04-06）
+→ [[memory/topics/BUGFIX-Telegram-Webhook-重启循环.md]]
+api.telegram.org 被墙拦截、无限重试导致 Gateway 崩溃，临时禁用 Telegram 频道修复，待加 bypass 规则彻底解决
+
+## 💰 小黒秋的大金库 — 个人财务 Web App 项目
+→ [[memory/projects/小黒秋的大金库/SPEC.md]]
+React + Vite + Three Fiber + GSAP + pretext + Recharts + Zustand + Tailwind
+ClawTeam 已启动 architect 搭建基础架构，完成后前端并行开发 Intro/Dashboard/Income 页面
+视觉：Claude.ai 温暖极简 + Penderecki's Garden 点云粒子美学
+
+## 🚫 绮梦账间项目复盘
+→ [[memory/topics/复盘-绮梦账间项目失败.md]]
+过度并行(8 agents)导致 API rate limit 全面崩溃，需求复杂度 vs 工程时间不匹配，设计与实现能力脱节
+
+## ⚡ OpenClaw 重要配置
+→ [[memory/topics/OPENCLAW-重要配置.md]]
+thinkingDefault 降级（high→medium）、cron 任务修复（isolated→systemEvent）、delivery 机制
+
 ## 🔒 OpenClaw 安全加固
 → [[memory/topics/LESSONS-核心经验.md]] 第 1 条
 → [[OpenClaw-安全加固配置]]（Obsidian）

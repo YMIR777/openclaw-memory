@@ -1,45 +1,71 @@
 # 🔥 HOT MEMORY（当前会话活跃上下文）
 
-> 最后更新：2026-04-03 08:39
+> 最后更新：2026-04-09 19:30
 
-## 当前重要事件
+## 今日重大修复（2026-04-09）
 
-### UML 作业完成（2026-04-01）
-- 路径：`/Users/Ymir/Documents/trae_projects/UML作业/shape-inheritance/`
-- PlantUML 类图两版 ✅
-- HTML5 Canvas 画图工具（效果不佳，能显示）⚠️
-- 复盘文档：`memory/topics/UMl-Shape-Canvas-复盘.md`
-- 截止后未再修改
+### sessions 系统设计缺陷大爆发（2026-04-09 全天）
+**背景：** 用户多次发消息后我无响应，完全理解错误以为正常。
 
-### PRETEXT 文字动效库（2026-04-03 新记住）
-- 仓库：https://github.com/chenglou/pretext
-- 用途：炫酷文字效果、动态文字、WebGL GLSL 文字特效
-- 用户明确指示：提到"炫酷文字""文字动态""文字交互"时优先用此库
-- 文档：`memory/topics/PRETEXT-文字动效库.md`
+**根因链条：**
+1. `sessions cleanup` 只清理 sessions.json 索引，不删 .jsonl transcript 文件 → orphaned JSONL 堆积
+2. 16 个 orphaned JSONL + 30 个 .deleted.*/.reset.*/.bak.* 文件积累 ~17MB
+3. cleanup 从 20 秒拖到 951 秒超时 → cron 任务全失败
+4. 4月3日的 ACP QR 项目卡死 5 天（3个 running 子任务）
+5. Heartbeat 在 main session 里跑 → 消息处理时被 inject 打断
+6. session 积累到 1.5m tokens → 触发 compaction → 冻结 session → 消息丢失
 
-## 活跃教训
+**已修复：**
+- ✅ 删除了 16 个 orphaned JSONL（1.9MB）
+- ✅ 备份清理了 30 个 .deleted.*/.reset.*/.bak.* 文件（~15MB）
+- ✅ 写了 `~/.openclaw/scripts/session-cleanup.sh`（v3，自动清理备份文件）
+- ✅ 更新了每日 cron 任务，改用自定义脚本
+- ✅ Heartbeat 改为 `isolatedSession: true`（不再阻塞主会话）
+- ✅ 删除了卡死 5 天的 ACP session
+- ✅ 删除/禁用了 `自动记忆捕获` cron（memory-pro 遗留，已被 Dreaming 取代）
 
-### 心跳记忆维护教训（2026-04-03）
-- 问题：heartbeat 只回 HEARTBEAT_OK，不 capture 记忆
-- HOT/WARM 从 3月25-26 后就没更新过
-- 解决方案：
-  1. 心跳时检查是否有新内容需要 capture
-  2. 重要事件（完成作业、新学技术、用户明确要求"记住"）立即写入 topics/
-  3. HOT_MEMORY 主要存当前任务状态
+**教训：**
+- `sessions cleanup` 是设计缺陷，必须配合脚本清理文件
+- ACP task 不用时要主动清理
+- isolatedSession 对 heartbeat 和 cron 都必须开启
 
-## 活跃偏好
-- 用户：小黒秋（罗翔夫），母语中文，软件技术课程学生
-- 沟通风格：温暖且有力量，不谄媚
-- 作业目录：/Users/Ymir/Documents/trae_projects
-- 说"炫酷文字"等 → 想到 pretext
+### 深度研究结论
 
-## 行为修正（2026-04-03）
-- 问题：收到消息后空转，不给用户任何反馈
-- 解决方案：先回"收到，我要做X"，再深度思考，再汇报结果
-- 用户明确不要放弃深度思考，只需要中间有交代
-- 沟通模式：收到 → 简单确认我要做什么 → 做 → 汇报
+**`Queue: collect (depth 0)` 是正常状态**
+- 不是 bug，是消息 batch 收集模式
+- depth 0 = 队列空，等待新消息
+- 配置项：`messages.queue.mode: collect`，`debounceMs: 1000`
+
+**Compaction 会冻结 session**
+- token 积累到一定程度自动压缩历史
+- 压缩期间 session 无响应，用户消息可能被跳过
+- 修复后 context 回到 62k，暂时不会触发
+
+### Clash Verge TUN 修复（2026-04-08 遗留）
+- `dns-hijack: ['false']` 格式错误 → 改为 `dns-hijack: [8.8.8.8:53]`
+- `mb0l3PoBhkh7.yaml` 第 6-7 行缩进错误 → 已修复
+- `route-exclude-address` 在 Merge profile 不生效 → 100.100.100.100 仍被 TUN 拦截（无害，日志垃圾）
+- 解决方案：在 mb0l3PoBhkh7.yaml 的 prepend 规则加 `IP-CIDR,100.100.100.100/32,DIRECT`（未完成）
+
+### 深度研究结果
+- Tavily 找到线索："stale lock files" 导致 session deadlock
+- `100.100.100.100` 是 Gateway 自己的健康检查地址，Clash TUN 把它放入 VPN 隧道导致超时
+- Mac 合盖 → Gateway 睡眠 → cron/Dreaming 全部错过（硬件层面，无法配置解决）
+
+## 当前重要配置状态
+
+| 配置项 | 值 | 说明 |
+|--------|----|------|
+| `agents.defaults.heartbeat.isolatedSession` | true | ✅ 已修复 |
+| `agents.defaults.heartbeat.lightContext` | true | 已开启 |
+| `session.maintenance.mode` | enforce | 严格清理 |
+| `cron 每日会话清理` | isolated + 自定义脚本 | ✅ 已修复 |
 
 ## 待处理
-- [ ] Canvas 画图工具效果优化（已截止，不急）
-- [ ] PRETEXT 项目开发待触发
-- [ ] 响应速度问题：执行改进，验证效果
+- [ ] 在 mb0l3PoBhkh7.yaml 的 prepend 规则加 `IP-CIDR,100.100.100.100/32,DIRECT` 彻底解决 Clash 日志垃圾
+- [ ] Mac 防止合盖睡眠（如果需要 Dreaming 凌晨3点触发）
+
+## 活跃偏好
+- 用户：小黒秋，母语中文，软件技术课程学生，vibe coding 自学
+- 沟通风格：温暖且有力量，不谄媚
+- 作业目录：/Users/Ymir/Documents/troe_projects

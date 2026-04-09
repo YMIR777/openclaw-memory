@@ -479,7 +479,44 @@ Column() {
 - **Word 图片**：Pillow 渲染 PNG → `docx.add_picture()` 插入
 - **Excel**：openpyxl 库
 
-## 30. 响应沟通三段模式（2026-04-03）🆕
+## 16. watchdog.sh CLI 路径硬编码 bug（2026-04-03）🆕
+
+**问题：** `openclaw gateway install` 生成的 watchdog.sh 里 CLI 路径硬编码为 `/opt/homebrew/bin/openclaw`，但实际 CLI 在 `/Users/Ymir/.npm-global/bin/openclaw`，导致 watchdog health check 一直失败，每 5 分钟循环重启 gateway。
+
+**解决：** 手动修改 watchdog.plist 里的 CLI 路径为正确路径，watchdog 会自动调用 `gateway install` 重新生成正确的 plist。
+
+**根因：** openclaw 硬编码了路径，没有用 `which openclaw` 检测。
+
+## 17. Gateway 版本与 CLI 版本是分开的（2026-04-03）🆕
+
+- CLI：由 npm 全局包决定（`~/.npm-global/`）
+- Gateway 服务：由 launchctl plist 决定
+- `openclaw update` → 只更新 CLI
+- `openclaw gateway install` → 重新生成 plist，使用新版
+
+## 31. GitHub Push 前必须检查 Token 泄露（2026-04-08）🆕
+
+**教训：** push 记忆文件到 GitHub 时，文件中包含 Telegram Bot Token，被 GitHub secret scanning 检测到并报警。
+
+**Token 位置：** `memory/2026-04-03-telegram-clash-media.md` 中的 `8706225535:AAGk0HHsc67-uEEVqMQFP2CzX8SFO0zusIk`
+
+**我做的修复：**
+- 用 `<REDACTED_TELEGRAM_BOT_TOKEN>` 替换实际 token
+- git commit --amend + force push 移除泄露
+
+**但 Token 本身仍需撤销：** GitHub 只是扫描到，任何人在 force push 前克隆过仓库的人都有这个 token。
+
+**Token 存放原则：**
+- Token 只存在 `~/.openclaw/openclaw.json` 或环境变量
+- **永远不要**把 token 写入任何文本文件（.md, .json, .txt, memory 文件等）
+- push 之前必须 grep 检查敏感字符串
+
+**Pre-push 检查命令：**
+```bash
+grep -r "bot\|token\|api_key\|secret" --include="*.md" --include="*.json" .
+```
+
+## 32. 响应沟通三段模式（2026-04-03）🆕
 
 **问题：** 收到消息后空转，网页端无任何反馈，用户以为没在做事。
 
@@ -497,3 +534,46 @@ Column() {
 - 用户明确不要我放弃深度思考，但要我给进度反馈
 
 **记忆锚点：** hot/HOT_MEMORY.md 已记录、HEARTBEAT.md 已更新。
+
+---
+
+## 33. sessions cleanup 设计缺陷（2026-04-09）🆕
+
+**发现：** `openclaw sessions cleanup` 只清理 sessions.json 索引，**不删除 .jsonl transcript 文件**。
+
+**后果：** orphaned JSONL 堆积 → cleanup 越来越慢 → cron 超时 → 系统崩溃。
+
+**教训：**
+- 定期跑清理脚本（已写 `~/.openclaw/scripts/session-cleanup.sh`）
+- 每次 compaction 后检查 sessions 目录
+- ACP task 不用时主动删除
+
+**记忆锚点：** topics/OPENCLAW-Sessions-系统设计缺陷与修复.md
+
+---
+
+## 34. Heartbeat 必须 isolatedSession（2026-04-09）🆕
+
+**问题：** Heartbeat 在 main session 里跑 → 处理时 inject 打断用户消息 → 消息丢失/无响应。
+
+**教训：**
+- Heartbeat 和 cron 必须 `isolatedSession: true`
+- 即使 isolatedSession=true，消息 inject 仍可能打断正在输出的 agent turn
+- Compaction 会冻结 session，期间消息也会丢失
+
+**记忆锚点：** hot/HOT_MEMORY.md 已记录。
+
+---
+
+## 35. Queue: collect (depth 0) 是正常状态（2026-04-09）🆕
+
+**误解纠正：** 之前以为 `Queue: collect (depth 0)` 是异常状态。
+
+**实际：** 这是 OpenClaw 消息 batch 收集机制，depth 0 = 队列空，等待新消息。**是正常的，不是 bug。**
+
+**相关配置：**
+- `messages.queue.mode: collect`（默认）
+- `messages.queue.debounceMs: 1000`
+- `messages.queue.drop: summarize`
+
+**记忆锚点：** docs.openclaw.ai/concepts/queue

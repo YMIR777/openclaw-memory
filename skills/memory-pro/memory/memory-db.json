@@ -38029,6 +38029,606 @@
         "floor": 0.7,
         "importance": 1
       }
+    },
+    {
+      "id": "mem-1775181888990-jo71",
+      "category": "case",
+      "content": "# 用户反馈：响应速度问题",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-03T02:04:48.990Z",
+      "lastSeen": "2026-04-03T02:04:48.990Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775181889004-h8xg",
+      "category": "case",
+      "content": "- 问题：用户发消息后我经常不执行也不回应，要等用户追问了才动",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-03T02:04:49.004Z",
+      "lastSeen": "2026-04-03T02:04:49.004Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775181889013-6qeo",
+      "category": "event",
+      "content": "- 解决方案：收到消息立即执行，不要\"想清楚再回\"，先做再优化",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-03T02:04:49.013Z",
+      "lastSeen": "2026-04-03T02:04:49.013Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775181889021-qsop",
+      "category": "event",
+      "content": "- 截止：今天作业完成后解决",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-03T02:04:49.021Z",
+      "lastSeen": "2026-04-03T02:04:49.021Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775469888704-oacs",
+      "category": "event",
+      "content": "# 二维码生成器完成",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T10:04:48.704Z",
+      "lastSeen": "2026-04-06T10:04:48.704Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775469888712-2ctz",
+      "category": "entity",
+      "content": "- 项目：`/Users/Ymir/DevEcoStudioProjects/lxf202404020218erweima`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T10:04:48.712Z",
+      "lastSeen": "2026-04-06T10:04:48.712Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775469888719-t681",
+      "category": "event",
+      "content": "- 状态：代码完成，等待录效果视频提交",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T10:04:48.719Z",
+      "lastSeen": "2026-04-06T10:04:48.719Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775469888725-ug3o",
+      "category": "event",
+      "content": "# Clash TUN timeout 问题排查（重要发现）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T10:04:48.725Z",
+      "lastSeen": "2026-04-06T10:04:48.725Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775469888732-23ky",
+      "category": "case",
+      "content": "- 根因：TUN 代理拦截了 `api.minimaxi.com` 和 `api.telegram.org`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T10:04:48.732Z",
+      "lastSeen": "2026-04-06T10:04:48.732Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775469888739-66sm",
+      "category": "decision",
+      "content": "- 记忆已更新：`memory/topics/OPENHARMONY-OpenHarmony开发经验.md`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T10:04:48.739Z",
+      "lastSeen": "2026-04-06T10:04:48.739Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775477085906-7bti",
+      "category": "event",
+      "content": "# 二维码生成器完成",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T12:04:45.906Z",
+      "lastSeen": "2026-04-06T12:04:45.906Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775477085916-rbva",
+      "category": "entity",
+      "content": "- 项目：`/Users/Ymir/DevEcoStudioProjects/lxf202404020218erweima`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T12:04:45.916Z",
+      "lastSeen": "2026-04-06T12:04:45.916Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775477085922-hszm",
+      "category": "event",
+      "content": "- 状态：代码完成，等待录效果视频提交",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T12:04:45.922Z",
+      "lastSeen": "2026-04-06T12:04:45.922Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775477085930-i3dk",
+      "category": "event",
+      "content": "# Clash TUN timeout 问题排查（重要发现）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T12:04:45.930Z",
+      "lastSeen": "2026-04-06T12:04:45.930Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775477085937-50cr",
+      "category": "case",
+      "content": "- 根因：TUN 代理拦截了 `api.minimaxi.com` 和 `api.telegram.org`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T12:04:45.937Z",
+      "lastSeen": "2026-04-06T12:04:45.937Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775477085944-yars",
+      "category": "decision",
+      "content": "- 记忆已更新：`memory/topics/OPENHARMONY-OpenHarmony开发经验.md`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T12:04:45.944Z",
+      "lastSeen": "2026-04-06T12:04:45.944Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775484284796-x2e8",
+      "category": "event",
+      "content": "# 二维码生成器完成",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T14:04:44.796Z",
+      "lastSeen": "2026-04-06T14:04:44.796Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775484284804-oinp",
+      "category": "entity",
+      "content": "- 项目：`/Users/Ymir/DevEcoStudioProjects/lxf202404020218erweima`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T14:04:44.804Z",
+      "lastSeen": "2026-04-06T14:04:44.804Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775484284811-sza3",
+      "category": "event",
+      "content": "- 状态：代码完成，等待录效果视频提交",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T14:04:44.811Z",
+      "lastSeen": "2026-04-06T14:04:44.811Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775484284818-jdh4",
+      "category": "event",
+      "content": "# Clash TUN timeout 问题排查（重要发现）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T14:04:44.818Z",
+      "lastSeen": "2026-04-06T14:04:44.818Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775484284826-7gea",
+      "category": "case",
+      "content": "- 根因：TUN 代理拦截了 `api.minimaxi.com` 和 `api.telegram.org`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T14:04:44.826Z",
+      "lastSeen": "2026-04-06T14:04:44.826Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775484284832-vsgo",
+      "category": "decision",
+      "content": "- 记忆已更新：`memory/topics/OPENHARMONY-OpenHarmony开发经验.md`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T14:04:44.832Z",
+      "lastSeen": "2026-04-06T14:04:44.832Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775491487793-kmal",
+      "category": "event",
+      "content": "# 二维码生成器完成",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T16:04:47.793Z",
+      "lastSeen": "2026-04-06T16:04:47.793Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775491487801-sbt2",
+      "category": "entity",
+      "content": "- 项目：`/Users/Ymir/DevEcoStudioProjects/lxf202404020218erweima`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T16:04:47.801Z",
+      "lastSeen": "2026-04-06T16:04:47.801Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775491487808-gu9d",
+      "category": "event",
+      "content": "- 状态：代码完成，等待录效果视频提交",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T16:04:47.808Z",
+      "lastSeen": "2026-04-06T16:04:47.808Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775491487815-xsuc",
+      "category": "event",
+      "content": "# Clash TUN timeout 问题排查（重要发现）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T16:04:47.815Z",
+      "lastSeen": "2026-04-06T16:04:47.815Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775491487822-1iql",
+      "category": "case",
+      "content": "- 根因：TUN 代理拦截了 `api.minimaxi.com` 和 `api.telegram.org`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T16:04:47.822Z",
+      "lastSeen": "2026-04-06T16:04:47.822Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775491487829-wyub",
+      "category": "decision",
+      "content": "- 记忆已更新：`memory/topics/OPENHARMONY-OpenHarmony开发经验.md`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T16:04:47.829Z",
+      "lastSeen": "2026-04-06T16:04:47.829Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775498683895-8xmt",
+      "category": "event",
+      "content": "# 二维码生成器完成",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T18:04:43.895Z",
+      "lastSeen": "2026-04-06T18:04:43.895Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775498683905-yclf",
+      "category": "entity",
+      "content": "- 项目：`/Users/Ymir/DevEcoStudioProjects/lxf202404020218erweima`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T18:04:43.905Z",
+      "lastSeen": "2026-04-06T18:04:43.905Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775498683913-8c80",
+      "category": "event",
+      "content": "- 状态：代码完成，等待录效果视频提交",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T18:04:43.913Z",
+      "lastSeen": "2026-04-06T18:04:43.913Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775498683921-iin8",
+      "category": "event",
+      "content": "# Clash TUN timeout 问题排查（重要发现）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T18:04:43.921Z",
+      "lastSeen": "2026-04-06T18:04:43.921Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775498683928-qh5k",
+      "category": "case",
+      "content": "- 根因：TUN 代理拦截了 `api.minimaxi.com` 和 `api.telegram.org`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T18:04:43.928Z",
+      "lastSeen": "2026-04-06T18:04:43.928Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775498683935-0wh5",
+      "category": "decision",
+      "content": "- 记忆已更新：`memory/topics/OPENHARMONY-OpenHarmony开发经验.md`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T18:04:43.935Z",
+      "lastSeen": "2026-04-06T18:04:43.935Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775513084014-3mr4",
+      "category": "event",
+      "content": "# 二维码生成器完成",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T22:04:44.014Z",
+      "lastSeen": "2026-04-06T22:04:44.014Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775513084022-vuq9",
+      "category": "entity",
+      "content": "- 项目：`/Users/Ymir/DevEcoStudioProjects/lxf202404020218erweima`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T22:04:44.022Z",
+      "lastSeen": "2026-04-06T22:04:44.022Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775513084029-wi1x",
+      "category": "event",
+      "content": "- 状态：代码完成，等待录效果视频提交",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T22:04:44.029Z",
+      "lastSeen": "2026-04-06T22:04:44.029Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775513084037-jjv2",
+      "category": "event",
+      "content": "# Clash TUN timeout 问题排查（重要发现）",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T22:04:44.037Z",
+      "lastSeen": "2026-04-06T22:04:44.037Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775513084044-mkdz",
+      "category": "case",
+      "content": "- 根因：TUN 代理拦截了 `api.minimaxi.com` 和 `api.telegram.org`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T22:04:44.044Z",
+      "lastSeen": "2026-04-06T22:04:44.044Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
+    },
+    {
+      "id": "mem-1775513084051-mmb2",
+      "category": "decision",
+      "content": "- 记忆已更新：`memory/topics/OPENHARMONY-OpenHarmony开发经验.md`",
+      "tier": "working",
+      "scope": "global",
+      "count": 1,
+      "firstSeen": "2026-04-06T22:04:44.051Z",
+      "lastSeen": "2026-04-06T22:04:44.051Z",
+      "decay": {
+        "beta": 1,
+        "floor": 0.7,
+        "importance": 1
+      }
     }
   ],
   "version": "1.0"

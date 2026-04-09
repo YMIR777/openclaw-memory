@@ -1,10 +1,5 @@
 {
-  "lastHeartbeat": 1743626400,
-  "lastCapture": 1743626400,
-  "lastChecks": {
-    "email": null,
-    "calendar": null,
-    "weather": null
-  },
-  "notes": "2026-04-03 重构心跳记忆系统，HEARTBEAT.md 增加触发规则清单"
+  "lastCapture": 1745255820,
+  "lastHeartbeat": 1745268480,
+  "notes": "2026-04-07 19:17 心跳capture：网络恢复正常(web_search已可用)；完成Antigravity调研(结论：Gemini会员不能白嫖Claude，需自有API Key)；确认Sonnet 4.6定价($3/$15/M)比Opus便宜50%；$100 API额度足够项目(估算$20-50)；用户确认购买额度后开始Phase 1指令拆解；等待用户购买确认"
 }
