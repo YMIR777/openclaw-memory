@@ -65,6 +65,11 @@ qwen2.5vl:3b 和 7B vision 模式探索全部失败，根因是 Ollama 融合 vi
 ## 🔧 Skills 管理规范
 → [[memory/topics/SKILLS-Skills管理规范.md]]
 
+## 🗄️ Sessions 系统设计缺陷与修复（2026-04-09）
+→ [[memory/topics/OPENCLAW-Sessions-系统设计缺陷与修复.md]]
+`sessions cleanup` 只清索引不删文件 → ~17MB orphaned 文件堆积 → cron 超时 → 系统崩溃
+已修复：自定义清理脚本 v3、isolatedSession、删除僵尸 ACP session
+
 ## 📐 PlantUML UML 绘图
 → [[memory/topics/PLANTUML-PlantUML语法与实践.md]]
 活动图、泳道图、新旧语法混用陷阱、PlantUML 1.2026.2 实战经验
@@ -73,7 +78,8 @@ qwen2.5vl:3b 和 7B vision 模式探索全部失败，根因是 Ollama 融合 vi
 
 | 日期 | 事件 |
 |------|------|
-| 2026-04-01 | UML 作业：Shape 继承类图 + Canvas 画图工具，`~/Documents/trae_projects/UML作业/shape-inheritance/` |
+| 2026-04-09 | sessions 系统设计缺陷大爆发：16个 orphaned JSONL + 30个备份文件堆积，cleanup 951秒超时，cron 全灭。彻底修复：自定义清理脚本 v3、isolatedSession、删除僵尸 ACP |
+| 2026-04-08 | Gateway 卡死：ClawTeam qimeng 项目残留 10 session + main 堵塞；Clash Verge TUN dns-hijack 格式修复 |
+| 2026-04-06 | Telegram Webhook 崩溃：api.telegram.org 被墙导致无限重试，已临时禁用 Telegram |
+| 2026-04-01 | UML 作业：饮料自动售货机类图（PlantUML），`~/Documents/trae_projects/UML作业/vending-machine/` |
 | 2026-03-27 | 基本路径测试作业（Sort ex2.3-1）：Pillow 渲染字体、流程图循环回边坐标问题 |
-| 2026-03-25 | GitHub token 更新 + gh keychain 认证完成；MEMORY.md 拆分为 topics/ 目录 |
-| 2026-03-24 | QMD 语义搜索配置完成（620 向量、213 文件）；VNC + WeChat 自动化验证成功 |
