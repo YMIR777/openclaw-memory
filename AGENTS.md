@@ -97,6 +97,21 @@ You have access to your human's stuff. That doesn't mean you *share* their stuff
 
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.
 
+### 🎯 Skill 强制调用规则
+**当用户提到以下关键词时，必须立即调用对应 skill：**
+
+| 用户表达 | 应调用的 skill |
+|---------|--------------|
+| "深度研究" "deep search" "详细搜索" | `deep-research` skill |
+| "安装 skill" "install skill" | `skills-manager` skill |
+| "记忆" "memory" "记得" | `memory-tiering` or `memory-pro` |
+| "GitHub" "repo" "仓库" | `github` skill |
+| "Obsidian" "笔记" | `obsidian` skill |
+
+**调用方式：** 先 `read` skill 的 SKILL.md，然后按规范执行。
+
+**路径规则：** skill 必须在 `~/.openclaw/workspace/skills/` 下才会被加载。
+
 **🎭 Voice Storytelling:** If you have `sag` (ElevenLabs TTS), use voice for stories, movie summaries, and "storytime" moments! Way more engaging than walls of text. Surprise people with funny voices.
 
 **📝 Platform Formatting:**

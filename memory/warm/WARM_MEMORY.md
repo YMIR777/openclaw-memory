@@ -1,36 +1,39 @@
-# 🌡️ WARM MEMORY（稳定系统配置）
+# 🌡️ WARM MEMORY（系统配置与稳定偏好）
 
-> 最后更新：2026-04-03 08:39
+> 最后更新：2026-05-06
 
-## 系统配置（稳定）
-- Gateway：openclaw v2026.3.23
-- 模型：MiniMax-M2.7（默认），子 agent 也用 MiniMax-M2.7
-- exec：security=allowlist，safeBins 包含 70+ 命令
-- 向量搜索：QMD backend，620 向量，embeddinggemma + Qwen3-Reranker
-- VNC 分辨率：1440x900（pyautogui），VNC 2880x1800
+## 用户稳定信息
+- 小黒秋，母语中文，软件技术课程学生
+- 沟通风格：温暖且有力量，不谄媚
+- 作业目录：`/Users/Ymir/Documents/troe_projects`
 
-## 用户稳定偏好
-- 作业目录：/Users/Ymir/Documents/trae_projects
-- Vibe 项目：/Users/Ymir/Documents/vibe-projects
-- Obsidian vault：/Users/Ymir/Documents/个人知识体系
-- 项目命名规范：姓名-学号-作业内容
+## 当前重要配置状态
+| 配置项 | 值 | 说明 |
+|--------|----|------|
+| `agents.defaults.heartbeat.isolatedSession` | true | 已修复 |
+| `agents.defaults.heartbeat.lightContext` | true | 已开启 |
+| `session.maintenance.mode` | enforce | 严格清理（7天） |
+| `cron 每日会话清理` | isolated + 自定义脚本 | 04:00 执行 |
+| `thinkingDefault` | medium | 从 high 降级 |
+| `HEARTBEAT.md 检查间隔` | 60分钟 | 从30分钟调整 |
 
-## 核心 Skill（已安装）
-- claaude-code：Claude Code CLI 集成
-- acpx-orchestrator：并行执行 + 健康检查
-- elite-longterm-memory：五层记忆架构
-- openclaw-self-improvement：自提升工作流
-- memory-pro：整合的记忆增强系统（ACT-R 衰减）
-- CLAUDE-CODE 开发配置：文档见 `memory/topics/CLAUDE-CODE-开发配置.md`
+## 技能与工具清单
+- **memory-tiering**: HOT/WARM/COLD 三层架构
+- **andrej-karpathy-coding**: 已安装
+- **Claude Code**: ACP 集成配置完成
+- **macauto.py**: Mac 自动化工具（click/type/activate/wechat）
 
-## 已知工具路径
-- openclaw：/opt/homebrew/bin/openclaw
-- node：/usr/local/bin/node
-- python3：/usr/bin/python3
-- git：/usr/bin/git
-- macauto.py：`~/.openclaw/workspace/tools/macauto.py`
+## 长期项目状态
+- **小黒秋的大金库**: React + Vite + Three Fiber 财务 Web App，搁置中
+- **OpenHarmony 开发**: ArkTS 基础已掌握，有项目模板
 
-## 已验证的技术方案
-- 中文输入：pyperclip + Cmd+V
-- VNC 坐标转 pyautogui：除以 2
-- GitHub 操作：必须用 gh CLI，不要直接调 REST API
+## 待处理任务
+- [ ] 确认 Clash Verge 规则是否仍需添加（上次记录在 WARM，但不确定是否已执行）
+
+## 已清除
+- ~~Dreaming promotion bug（recallCount=0）~~ → Dreaming auto-capture cron 已禁用，该问题不再活跃
+- ~~自动记忆捕获 cron~~ → 已禁用，与 Dreaming 冲突
+
+---
+
+*最后清理：2026-05-06，USER.md 全面更新，旧日志归档完成*
