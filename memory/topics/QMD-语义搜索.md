@@ -1,5 +1,7 @@
 # 本地语义搜索系统（QMD）
 
+> Freshness review: 2026-06-27 — 这页保留了 QMD 接入与一次严重故障的历史记录。QMD 作为主动记忆后端的思路仍有效，但其中的索引规模、模型组合和故障状态只代表当时快照。
+
 ## 当前方案（QMD，2026-03-24 完成）
 - **backend**: qmd（openclaw.json memory.backend）
 - **searchMode**: query

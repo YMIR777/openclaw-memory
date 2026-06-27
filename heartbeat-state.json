@@ -1,4 +1,10 @@
 {
-  "lastCapture": null,
-  "lastHeartbeat": 1775578020000
+  "lastCapture": "2026-06-11T00:00:00.000Z",
+  "lastHeartbeat": "2026-06-27T02:27:00+08:00",
+  "notes": "02:27 CST heartbeat（深夜安静时段）。HOT_MEMORY 无活跃事件，无新内容需要 capture。待处理项无变化：京京复合计划（WARM）、健身计划 DrSharp v1.0。",
+  "last_heartbeat": "2026-06-27T02:27:00+08:00",
+  "last_result": "ok",
+  "checked_files": [
+    "memory/hot/HOT_MEMORY.md"
+  ]
 }

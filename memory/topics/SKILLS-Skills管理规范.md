@@ -1,6 +1,7 @@
 # Skills 管理规范
 
 > 最后更新：2026-03-25
+> Freshness review: 2026-06-27 — 核心原则“workspace skills 为主”仍然有效，但清单中的具体技能与路径可能已变化，应以当前磁盘实际状态和 OpenClaw 扫描结果为准。
 
 ---
 

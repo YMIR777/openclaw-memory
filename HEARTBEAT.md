@@ -1,106 +1,56 @@
 # HEARTBEAT.md
 
 ## 心跳配置
-- 检查间隔：30 分钟
-- 深夜（23:00-08:00）保持安静
+- OpenClaw 调度频率以 `~/.openclaw/openclaw.json -> agents.defaults.heartbeat.every` 为准。
+- 当前目标：日常 60 分钟一次；深夜 23:00-08:00 保持低成本静默。
+- 注意：本文件只指导心跳触发后的行为，不决定调度频率。
 
 ---
 
-## 心跳执行清单（每次必做）
+## 低成本心跳规则
 
-收到心跳后，按顺序执行：
+收到普通 `[OpenClaw heartbeat poll]` 时：
 
-### 1. 读取当前 HOT_MEMORY
-```javascript
-// 先读热内存，了解当前状态
-读取: memory/hot/HOT_MEMORY.md
-```
+1. **不要默认读取文件。**
+2. **不要默认调用工具。**
+3. 如果消息里没有明确的 reminder / wake / completed background task / 用户交代的待办检查，直接回复：`HEARTBEAT_OK`
+4. 深夜（23:00-08:00）除非有明确紧急事项，否则只回复 `HEARTBEAT_OK`。
 
-### 2. 检查是否有新内容需要 capture
-对照以下触发条件，有任意一个满足就执行 capture：
+---
+
+## 什么时候才需要检查
+
+只有出现以下情况时，才读取相关文件或调用工具：
 
 | 触发条件 | 执行操作 |
 |----------|----------|
-| 用户说"记住..." | 立即写入对应 topics/ 文件 |
+| 用户说“记住...” | 立即写入对应 topics/ 文件 |
 | 完成了作业/项目 | 写复盘文档到 topics/ |
 | 用户明确纠正了你 | 写入 corrections 到 topics/LESSONS |
 | 学了新的技术/工具 | 写入对应 topics/ 文件 |
-| 用户明确提到偏好 | 更新 HOT_MEMORY 的"活跃偏好" |
-| 有待处理任务状态变了 | 更新 HOT_MEMORY 的"待处理"列表 |
-
-### 3. 检查 HOT_MEMORY 是否需要降级到 WARM
-- 如果 HOT_MEMORY 中的"当前事件"已超过 3 天没有更新
-- 且没有新的相关事件
-- → 把该事件移到 WARM_MEMORY，保留在 topics/
-
-### 4. 更新 heartbeat-state.json
-```javascript
-// 每次心跳后更新
-{
-  "lastCapture": <当前时间戳>,
-  "lastHeartbeat": <当前时间戳>
-}
-```
+| 用户明确提到偏好 | 更新 HOT_MEMORY 的“活跃偏好” |
+| 有明确待处理任务状态变化 | 更新 HOT_MEMORY 的“待处理”列表 |
+| heartbeat 消息包含 reminder/wake/task-complete | 处理该具体事件 |
 
 ---
 
-## Capture 优先級
+## Memory 维护
 
-**立即写（不等心跳）：**
-- 用户说"记住这个"
-- 完成作业/项目
-- 用户纠正错误
-- 用户明确偏好
+不要每次心跳都读 `memory/hot/HOT_MEMORY.md`。
 
-**心跳时写：**
-- 例行检查发现记忆需要更新
-- 待处理任务状态变化
+每几天一次，或当 heartbeat 明确要求 memory maintenance 时，再执行：
 
-**不写：**
-- 深夜的例行心跳
-- 纯打卡性质的 poll
-- 没有新信息的心跳
+1. 读取 `memory/hot/HOT_MEMORY.md`
+2. 检查“当前事件”是否超过 3 天没更新
+3. 必要时移动到 WARM
+4. 更新 `heartbeat-state.json`
 
 ---
 
-## HOT / WARM / COLD 分层规则
+## Capture 优先级
 
-### HOT（热层）
-- 路径：`memory/hot/HOT_MEMORY.md`
-- 内容：当前进行中的任务、用户直接偏好、最近 3 天的重要事件
-- 大小：≤ 100 行
-- 更新：事件发生立即写，或每天最多更新一次
+**立即写（不等心跳）：** 用户说“记住这个” / 完成作业 / 纠正错误 / 明确偏好
 
-### WARM（温层）
-- 路径：`memory/warm/WARM_MEMORY.md`
-- 内容：系统配置、稳定偏好、已知工具路径
-- 更新：配置变化时更新，不因时间过期
+**心跳时写：** 只有当心跳消息明确要求检查，或存在具体 reminder/wake/task-complete
 
-### COLD（冷层）
-- 路径：`memory/topics/*.md`
-- 内容：所有具体记忆文件（按主题分类）
-- 更新：永不删除，只追加
-
----
-
-## Capture 标准操作
-
-### 写新 topics 文件
-```
-路径：memory/topics/[主题]-[简述].md
-格式：
-# [主题] [简述]
-
-> 记录日期：YYYY-MM-DD
-
-## 内容...
-```
-
-### 更新 HOT_MEMORY
-- 只替换"当前事件"区块
-- 保留"活跃偏好"区块（偏好不降级）
-- 超过 3 天没更新的事件才降级
-
-### 更新 WARM_MEMORY  
-- 只在系统配置变化时更新
-- 每年至少审查一次清理过时内容
+**不写：** 普通心跳 poll / 深夜无事 poll / 没有新信息的 poll

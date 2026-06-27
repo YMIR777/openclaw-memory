@@ -1,5 +1,7 @@
 # image 工具问题排查（2026-03-26）
 
+> Freshness review: 2026-06-27 — 这页保留的是一次已完成的排障记录。关于 `models.providers.ollama`、`imageModel` 解析和 MiniMax VL 的经验仍有历史价值，但具体 provider 结构和默认 fallback 逻辑应以当前 OpenClaw 版本实测为准。
+
 ## 最终状态：✅ 已解决
 
 MiniMax VL 正常工作，image 工具已配置完成。

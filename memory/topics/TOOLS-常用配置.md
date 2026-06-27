@@ -1,5 +1,7 @@
 # 常用配置
 
+> Freshness review: 2026-06-27 — 这页包含本地环境速记，部分路径和 skill 安装位置可能已经过时。读取前优先把它当作线索，而不是当前事实真值表。
+
 ## API Keys
 - Exa Search: 8534dd8b-d68a-4736-b92c-0afdf1832715
 - GitHub Token: [GITHUB_TOKEN_REDACTED] (full repo scope)

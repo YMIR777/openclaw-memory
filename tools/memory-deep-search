@@ -1,0 +1,95 @@
+#!/usr/bin/env node
+const { spawn } = require('child_process');
+
+function usage() {
+  console.log(`Usage:
+  memory-deep-search "query" [--limit N] [--candidate-limit N] [--timeout SEC] [--full]
+
+Purpose:
+  Layer-2 semantic memory search for OpenClaw-managed QMD.
+
+  This uses QMD 2.5+ typed query mode: lex + vec with --no-rerank.
+  It keeps semantic vector recall while avoiding the slowest local LLM paths:
+  implicit query expansion and Qwen reranking.
+
+Examples:
+  memory-deep-search "OpenClaw QMD searchMode sessions"
+  memory-deep-search "京京 复合 压强" --limit 8 --timeout 20`);
+}
+
+const argv = process.argv.slice(2);
+let query = '';
+let limit = '8';
+let candidateLimit = '12';
+let timeoutSec = 20;
+let full = false;
+
+for (let i = 0; i < argv.length; i++) {
+  const a = argv[i];
+  if (a === '-h' || a === '--help') {
+    usage();
+    process.exit(0);
+  } else if (a === '-n' || a === '--limit') {
+    limit = argv[++i];
+    if (!limit) throw new Error('missing limit');
+  } else if (a === '-C' || a === '--candidate-limit') {
+    candidateLimit = argv[++i];
+    if (!candidateLimit) throw new Error('missing candidate limit');
+  } else if (a === '--timeout') {
+    const raw = argv[++i];
+    if (!raw) throw new Error('missing timeout');
+    timeoutSec = Number(raw);
+  } else if (a === '--full') {
+    full = true;
+  } else if (a.startsWith('-')) {
+    console.error(`Unknown option: ${a}`);
+    usage();
+    process.exit(2);
+  } else {
+    query = query ? `${query} ${a}` : a;
+  }
+}
+
+if (!query) {
+  usage();
+  process.exit(2);
+}
+
+const env = {
+  ...process.env,
+  XDG_CACHE_HOME: '/Users/Ymir/.openclaw/agents/main/qmd/xdg-cache',
+  XDG_DATA_HOME: '/Users/Ymir/.openclaw/agents/main/qmd/xdg-data',
+  XDG_CONFIG_HOME: '/Users/Ymir/.openclaw/agents/main/qmd/xdg-config',
+};
+
+const queryDoc = `lex: ${query}\nvec: ${query}`;
+const args = [
+  'query', queryDoc,
+  '--no-rerank',
+  '--format', 'json',
+  '-n', String(limit),
+  '-C', String(candidateLimit),
+  '-c', 'memory-root-main',
+  '-c', 'memory-dir-main',
+];
+if (full) args.push('--full');
+
+const child = spawn('/Users/Ymir/.npm-global/bin/qmd', args, { env, stdio: ['ignore', 'pipe', 'pipe'] });
+let killed = false;
+const timer = setTimeout(() => {
+  killed = true;
+  child.kill('SIGTERM');
+  setTimeout(() => child.kill('SIGKILL'), 2000).unref();
+}, Math.max(1, timeoutSec) * 1000);
+
+child.stdout.pipe(process.stdout);
+child.stderr.pipe(process.stderr);
+child.on('exit', (code, signal) => {
+  clearTimeout(timer);
+  if (killed) {
+    console.error(`memory-deep-search timed out after ${timeoutSec}s. Use normal memory_search first, narrow the query, or inspect specific files.`);
+    process.exit(124);
+  }
+  if (signal) process.exit(128);
+  process.exit(code ?? 1);
+});

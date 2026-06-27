@@ -1,93 +1,65 @@
-# Claude Code 开发配置
+# Claude Code 开发配置 (2026-06-23 已废弃)
 
-## Claude Code Skill
-- 位置：`~/.openclaw/workspace/skills/claude-code/`
-- 功能：集成 Claude Code CLI，支持编程任务、代码审查、异步执行
-- 脚本：
-  - `scripts/claude-code-launch.sh` - 启动器
-  - `scripts/claude-code-dispatch.sh` - 零轮询 dispatch
-  - `scripts/claude-code-stop-hook.sh` - Stop 钩子
+## ⛔ ACP Claude Code 调度 — 2026-06-23 正式废除
 
-## 项目目录
-- 位置：`/Users/Ymir/Documents/vibe-projects`
-- OpenHarmony 项目：`/Users/Ymir/Documents/trae_projects/`
-- DevEco Studio 项目：`/Users/Ymir/DevEcoStudioProjects/`
+**原因：** 每次 ACP 调用重建上下文导致未缓存输入 token 暴增（甚至超过缓存输入），性价比为负。
 
-## ⚠️ Claude Code 使用方式（2026-04-06 更新）
+**替代方案：**
+- 小活（<3 文件，<80 行）→ 自己干（read/edit/write）
+- 大活 → `sessions_spawn` + 子 Agent（isolated，不给上下文 fork）
 
-### 新决策：用户直接用 Claude Code，不用我转接
+**已移植到 OpenClaw 的 Skills：**
+| Claude Code Skill | OpenClaw 对应 |
+|---|---|
+| andrej-karpathy-coding | ✅ `skills/andrej-karpathy-coding/` |
+| design-taste-frontend | ✅ `skills/taste-skill/skills/design-taste-frontend/` |
+| humanizer-zh | ✅ `skills/humanizer-zh/` |
+| huashu-nuwa (女娲) | ✅ `skills/huashu-nuwa/`（2026-06-23 移植） |
+| PUA | ✅ `skills/pua/`（2026-06-23 移植） |
 
-**原因：**
-- 我调用 Claude Code 存在"传话损耗"——上下文在两次传递中丢失
-- Claude Code 单独用时能深度思考不受限制
-- 最理想方式：我负责上下文和记忆，Claude Code 专注执行
+**Claude Code 本地安装保留**，用户可以手动直接使用，但我不再通过 ACP 调度它。
 
-**两种使用方式：**
-1. **用户直接问 Claude Code**：适合纯编程任务、深度代码审查
-2. **ClawTeam**：适合复杂多步骤、需要多个 agent 并行协作的开发任务
+---
 
-### ClawTeam（开发任务首选）
-- 位置：`~/.openclaw/workspace/skills/clawteam/SKILL.md`
-- 触发：需要多个 agent 并行工作、kanban 协调、团队协作场景
-- 优势：git worktree 隔离 + tmux + 文件系统消息传递，可靠稳定
+## 历史记录（2026-06-12 ~ 2026-06-23）
 
-### 如果需要我调用 Claude Code（通过 ACP sessions）
-```typescript
-sessions_spawn(
-  task="英文任务描述",
+<details>
+<summary>展开查看旧配置</summary>
+
+### 核心决策变更
+
+| 旧决策 (2026-04) | 新决策 (2026-06) |
+|-----------------|-----------------|
+| 用户直接用 Claude Code，不用我转接 | **"小活我干，大活 Claude Code 干"** — 我判断并自主调度 |
+| 传话损耗太大 | acpx v2026.5.18 大幅改善，CodeGraph 进一步减少探索 token |
+| ClawTeam 是开发首选 | Claude Code ACP 是首选，ClawTeam 是备选 |
+
+### 当前技术栈（已废弃）
+
+#### ACP 通路
+- 插件：`@openclaw/acpx` v2026.5.18（Gateway 内置）
+- 调用方式：
+```js
+sessions_spawn({
   runtime: "acp",
   agentId: "claude",
   mode: "run",
-  streamTo: "parent",
-  timeoutSeconds: 600
-)
+  cwd: "/path/to/project",
+  task: "清晰的任务描述（英文）",
+  taskName: "short-task-name"
+})
 ```
-⚠️ 只有在需要结合项目记忆/上下文时才有意义，否则直接用 Claude Code 更高效。
 
-### 已知行为
-- ACP session 发起后，**必有约 60 秒初始化等待**
-- 等待期间输出 `claude has produced no output for 60s. It may be waiting for interactive input`
-- 这是 Claude Code CLI 在 ACP 非交互模式下的固定行为，不是错误
-- 60 秒后开始输出，之后正常完成
+### Claude Code 已装 Skills（已移植）
+- `design-taste-frontend` — 设计品味
+- `andrej-karpathy-coding` — 编码四原则
+- `frontend-design` — 官方前端设计插件
+- `superpowers` — 开发方法论插件
 
-### 工作流步骤
-1. `sessions_spawn` 发起任务
-2. 等待 60 秒（`stall` → `resumed`）
-3. 持续轮询 `streamLogPath` 的 JSONL 文件直到 `phase:end`
-4. 检查文件是否已写入目标位置
-5. 如需修改：重新发起 session，不自己动手替代
+### CodeGraph 项目索引
+| 项目 | 文件 | 节点 | 边 |
+|------|------|------|-----|
+| 绮梦帐间 | 81 | 700 | 1,264 |
+| Dr. Sharp App | 18 | 103 | 139 |
 
-### PTY 是否需要
-- **不需要**。ACP sessions 本身是异步非 TTY 方案
-- `exec` + `pty: true` 可以运行交互式 Claude Code，但需要额外的自动化脚本处理交互，不值得
-
-## OpenClaw Runtime 选择（重要！）
-- `runtime=subagent` = OpenClaw 自己的模型（MiniMax-M2.7）
-- `runtime=acp` + `agentId=claude` = 真正调用 Claude Code
-- **教训**：创建 skill 不等于工具能用，必须用 ACP sessions 方式调用
-
-## ⚠️ Write 工具权限
-
-Claude Code CLI 的 Write 工具默认被禁止，必须加 `--allowed-tools Write`：
-- ACP sessions 由 acpx 插件处理权限，不需要此参数
-- exec 直接调用必须加此参数
-
-## 已安装工具
-
-### OpenSpec
-- 安装：`npm install -g @fission-ai/openspec@latest` (v1.2.0)
-- 命令：`/opsx:propose`、`/opsx:apply`、`/opsx:archive`
-
-### SpecKit
-- 安装：`uv tool install specify-cli --from git+https://github.com/github/spec-kit.git` (v0.3.1)
-- 命令：`/speckit.specify`、`/speckit.plan`、`/speckit.tasks`、`/speckit.implement`
-
-## 开发工作流
-1. OpenSpec 快速路径：`/opsx:propose` → `/opsx:apply` → `/opsx:archive`
-2. SpecKit 完整路径：`/speckit.constitution` → `/speckit.specify` → `/speckit.plan` → `/speckit.tasks` → `/speckit.implement`
-3. **与 Claude Code 对话必须用英文**
-
-## OpenHarmony 项目已配置
-- 项目目录已添加到 `projects`
-- `hasTrustDialogAccepted` 已设为 `true`
-- `settings.json` 的 `additionalDirectories` 已添加
+</details>

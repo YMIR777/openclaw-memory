@@ -1,23 +1,27 @@
 # 子 Agent 模型路由
 
+> Freshness review: 2026-06-27 — 这页记录的是 2026-03 的早期单模型路由框架。整体思想仍可参考，但当前真实路由规则应以 `openclaw.json` 运行态和 `AGENTS.md` 最新内容为准。
+
 ## 决策信息
-- **决策日期**：2026-03-25
-- **原因**：Coding plan 按文本生成量计费，优化 context 使用比选便宜模型更有意义
+- **原始决策日期**：2026-03-25
+- **本次校正日期**：2026-06-27
+- **说明**：这页保留作历史经验，但其中 MiniMax 相关内容已不再代表当前默认运行态。
 
-## 当前状态
-- openclaw.json: `agents.defaults.subagents.model: minimax/MiniMax-M2.7`
-- AGENTS.md: 已添加 Sub-Agent Model Routing 章节
-- 只有单一模型（MiniMax-M2.7），路由框架已预留
+## 当前真实状态
+- `openclaw.json` 当前默认模型：`agents.defaults.model.primary = gpt/gpt-5.4`
+- fallback：`gpt/gpt-5.5`
+- heartbeat 模型：`gpt/gpt-5.4`
+- 当前并非继续默认使用 `minimax/MiniMax-M2.7`
 
-## 路由逻辑
-- 简单任务（web_search、summarize、format、extract）→ 省略 model 参数
-- 复杂任务（code、debug、analyze、plan、reason）→ 显式传 model
-- 未来添加第二个模型后自动按规则路由
+## 当前路由逻辑
+- 简单任务（web_search、summarize、format、extract）→ 用默认模型 `gpt/gpt-5.4`
+- 高复杂度任务（code、debug、analyze、plan、reason）→ 先用默认模型推进；若明确卡在抽象判断、边界纠缠或质量不足，再升级到 `gpt/gpt-5.5`
 
-## 当前可用模型
-- `minimax/MiniMax-M2.7` — reasoning: true, input: $0.001/1K, output: $0.004/1K
+## 历史说明
+- `minimax/MiniMax-M2.7` 属于旧阶段路由记录
+- 它仍可能作为历史 provider 存在于配置里，但不是当前默认主路由模型
 
-## Coding Plan 特性
-按文本生成量计费，thinking 消耗不影响费用：
-- `thinkingDefault: "high"` 不额外收费
-- context 长度优化才是重点
+## 保留价值
+- 这页仍然保留一个有用结论：
+  - **先做 context / 路径优化，再谈模型切换**
+- 这个结论现在依然成立，只是模型名和默认路由策略已经更新

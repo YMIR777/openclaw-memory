@@ -1,5 +1,7 @@
 # Gateway 问题与配置
 
+> Freshness review: 2026-06-27 — 核心结论仍有参考价值，但其中涉及的具体版本号、gateway token、control-ui 打包方式只应视为历史排障记录，不能直接当作当前运行配置。
+
 ## 2026-03-24 Gateway SIGTERM 问题
 
 ### 问题现象

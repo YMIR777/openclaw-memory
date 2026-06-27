@@ -1,8 +1,8 @@
 # 核心经验教训
 
 ## 1. OpenClaw Exec 安全策略（2026-03-25 新增）
-→ [[OpenClaw-Exec安全策略配置]]（Obsidian 完整文档）
-→ [[OpenClaw-安全加固配置]]（Obsidian 安全加固文档）
+→ `OpenClaw-Exec安全策略配置`（Obsidian 完整文档）
+→ `OpenClaw-安全加固配置`（Obsidian 安全加固文档）
 
 **核心要点：**
 - exec 有 `deny/allowlist/full` 三级安全模式，`deny` 拦所有命令
@@ -575,5 +575,56 @@ grep -r "bot\|token\|api_key\|secret" --include="*.md" --include="*.json" .
 - `messages.queue.mode: collect`（默认）
 - `messages.queue.debounceMs: 1000`
 - `messages.queue.drop: summarize`
+
+---
+
+## 16. Supabase + Dexie 跨设备同步踩坑全记录（2026-05-25）
+
+### 背景
+绮梦帐间从纯本地 IndexedDB 迁移到 Supabase 云同步，实现手机/Mac 数据互通。
+
+### Bug 1：PostgreSQL 自动小写列名（最大的坑 🔴）
+**现象：** 手机推送数据到 Supabase 始终返回 0，本地有数据但云端为空。
+**根因：** PostgreSQL 把所有未加引号的标识符自动转为小写。`CREATE TABLE (createdAt BIGINT)` → 实际列名是 `createdat`。前端 JS 对象 `{ createdAt: 123 }` 发过去对不上。
+**解决：** 建表时所有 camelCase 列名必须用双引号包裹：`"createdAt" BIGINT`。
+**教训：** 用 Supabase + PostgreSQL 时，要么全部 snake_case，要么全部 camelCase + 双引号。混用会死得很惨。
+
+### Bug 2：PWA 缓存旧版本不更新
+**现象：** 部署新代码后，已安装的 PWA App 不显示新功能。
+**根因：** `registerType: 'autoUpdate'` 在独立 App 模式下不会主动触发更新检查。
+**解决：** 自己写 `registerSW.js`，监听 `visibilitychange` + `updatefound` 事件，弹出「新版本可用」toast。设置 `injectRegister: false` 阻止 vite-plugin-pwa 覆盖。
+**教训：** PWA 的 `autoUpdate` 不可靠，必须自定义更新机制。而且**旧版本不会有新更新逻辑**——第一次必须手动删了重装。
+
+### Bug 3：Vercel VITE_ 环境变量
+**现象：** 部署后 Supabase 连接失败。
+**根因：** `VITE_*` 环境变量是构建时注入的，必须有 Vercel 上配置 + Redeploy 后才生效。
+**教训：** 每次加 `VITE_*` 变量后，Vercel 必须触发一次新构建。
+
+### Bug 4：React.lazy() 不支持 named export
+**现象：** 代码分割时 `lazy(() => import('./Page'))` 报类型错误。
+**根因：** 页面用 `export function X()`（命名导出），`lazy` 要求 `export default`。
+**解决：** `lazy(() => import('./Page').then(m => ({ default: m.X })))`
+
+### Bug 5：Vite 8 Rolldown manualChunks 语法
+**现象：** 对象形式 `manualChunks: { vendor: ['lib'] }` 报类型错误。
+**解决：** 改用函数形式：`manualChunks(id) { if (id.includes('...')) return 'vendor'; }`
+
+### Bug 6：IndexedDB 写入失败静默吞错
+**现象：** 用户点击确定没反应，无任何提示。
+**根因：** Dexie `add()` 抛错，但外层 `async function` 没有 try/catch。
+**解决：** 所有写操作加 try/catch + alert() 错误提示。
+
+### 架构决策
+- **sync_code 方案代替 Supabase Auth：** UUID 作为跨设备身份标识，简单够用。不是完美安全（知道 code 就能看数据），但 128-bit 随机数对个人记账 App 够用。
+- **先本地再云端：** 写操作先存 IndexedDB（即时响应），后台推 Supabase。离线也能用。
+- **pullTable + pushTable 两层设计：** pull 从云端拉并 `bulkPut` 到本地（覆盖），push 从本地读并 `upsert` 到云端。"last write wins" 策略。
+
+### 移动端部署清单
+```
+手机 Safari/Chrome → 打开 Vercel URL → 分享 → 添加到主屏幕
+Mac Safari → 打开 Vercel URL → 分享 → 添加到程序坞
+安卓 Chrome → 打开 URL → 地址栏自动弹出安装
+安卓夸克 → ❌ PWA 支持不完整，改用 Chrome
+```
 
 **记忆锚点：** docs.openclaw.ai/concepts/queue

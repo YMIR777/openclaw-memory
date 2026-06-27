@@ -1,5 +1,7 @@
 # Ollama Vision 模型探索失败分析（2026-03-26）
 
+> Freshness review: 2026-06-27 — 这页记录的是 2026-03 的失败路径与架构判断。结论“当时本地 Ollama vision 不可行”在历史上成立，但是否仍成立，应以当前 Ollama 版本和对应 issue 状态重新验证。
+
 ## 结论：Ollama 本地 Vision 暂时不可行
 
 ### 尝试过的方案

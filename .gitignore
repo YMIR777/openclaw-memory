@@ -1,0 +1,50 @@
+# OpenClaw workspace operational files — not source memory
+.DS_Store
+.openclaw/
+.openclaw-repair/
+.openclaw-sessions/
+.clawhub/
+.clawdhub/
+.claw/
+
+# State and runtime files
+*.state.json
+heartbeat-state.json
+openclaw-workspace-state.json
+state/
+config/mcporter.json
+OpenClaw-Wiki
+memory/.dreams/
+memory/dreaming/
+memory/dreams-archive/
+
+# Local project repos (managed independently)
+projects/小黒秋的大金库/
+
+# Archive and temporary work
+archive/
+inbox/
+temp/
+tmp/
+*.tmp
+*.bak
+
+# Environments / packages
+*.whl
+*.venv
+venv/
+node_modules/
+
+# Secrets
+.env
+*.key
+*.pem
+secrets*
+
+# embedded skill repo
+skills/taste-skill/
+
+# embedded git repositories (managed independently)
+skills/deep-research/
+tools/ClawTeam-OpenClaw/
+skills/openclaw-workspace/

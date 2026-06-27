@@ -1,12 +1,14 @@
 ---
 name: claude-code
-description: Integrate with Claude Code CLI for coding tasks, codebase exploration, code review, and programmatic agent execution via ACP runtime. Use when you need to spawn Claude Code sessions, run code tasks, review PRs, or leverage Claude Code's agentic capabilities from OpenClaw.
+description: ⛔ DEPRECATED (2026-06-23) — ACP Claude Code dispatch abolished due to uncached token explosion. All Claude Code skills ported to native OpenClaw skills. Do NOT use.
 metadata: {"clawdbot":{"emoji":"🤖","requires":{"commands":["claude"]},"homepage":"https://code.claude.com/docs"}}
 ---
 
-# Claude Code Integration Skill
+# ⛔ DEPRECATED — Do Not Use
 
-Spawn Claude Code sessions via ACP runtime and integrate Claude Code's agentic capabilities into OpenClaw workflows.
+> 2026-06-23: Claude Code ACP 调度已废除。每次 ACP 调用重建上下文导致未缓存输入 token 暴增。所有 Claude Code skills（karpathy、design-taste、huashu-nuwa、humanizer-zh、PUA）已移植为 OpenClaw 原生 skills。
+
+This skill is kept for reference only. Use native OpenClaw skills and `sessions_spawn` with sub-agents instead.
 
 ## ⚠️ IMPORTANT: Write Permission Required for CLI Mode
 

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Calculator</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: -apple-system, Helvetica Neue, Arial, sans-serif; }
+.container { width: 320px; }
+.result { text-align: right; padding: 0 20px 10px; }
+.expr { font-size: 18px; color: #8E8E93; height: 24px; }
+.num { font-size: 72px; font-weight: 300; color: #fff; }
+.row { display: flex; justify-content: space-between; margin-bottom: 12px; padding: 0 12px; }
+.btn { width: 72px; height: 72px; border-radius: 36px; border: none; font-size: 28px; font-weight: 400; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.btn:active { opacity: 0.7; }
+.btn-gray { background: #333; color: #fff; }
+.btn-light { background: #A5A5A5; color: #000; }
+.btn-orange { background: #FF9500; color: #fff; }
+.btn-zero { width: 156px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="result">
+    <div class="expr" id="expr"></div>
+    <div class="num" id="result">0</div>
+  </div>
+  <div class="row">
+    <button class="btn btn-light" onclick="clearAll()">AC</button>
+    <button class="btn btn-light" onclick="toggleSign()">+/−</button>
+    <button class="btn btn-light" onclick="percent()">%</button>
+    <button class="btn btn-orange" onclick="inputOp('÷')">÷</button>
+  </div>
+  <div class="row">
+    <button class="btn btn-gray" onclick="inputNum('7')">7</button>
+    <button class="btn btn-gray" onclick="inputNum('8')">8</button>
+    <button class="btn btn-gray" onclick="inputNum('9')">9</button>
+    <button class="btn btn-orange" onclick="inputOp('×')">×</button>
+  </div>
+  <div class="row">
+    <button class="btn btn-gray" onclick="inputNum('4')">4</button>
+    <button class="btn btn-gray" onclick="inputNum('5')">5</button>
+    <button class="btn btn-gray" onclick="inputNum('6')">6</button>
+    <button class="btn btn-orange" onclick="inputOp('−')">−</button>
+  </div>
+  <div class="row">
+    <button class="btn btn-gray" onclick="inputNum('1')">1</button>
+    <button class="btn btn-gray" onclick="inputNum('2')">2</button>
+    <button class="btn btn-gray" onclick="inputNum('3')">3</button>
+    <button class="btn btn-orange" onclick="inputOp('+')">+</button>
+  </div>
+  <div class="row">
+    <button class="btn btn-gray btn-zero" onclick="inputNum('0')">0</button>
+    <button class="btn btn-gray" onclick="inputDot()">.</button>
+    <button class="btn btn-orange" onclick="calc()">=</button>
+  </div>
+</div>
+<script>
+let expr = '', display = '0', lastOp = '', justPressedOp = false;
+
+function updateUI() {
+  document.getElementById('expr').textContent = expr;
+  document.getElementById('result').textContent = display;
+}
+
+function inputNum(n) {
+  if (justPressedOp) { display = n; expr += n; justPressedOp = false; }
+  else { display = display === '0' ? n : display + n; expr += n; }
+  updateUI();
+}
+
+function inputOp(op) {
+  if (expr !== '' && !justPressedOp) { calc(false); }
+  expr += op; justPressedOp = true; lastOp = op; updateUI();
+}
+
+function calc(showResult = true) {
+  if (expr === '') return;
+  try {
+    let e = expr.replace(/×/g, '*').replace(/÷/g, '/');
+    let tokens = e.match(/(\d+\.?\d*|\+|\-|\*|\/)/g) || [];
+    if (tokens.length === 0) return;
+    let res = parseFloat(tokens[0]);
+    for (let i = 1; i < tokens.length; i += 2) {
+      let op = tokens[i], num = parseFloat(tokens[i + 1]);
+      if (isNaN(num)) continue;
+      if (op === '+') res += num;
+      else if (op === '-') res -= num;
+      else if (op === '*') res *= num;
+      else if (op === '/') res = num !== 0 ? res / num : 0;
+    }
+    display = formatResult(res);
+    if (showResult) { expr = display; justPressedOp = false; }
+  } catch (err) { display = 'Error'; }
+  updateUI();
+}
+
+function formatResult(v) {
+  if (v === Math.floor(v) && Math.abs(v) < 1e15) return v.toString();
+  return parseFloat(v.toPrecision(10)).toString().replace(/\.?0+$/, '');
+}
+
+function clearAll() { expr = ''; display = '0'; justPressedOp = false; updateUI(); }
+function toggleSign() { display = display.startsWith('-') ? display.substring(1) : '-' + display; if (!justPressedOp) expr = display; updateUI(); }
+function percent() { let v = parseFloat(display) / 100; display = formatResult(v); expr = display; updateUI(); }
+function inputDot() { if (!display.includes('.')) { display += '.'; if (justPressedOp) { display = '0.'; expr += '0'; justPressedOp = false; } else expr += '.'; } updateUI(); }
+</script>
+</body>
+</html>
