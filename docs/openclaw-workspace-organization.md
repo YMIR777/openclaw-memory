@@ -7,7 +7,7 @@ Keep the workspace small, navigable, and safe to operate on. The workspace is no
 ## Core Rules
 
 1. **Boot files stay tiny.** `AGENTS.md`, `SOUL.md`, `USER.md`, `IDENTITY.md`, `TOOLS.md`, `HEARTBEAT.md`, and `MEMORY.md` should contain only what must be loaded often.
-2. **Memory is indexed, not narrated.** `MEMORY.md` is a map and a set of durable rules. Detailed history lives in `memory/topics/`, `memory/projects/`, and `memory/YYYY-MM-DD.md`.
+2. **Memory is indexed, not narrated.** `MEMORY.md` is a map and a set of durable rules. Detailed history lives in `memory/人物/`, `memory/技术系统/`, `memory/方法论/`, `memory/踩坑修复/`, `memory/projects/`, and `memory/YYYY-MM-DD.md`.
 3. **Daily notes are working memory.** Keep recent context in `memory/YYYY-MM-DD.md`, then distill and archive it.
 4. **Project files belong in `projects/`.** Artifacts, assets, and repo-local work stay inside the project they belong to.
 5. **Temporary work belongs in `tmp/` or `temp/`.** Anything not yet classified goes to `inbox/` first, not the root.
@@ -32,15 +32,18 @@ Keep only the files that shape every session:
 
 Use these paths for durable knowledge:
 
-- `memory/topics/` for stable subject files
-- `memory/projects/` for project-specific history
+- `memory/人物/` for person/relationship/self-knowledge
+- `memory/技术系统/` for tools, platforms, languages, and OpenClaw internals
+- `memory/方法论/` for workflows, principles, and strategy
+- `memory/踩坑修复/` for resolved incidents and post-mortems
+- `memory/项目/` for project-specific history
 - `memory/YYYY-MM-DD.md` for daily notes
-- `memory/archive/` for old daily notes and retired material
+- `memory/归档/` for old daily notes, retired topics, and dreams
 - `memory/_index.md` for the directory map and retention rules
 
 ### 3. Project layer
 
-Use `projects/<name>/` for actual project repos, source assets, and outputs. Keep project-specific knowledge inside the project unless it is important enough to be promoted into `memory/topics/`.
+Use `projects/<name>/` for actual project repos, source assets, and outputs. Keep project-specific knowledge inside the project unless it is important enough to be promoted into `memory/技术系统/` or `memory/方法论/`.
 
 ### 4. Skill layer
 

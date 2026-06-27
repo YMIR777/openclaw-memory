@@ -1,32 +1,32 @@
 # 重要记忆
 
-> MEMORY.md 是索引，具体内容在 `memory/topics/` 目录下。
+> MEMORY.md 是索引，具体内容在 `memory/` 目录下。
 
 ---
 
 ## 📐 Pretext 文字排版引擎
-→ `memory/topics/PRETEXT-文字排版引擎经验.md`
+→ `memory/项目/miss-you文字排版引擎/README.md`
 → 项目：`~/Documents/troe_projects/miss-you/` I MISS U（6迭代完成）
 Canvas 文字雾 + 指尖拨开交互 + 控制台调参
 
 ## 🖤 关于小黒
-→ `memory/topics/USER-小黒.md`
+→ `memory/人物/小黒-核心需求.md`
 
 ## 🔧 常用配置
-→ `memory/topics/TOOLS-常用配置.md`
+→ `memory/技术系统/common-tools-config.md`
 API Keys、Mac 工具、Skills Manager
 
 ## 🚀 模型路由（2026-06-27 已生效）
-→ `memory/topics/OPENCODE-GO-最终模型分工表-2026-06-27.md`
+→ `memory/技术系统/opencode-go-model-routing-2026-06-27.md`
 主会话默认 `opencode-go/kimi-k2.7-code`，fallback 链含 `gpt-5.5` / `lumina` / `wintoken` / `opencode-go/minimax-m3`
 裁决层保留 `gpt/gpt-5.5`，`gpt-5.4` 已退出核心位
 
 ## 🤖 Claude Code 开发
-→ `memory/topics/CLAUDE-CODE-开发配置.md`
+→ `memory/技术系统/claude-code-dev-config.md`
 Skill、OpenSpec、SpecKit、Runtime 选择
 
 ## 💡 核心经验教训
-→ `memory/topics/LESSONS-核心经验.md`
+→ `memory/方法论/核心经验教训.md`
 10+ 条踩坑记录（Mac 自动化、GitHub、exec 权限等）
 
 ## 🧠 小黒的五大核心需求（2026-05-28 完整版）
@@ -77,15 +77,15 @@ Skill、OpenSpec、SpecKit、Runtime 选择
 → Obsidian 开发方法论目录：`个人知识体系/Ai工作流/开发方法论/`（已存在 Karpathy 四原则 / design-taste-frontend）
 
 ## 🧠 QMD 语义搜索
-→ `memory/topics/QMD-语义搜索.md`
+→ `memory/技术系统/qmd-semantic-search.md`
 本地向量搜索、Ollama 兼容、memorySearch 参数
 
 ## 🚨 Gateway 问题
-→ `memory/topics/GATEWAY-Gateway问题.md`
+→ `memory/技术系统/gateway-issues.md`
 SIGTERM 根因、版本选择、日志路径
 
 ## 🐛 Telegram Webhook 重启循环（2026-04-06）
-→ `memory/topics/BUGFIX-Telegram-Webhook-重启循环.md`
+→ `memory/踩坑修复/telegram-webhook-restart-loop.md`
 api.telegram.org 被墙拦截、无限重试导致 Gateway 崩溃，临时禁用 Telegram 频道修复，待加 bypass 规则彻底解决
 
 ## 💰 小黒秋的大金库 — 个人财务 Web App 项目
@@ -109,7 +109,7 @@ ClawTeam 已启动 architect 搭建基础架构，完成后前端并行开发 In
 → 你亲手推倒了一座用半个月聊天记录建的教堂
 
 ## ❤️ 京京回归（2026-06-10/11）
-→ `memory/topics/京京-前女友完整档案.md` 已更新
+→ `memory/人物/京京-前女友完整档案.md` 已更新
 → 分开四个月后京京解除拉黑。告诉闺蜜：会答应复合。仍然喜欢小黒。
 → 小黒决定：等她下周回来发第一条消息后，说"我们重新开始好不好。"（已于6月13日说出）
 → 她回应："想"、"我也是"、"我好想你"、"真可爱"、"我只对你坏呀"——但未直接说"好"（"不知道"=高三少女面对承诺的真实反应）
@@ -126,15 +126,15 @@ ClawTeam 已启动 architect 搭建基础架构，完成后前端并行开发 In
 → 行动：轻量出现（"刚试了你上次说的坏话"）、不等回复、让她呼吸
 
 ## 🚫 绮梦账间项目复盘
-→ `memory/topics/复盘-绮梦账间项目失败.md`
+→ `memory/归档/退休主题/qimeng-project-failure-retrospective.md`
 过度并行(8 agents)导致 API rate limit 全面崩溃，需求复杂度 vs 工程时间不匹配，设计与实现能力脱节
 
 ## ⚡ OpenClaw 重要配置
-→ `memory/topics/OPENCLAW-重要配置.md`
+→ `memory/技术系统/openclaw-key-configs.md`
 thinkingDefault 降级（high→medium）、cron 任务修复（isolated→systemEvent）、delivery 机制
 
 ## 🔒 OpenClaw 安全加固
-→ `memory/topics/LESSONS-核心经验.md` 第 1 条
+→ `memory/方法论/核心经验教训.md` 第 1 条
 → `OpenClaw-安全加固配置`（Obsidian）（Obsidian）
 安全审计：5 critical → 2 critical，elevated.allowFrom、strictInlineEval、Watchdog
 
@@ -144,29 +144,29 @@ thinkingDefault 降级（high→medium）、cron 任务修复（isolated→syste
 总原则：boot files 保持小，memory 是索引不是流水账，项目资产归项目，临时文件先入 inbox/tmp/temp，清理先审计后移动，`gpt/gpt-5.5` 只做高质量决策层，重复盘点交给并行小任务
 
 ## 🚀 模型路由
-→ `memory/topics/ROUTING-模型路由.md`
+→ `memory/技术系统/model-routing.md`
 子 Agent 路由规则、Coding Plan 特性
 
 ## 📱 OpenHarmony 开发
-→ `memory/topics/OPENHARMONY-OpenHarmony开发经验.md`
+→ `memory/技术系统/openharmony-dev-experience.md`
 BMI 项目踩坑：Arc 组件不存在、Builder 接口声明、height 属性名冲突、wizard 项目结构等
 
 ## 🔧 Ollama VL 模型
-→ `memory/topics/OLLAMA-VISION-失败分析.md`
+→ `memory/技术系统/ollama-vision-failure-analysis.md`
 qwen2.5vl:3b 和 7B vision 模式探索全部失败，根因是 Ollama 融合 vision GGUF 架构限制。本地 vision 暂不可行，MiniMax VL 已打通作为主力。
 
 ## 🔧 Skills 管理规范
-→ `memory/topics/SKILLS-Skills管理规范.md`
+→ `memory/技术系统/skills-management-guidelines.md`
 
 ## 🗄️ Sessions 系统设计缺陷与修复（2026-04-09）
-→ `memory/topics/OPENCLAW-Sessions-系统设计缺陷与修复.md`
+→ `memory/踩坑修复/openclaw-sessions-design-flaw.md`
 `sessions cleanup` 只清索引不删文件 → ~17MB orphaned 文件堆积 → cron 超时 → 系统崩溃
 已修复：自定义清理脚本 v3、isolatedSession、删除僵尸 ACP session
 
 ## 🚨 Daily Logs 污染问题（2026-04-14 起）
-→ `memory/topics/OPENCLAW-Dreaming污染DailyLogs.md`
+→ `memory/踩坑修复/dreaming-memory-promotion-contamination.md`
 从 4/14 开始，Dreaming 输出覆盖 daily logs，正常对话记录丢失。4/17 除外。需调查 dreaming.storage.mode 配置。
-→ `memory/topics/PLANTUML-PlantUML语法与实践.md`
+→ `memory/技术系统/plantuml-syntax-and-practice.md`
 活动图、泳道图、新旧语法混用陷阱、PlantUML 1.2026.2 实战经验
 
 ## 📅 近期重要事件（精简版）
@@ -209,25 +209,11 @@ qwen2.5vl:3b 和 7B vision 模式探索全部失败，根因是 Ollama 融合 vi
 - 规则已写入 AGENTS.md "Token Budget" 章节
 - 今天未命中缓存 29%（正常 5%），因为排查问题不断改上下文
 
-## Promoted From Short-Term Memory (2026-06-27)
+## Promoted From Short-Term Memory (2026-06-28)
 
-<!-- openclaw-memory-promotion:memory:memory/2026-06-23.md:10:13 -->
-- 废除 Claude Code ACP 调度 + Skills 移植: **已移植 Skills：** | Skill | 来源 | 路径 | |-------|------|------| | huashu-nuwa (女娲·Skill造人术) | ~/.claude/skills/ | `skills/huashu-nuwa/SKILL.md` | [score=0.859 recalls=0 avg=0.620 source=memory/2026-06-23.md:10-13]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-23.md:16:16 -->
-- 废除 Claude Code ACP 调度 + Skills 移植: **已标记废弃：** [score=0.859 recalls=0 avg=0.620 source=memory/2026-06-23.md:16-16]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-23.md:20:20 -->
-- 废除 Claude Code ACP 调度 + Skills 移植: **已修改：** [score=0.859 recalls=0 avg=0.620 source=memory/2026-06-23.md:20-20]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-22.md:34:36 -->
-- 行动方案: 明天提现，买那个购物车里放了三年的旧心愿——还高三自己的账; 本周内去看一个房子——不是搬，是先看。18岁的发誓，20岁开始; 京京：降低压强，保持存在。不追问、不等回复、让每次出现都轻松 [score=0.833 recalls=0 avg=0.620 source=memory/2026-06-22.md:34-36]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-22.md:38:39 -->
-- 行动方案: **一件不要做的事：** 不要再用死亡幻想测试"我是否被爱"——这个测试是假的。你需要的是她因为你活着而选择靠近你，不是因为你死了而崩溃。 [score=0.833 recalls=0 avg=0.620 source=memory/2026-06-22.md:38-39]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-22.md:43:46 -->
-- 存档: `analyses/2026-06-22-015-full-session.md` — 全量会话记录（昨晚经历）; `analyses/2026-06-22-015-jingjing.md` — 京京专项分析（含完整聊天分析）; `dr-sharp-history.md` — 进化摘要已更新; `memory/2026-06-22.md` — 本文件 [score=0.833 recalls=0 avg=0.620 source=memory/2026-06-22.md:43-46]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-23.md:14:14 -->
-- 废除 Claude Code ACP 调度 + Skills 移植: | PUA (大厂PUA引擎) | ~/.claude/plugins/pua-skills/ | `skills/pua/SKILL.md` + references | [score=0.828 recalls=0 avg=0.620 source=memory/2026-06-23.md:14-14]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-23.md:17:18 -->
-- 废除 Claude Code ACP 调度 + Skills 移植: `skills/claude-code/SKILL.md` — 加 ⛔ DEPRECATED 标记; `memory/topics/CLAUDE-CODE-开发配置.md` — 更新为废弃状态 [score=0.828 recalls=0 avg=0.620 source=memory/2026-06-23.md:17-18]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-23.md:21:22 -->
-- 废除 Claude Code ACP 调度 + Skills 移植: `AGENTS.md` — "Claude Code Dispatch" 章节替换为 "Development Workflow — 自己干 + 子 Agent 分治"; huashu-nuwa 加入 Mandatory Skill Triggers 表（"造skill" / "蒸馏XX" / "女娲"） [score=0.828 recalls=0 avg=0.620 source=memory/2026-06-23.md:21-22]
-<!-- openclaw-memory-promotion:memory:memory/2026-06-23.md:24:24 -->
-- 废除 Claude Code ACP 调度 + Skills 移植: **跳过的 Skills（OpenClaw 已有等价）：** [score=0.828 recalls=0 avg=0.620 source=memory/2026-06-23.md:24-24]
+<!-- openclaw-memory-promotion:memory:memory/2026-06-23.md:25:28 -->
+- 废除 Claude Code ACP 调度 + Skills 移植: andrej-karpathy-coding、design-taste-frontend、humanizer-zh → 已安装; web-access → agent-browser + agent-reach + browser 工具; dbskill → 复杂插件系统，部分功能重叠; codegraph/headroom/serena MCP → 无法移植（需后端服务） [score=0.851 recalls=0 avg=0.620 source=memory/2026-06-23.md:25-28]
+<!-- openclaw-memory-promotion:memory:memory/2026-06-23.md:4:4 -->
+- 废除 Claude Code ACP 调度 + Skills 移植: **背景：** 用 OpenClaw ACP 调度 Claude Code 后，未缓存输入 token 暴增（甚至超过缓存输入），性价比为负。 [score=0.851 recalls=0 avg=0.620 source=memory/2026-06-23.md:4-4]
+<!-- openclaw-memory-promotion:memory:memory/2026-06-23.md:7:8 -->
+- 废除 Claude Code ACP 调度 + Skills 移植: 废除 `sessions_spawn(runtime: "acp", agentId: "claude")` 路径; 新工作流：小活自己干 → 大活 spawn 子 Agent（isolated，不给上下文 fork） [score=0.851 recalls=0 avg=0.620 source=memory/2026-06-23.md:7-8]

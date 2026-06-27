@@ -284,7 +284,7 @@ Every few days:
 
 ### 参考文件
 
-- 详细任务分工表：`memory/topics/OPENCODE-GO-最终模型分工表-2026-06-27.md`
+- 详细任务分工表：`memory/技术系统/opencode-go-model-routing-2026-06-27.md`
 - 配置文件：`~/.openclaw/openclaw.json`
 
 ## Make It Yours
