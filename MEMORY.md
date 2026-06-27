@@ -5,28 +5,28 @@
 ---
 
 ## 📐 Pretext 文字排版引擎
-→ `memory/项目/miss-you文字排版引擎/README.md`
+→ `memory/projects/miss-you文字排版引擎/README.md`
 → 项目：`~/Documents/troe_projects/miss-you/` I MISS U（6迭代完成）
 Canvas 文字雾 + 指尖拨开交互 + 控制台调参
 
 ## 🖤 关于小黒
-→ `memory/人物/小黒-核心需求.md`
+→ `memory/people/小黒-核心需求.md`
 
 ## 🔧 常用配置
-→ `memory/技术系统/common-tools-config.md`
+→ `memory/tech-system/common-tools-config.md`
 API Keys、Mac 工具、Skills Manager
 
 ## 🚀 模型路由（2026-06-27 已生效）
-→ `memory/技术系统/opencode-go-model-routing-2026-06-27.md`
+→ `memory/tech-system/opencode-go-model-routing-2026-06-27.md`
 主会话默认 `opencode-go/kimi-k2.7-code`，fallback 链含 `gpt-5.5` / `lumina` / `wintoken` / `opencode-go/minimax-m3`
 裁决层保留 `gpt/gpt-5.5`，`gpt-5.4` 已退出核心位
 
 ## 🤖 Claude Code 开发
-→ `memory/技术系统/claude-code-dev-config.md`
+→ `memory/tech-system/claude-code-dev-config.md`
 Skill、OpenSpec、SpecKit、Runtime 选择
 
 ## 💡 核心经验教训
-→ `memory/方法论/核心经验教训.md`
+→ `memory/methodology/核心经验教训.md`
 10+ 条踩坑记录（Mac 自动化、GitHub、exec 权限等）
 
 ## 🧠 小黒的五大核心需求（2026-05-28 完整版）
@@ -77,15 +77,15 @@ Skill、OpenSpec、SpecKit、Runtime 选择
 → Obsidian 开发方法论目录：`个人知识体系/Ai工作流/开发方法论/`（已存在 Karpathy 四原则 / design-taste-frontend）
 
 ## 🧠 QMD 语义搜索
-→ `memory/技术系统/qmd-semantic-search.md`
+→ `memory/tech-system/qmd-semantic-search.md`
 本地向量搜索、Ollama 兼容、memorySearch 参数
 
 ## 🚨 Gateway 问题
-→ `memory/技术系统/gateway-issues.md`
+→ `memory/tech-system/gateway-issues.md`
 SIGTERM 根因、版本选择、日志路径
 
 ## 🐛 Telegram Webhook 重启循环（2026-04-06）
-→ `memory/踩坑修复/telegram-webhook-restart-loop.md`
+→ `memory/bugfix/telegram-webhook-restart-loop.md`
 api.telegram.org 被墙拦截、无限重试导致 Gateway 崩溃，临时禁用 Telegram 频道修复，待加 bypass 规则彻底解决
 
 ## 💰 小黒秋的大金库 — 个人财务 Web App 项目
@@ -109,7 +109,7 @@ ClawTeam 已启动 architect 搭建基础架构，完成后前端并行开发 In
 → 你亲手推倒了一座用半个月聊天记录建的教堂
 
 ## ❤️ 京京回归（2026-06-10/11）
-→ `memory/人物/京京-前女友完整档案.md` 已更新
+→ `memory/people/京京-前女友完整档案.md` 已更新
 → 分开四个月后京京解除拉黑。告诉闺蜜：会答应复合。仍然喜欢小黒。
 → 小黒决定：等她下周回来发第一条消息后，说"我们重新开始好不好。"（已于6月13日说出）
 → 她回应："想"、"我也是"、"我好想你"、"真可爱"、"我只对你坏呀"——但未直接说"好"（"不知道"=高三少女面对承诺的真实反应）
@@ -126,15 +126,15 @@ ClawTeam 已启动 architect 搭建基础架构，完成后前端并行开发 In
 → 行动：轻量出现（"刚试了你上次说的坏话"）、不等回复、让她呼吸
 
 ## 🚫 绮梦账间项目复盘
-→ `memory/归档/退休主题/qimeng-project-failure-retrospective.md`
+→ `memory/archive/retired-topics/qimeng-project-failure-retrospective.md`
 过度并行(8 agents)导致 API rate limit 全面崩溃，需求复杂度 vs 工程时间不匹配，设计与实现能力脱节
 
 ## ⚡ OpenClaw 重要配置
-→ `memory/技术系统/openclaw-key-configs.md`
+→ `memory/tech-system/openclaw-key-configs.md`
 thinkingDefault 降级（high→medium）、cron 任务修复（isolated→systemEvent）、delivery 机制
 
 ## 🔒 OpenClaw 安全加固
-→ `memory/方法论/核心经验教训.md` 第 1 条
+→ `memory/methodology/核心经验教训.md` 第 1 条
 → `OpenClaw-安全加固配置`（Obsidian）（Obsidian）
 安全审计：5 critical → 2 critical，elevated.allowFrom、strictInlineEval、Watchdog
 
@@ -144,29 +144,29 @@ thinkingDefault 降级（high→medium）、cron 任务修复（isolated→syste
 总原则：boot files 保持小，memory 是索引不是流水账，项目资产归项目，临时文件先入 inbox/tmp/temp，清理先审计后移动，`gpt/gpt-5.5` 只做高质量决策层，重复盘点交给并行小任务
 
 ## 🚀 模型路由
-→ `memory/技术系统/model-routing.md`
+→ `memory/tech-system/model-routing.md`
 子 Agent 路由规则、Coding Plan 特性
 
 ## 📱 OpenHarmony 开发
-→ `memory/技术系统/openharmony-dev-experience.md`
+→ `memory/tech-system/openharmony-dev-experience.md`
 BMI 项目踩坑：Arc 组件不存在、Builder 接口声明、height 属性名冲突、wizard 项目结构等
 
 ## 🔧 Ollama VL 模型
-→ `memory/技术系统/ollama-vision-failure-analysis.md`
+→ `memory/tech-system/ollama-vision-failure-analysis.md`
 qwen2.5vl:3b 和 7B vision 模式探索全部失败，根因是 Ollama 融合 vision GGUF 架构限制。本地 vision 暂不可行，MiniMax VL 已打通作为主力。
 
 ## 🔧 Skills 管理规范
-→ `memory/技术系统/skills-management-guidelines.md`
+→ `memory/tech-system/skills-management-guidelines.md`
 
 ## 🗄️ Sessions 系统设计缺陷与修复（2026-04-09）
-→ `memory/踩坑修复/openclaw-sessions-design-flaw.md`
+→ `memory/bugfix/openclaw-sessions-design-flaw.md`
 `sessions cleanup` 只清索引不删文件 → ~17MB orphaned 文件堆积 → cron 超时 → 系统崩溃
 已修复：自定义清理脚本 v3、isolatedSession、删除僵尸 ACP session
 
 ## 🚨 Daily Logs 污染问题（2026-04-14 起）
-→ `memory/踩坑修复/dreaming-memory-promotion-contamination.md`
+→ `memory/bugfix/dreaming-memory-promotion-contamination.md`
 从 4/14 开始，Dreaming 输出覆盖 daily logs，正常对话记录丢失。4/17 除外。需调查 dreaming.storage.mode 配置。
-→ `memory/技术系统/plantuml-syntax-and-practice.md`
+→ `memory/tech-system/plantuml-syntax-and-practice.md`
 活动图、泳道图、新旧语法混用陷阱、PlantUML 1.2026.2 实战经验
 
 ## 📅 近期重要事件（精简版）
